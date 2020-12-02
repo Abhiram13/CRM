@@ -14,6 +14,7 @@ namespace CRM {
             HttpListenerContext context = http.GetContext();
             switch (context.Request.RawUrl) {
                case "/":
+                  new Response<string>(context).Send("Welcome to CRM");
                   break;
             }
          }
