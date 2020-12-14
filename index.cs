@@ -19,7 +19,8 @@ namespace CRM {
          while (true) {
             HttpListenerContext context = http.GetContext();
             switch (context.Request.RawUrl) {
-               case "/":                                    
+               case "/":
+                  Mongo.database.GetCollection<IEmployee>("employee").InsertOne(new IEmployee());
                   new Response<string>(context).Send("Welcome to CRM");
                   break;
             }
