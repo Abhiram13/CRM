@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{C5FD2D1A-5AE3-4002-9A86-63E761F1F5FB}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="methods/database.cs">
+    <Files>
+      <File FileName="index.cs" Line="14" Column="60" />
+      <File FileName="methods/database.cs" Line="12" Column="81" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CRM" expanded="True">
+            <Node name="CRM" expanded="True">
+              <Node name="methods" expanded="True">
+                <Node name="database.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="CRM" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.CRM PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

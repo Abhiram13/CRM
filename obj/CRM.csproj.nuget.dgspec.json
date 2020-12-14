@@ -14,7 +14,7 @@
         "outputPath": "/Users/abhiramnagadi/Documents/CRM/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/abhiramnagadi/.nuget/NuGet/NuGet.Config"
+          "/Users/abhiramnagadi/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

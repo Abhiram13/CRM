@@ -1,8 +1,10 @@
 using System;
 using MongoDB;
 
-namespace CRM {
-   class IEmployee {
+namespace CRM
+{
+   class IEmployee
+   {
       public MongoDB.Bson.ObjectId? _id { get; set; }
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";
