@@ -4,6 +4,12 @@ using MongoDB.Bson;
 using System.Net;
 
 namespace CRM {
+   public static class Mongo {
+      public static string url = "";
+      public static MongoClient client = new MongoClient($"mongodb+srv://abhiramdb:{Config.password}@crm-cluster.i47fm.mongodb.net/{Config.db}?retryWrites=true&w=majority");
+      public static IMongoDatabase database = client.GetDatabase(Config.db);
+   }
+
    class Server {
       public static HttpListener http = new HttpListener();
       public static void start() {
@@ -13,7 +19,7 @@ namespace CRM {
          while (true) {
             HttpListenerContext context = http.GetContext();
             switch (context.Request.RawUrl) {
-               case "/":
+               case "/":                                    
                   new Response<string>(context).Send("Welcome to CRM");
                   break;
             }
