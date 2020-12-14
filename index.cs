@@ -20,7 +20,7 @@ namespace CRM {
             HttpListenerContext context = http.GetContext();
             switch (context.Request.RawUrl) {
                case "/":
-                  Mongo.database.GetCollection<IEmployee>("employee").InsertOne(new IEmployee());
+                  // Mongo.database.GetCollection<IEmployee>("employee").InsertOne(new IEmployee());
                   new Response<string>(context).Send("Welcome to CRM");
                   break;
             }
