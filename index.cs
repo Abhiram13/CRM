@@ -34,6 +34,7 @@ namespace CRM
                      Console.WriteLine("asvasgh");
                      new Response<string>(context).Send("Welcome to CRM");
                      break;
+                  case "/"
                }
             }
          }
