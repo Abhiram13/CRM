@@ -12,9 +12,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+using System.IO;
 
 namespace CRM
 {
+   public class Demo
+   {
+      public string name { get; set; }
+   }
+
    public class Startup
    {
       public Startup(IConfiguration configuration)
@@ -31,6 +38,12 @@ namespace CRM
          services.AddSwaggerGen(c =>
          {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
+         });
+
+         // If using IIS:
+         services.Configure<IISServerOptions>(options =>
+         {
+            options.AllowSynchronousIO = true;
          });
       }
 
@@ -52,6 +65,14 @@ namespace CRM
             endpoints.MapGet("/", (HttpContext context) =>
             {
                return context.Response.WriteAsync("Hello, Welcome to CRM");
+            });
+
+            endpoints.MapPost("/post", async (HttpContext context) =>
+            {
+               StreamReader reader = new StreamReader(context.Request.Body);
+               Task<string> str = reader.ReadToEndAsync();
+               Demo demo = JsonSerializer.Deserialize<Demo>(await str);
+               await context.Response.WriteAsync(demo.name);
             });
          });         
       }
