@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CRM
 {
@@ -42,14 +43,17 @@ namespace CRM
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1"));
          }
-
          app.UseHttpsRedirection();
          app.UseRouting();
          app.UseAuthorization();
          app.UseEndpoints(endpoints =>
          {
             endpoints.MapControllers();
-         });
+            endpoints.MapGet("/", (HttpContext context) =>
+            {
+               return context.Response.WriteAsync("Hello, Welcome to CRM");
+            });
+         });         
       }
    }
 }
