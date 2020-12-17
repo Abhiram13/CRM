@@ -17,7 +17,7 @@ using System.IO;
 
 namespace CRM
 {
-   public class Demo
+   public sealed class Demo
    {
       public string name { get; set; }
    }
