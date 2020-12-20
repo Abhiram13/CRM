@@ -106,7 +106,7 @@ namespace CRM
 
             endpoints.MapGet("/all", async (HttpContext context) =>
             {
-               await context.Response.WriteAsync(await new Database<IEmployeeMongo>("collection").FetchAll());
+               await context.Response.WriteAsync(await new Database<IEmployeeMongo>("employee").FetchAll());
             });
          });      
       }
