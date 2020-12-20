@@ -97,16 +97,16 @@ namespace CRM
 
             endpoints.MapPost("/addEmployee", async (HttpContext context) =>
             {
-               StreamReader reader = new StreamReader(context.Request.Body);
-               Task<string> str = reader.ReadToEndAsync();
-               IEmployee employee = JsonSerializer.Deserialize<IEmployee>(await str);
-               new Database<IEmployee>("employee").Insert(employee);
+               // StreamReader reader = new StreamReader(context.Request.Body);
+               // Task<string> str = reader.ReadToEndAsync();
+               // IEmployee employee = JsonSerializer.Deserialize<IEmployee>(await str);
+               // new Database<IEmployee>("employee").Insert(await JSON.Deserilise<IEmployee>(context));
+               new Employee(context).Check();
                await context.Response.WriteAsync("Added");
             });
 
             endpoints.MapGet("/all", async (HttpContext context) =>
             {
-               // await context.Response.WriteAsync(await new Database<IEmployee>("employee").FetchAll());
                await context.Response.WriteAsync(await new Database<IEmployee>("employee").FetchAll());
             });
          });      

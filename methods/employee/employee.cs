@@ -1,6 +1,8 @@
 using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace CRM
 {
@@ -23,5 +25,30 @@ namespace CRM
       public string REGION { get; set; } = "";
       public string ROLE { get; set; } = "";
       public int? __v { get; } = 0;
+   }
+
+   public class Employee : JSON
+   {
+      private HttpContext context;
+      public Employee(HttpContext Context)
+      {
+         context = Context;
+      }
+
+      public async void Check()
+      {
+         IEmployee emp = await Deserilise<IEmployee>(context);
+
+         foreach (var key in emp.GetType().GetProperties())
+         {
+            Console.WriteLine(key.GetValue(emp));
+            Console.WriteLine(key.GetType().BaseType);
+         }
+      }
+
+      public void Add()
+      {
+         // new Database<IEmployee>("employee").Insert(employee);
+      }
    }
 }

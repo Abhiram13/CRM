@@ -1,18 +1,9 @@
 ﻿<Properties StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
     <Files>
-      <File FileName="Startup.cs" Line="26" Column="27" />
+      <File FileName="Startup.cs" Line="23" Column="39" />
     </Files>
     <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="CRM" expanded="True">
-            <Node name="CRM" expanded="True">
-              <Node name="Startup.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="CRM" expanded="True" selected="True" />
