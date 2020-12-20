@@ -20,6 +20,13 @@ namespace CRM
    public sealed class Demo
    {
       public string name { get; set; }
+
+      [HttpGet]
+      [Route("/api")]
+      public void method()
+      {
+         Console.WriteLine("Routing");
+      }
    }
 
    public class Startup
@@ -64,8 +71,8 @@ namespace CRM
             endpoints.MapControllers();
             endpoints.MapGet("/", (HttpContext context) =>
             {
-               return context.Response.WriteAsync("Hello, Welcome to CRM");
-            });
+               return context.Response.WriteAsync("ajhdajh");
+            });            
 
             endpoints.MapPost("/post", async (HttpContext context) =>
             {
@@ -73,6 +80,11 @@ namespace CRM
                Task<string> str = reader.ReadToEndAsync();
                Demo demo = JsonSerializer.Deserialize<Demo>(await str);
                await context.Response.WriteAsync(demo.name);
+            });
+
+            endpoints.MapGet("/get/{id}", (HttpContext context) =>
+            {
+               return context.Response.WriteAsync(context.Request.RouteValues["id"].ToString());
             });
          });         
       }
