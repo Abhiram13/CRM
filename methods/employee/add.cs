@@ -1,17 +1,18 @@
 using System;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace CRM
 {
-   public abstract class MongoObject
-   {
-      public MongoDB.Bson.ObjectId? _id { get; set; }
-      public int? __v { get; set; }
-   }
+   // public class MongoObject<T> : T where T : class
+   // {
+   //    public MongoDB.Bson.ObjectId? _id { get; }
+   //    public int? __v { get; }
+   // }
 
    public class IEmployee
    {
-      // public MongoDB.Bson.ObjectId? _id { get; }
+      public MongoDB.Bson.ObjectId? _id { get; set; }
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";
       public string FIRSTNAME { get; set; } = "";
@@ -26,7 +27,7 @@ namespace CRM
       public string STATE { get; set; } = "";
       public string REGION { get; set; } = "";
       public string ROLE { get; set; } = "";
-      // public int? __v { get; }
+      public int? __v { get; }
    }
 
    public class IEmployeeMongo
