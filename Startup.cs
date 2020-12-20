@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.IO;
+using MongoDB.Driver;
 
 namespace CRM
 {
@@ -27,6 +28,13 @@ namespace CRM
       {
          Console.WriteLine("Routing");
       }
+   }
+
+   public static class Mongo
+   {
+      public static string url = "";
+      public static MongoClient client = new MongoClient($"mongodb+srv://abhiramdb:abhiram13@crm-cluster.i47fm.mongodb.net/CRM-Cluster?retryWrites=true&w=majority");
+      public static IMongoDatabase database = client.GetDatabase("CRM");
    }
 
    public class Startup

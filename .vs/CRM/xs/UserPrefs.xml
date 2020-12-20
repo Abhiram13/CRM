@@ -1,17 +1,14 @@
-﻿<Properties StartupConfiguration="{C5FD2D1A-5AE3-4002-9A86-63E761F1F5FB}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="methods/database.cs">
+﻿<Properties StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
     <Files>
-      <File FileName="index.cs" Line="14" Column="60" />
-      <File FileName="methods/database.cs" Line="12" Column="81" />
+      <File FileName="Startup.cs" Line="26" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CRM" expanded="True">
             <Node name="CRM" expanded="True">
-              <Node name="methods" expanded="True">
-                <Node name="database.cs" selected="True" />
-              </Node>
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -25,7 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.CRM PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.CRM PreferredExecutionTarget="/Applications/Safari.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
