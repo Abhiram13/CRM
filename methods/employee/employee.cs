@@ -4,10 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace CRM
-{
-   public class IEmployee
-   {
+namespace CRM {
+   public class IEmployee {
       [BsonIgnoreIfNull]
       public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
       public int ID { get; set; } = 0;
@@ -27,27 +25,21 @@ namespace CRM
       public int? __v { get; } = 0;
    }
 
-   public class Employee : JSON
-   {
+   public class Employee : JSON {
       private HttpContext context;
-      public Employee(HttpContext Context)
-      {
+      public Employee(HttpContext Context) {
          context = Context;
       }
 
-      public async void Check()
-      {
+      public async void Check() {
          IEmployee emp = await Deserilise<IEmployee>(context);
 
-         foreach (var key in emp.GetType().GetProperties())
-         {
+         foreach (var key in emp.GetType().GetProperties()) {
             Console.WriteLine(key.GetValue(emp));
-            Console.WriteLine(key.GetType().BaseType);
          }
       }
 
-      public void Add()
-      {
+      public void Add() {
          // new Database<IEmployee>("employee").Insert(employee);
       }
    }
