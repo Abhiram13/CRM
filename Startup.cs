@@ -85,7 +85,7 @@ namespace CRM {
                // Task<string> str = reader.ReadToEndAsync();
                // IEmployee employee = JsonSerializer.Deserialize<IEmployee>(await str);
                // new Database<IEmployee>("employee").Insert(await JSON.Deserilise<IEmployee>(context));
-               new Employee(context).Check();
+               Console.WriteLine(await new Employee(context).Check());
                await context.Response.WriteAsync("Added");
             });
 

@@ -31,12 +31,23 @@ namespace CRM {
          context = Context;
       }
 
-      public async void Check() {
+      public async Task<string> Check() {
          IEmployee emp = await Deserilise<IEmployee>(context);
 
          foreach (var key in emp.GetType().GetProperties()) {
-            Console.WriteLine(key.GetValue(emp));
+            bool stringTypeCheck = key.GetValue(emp) is string;
+            bool stringValueCheck = key.GetValue(emp).ToString() == "";
+            bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64;
+            bool String = stringTypeCheck && stringValueCheck;
+            // Console.WriteLine(key.GetValue(emp) is string);
+            // Console.WriteLine(key);
+            // Console.WriteLine(key.GetValue(emp));
+            if (String || (intTypeCheck && Convert.ToInt32(key.GetValue(emp)) == 0)) {
+               return $"{key} cannot be Empty";
+            }
          }
+
+         return null;
       }
 
       public void Add() {
