@@ -85,8 +85,11 @@ namespace CRM {
                // Task<string> str = reader.ReadToEndAsync();
                // IEmployee employee = JsonSerializer.Deserialize<IEmployee>(await str);
                // new Database<IEmployee>("employee").Insert(await JSON.Deserilise<IEmployee>(context));
-               Console.WriteLine(await new Employee(context).Check());
-               await context.Response.WriteAsync("Added");
+               // Console.WriteLine(await new Employee(context).Check());
+               // await context.Response.WriteAsync("Added");
+               await context.Response.WriteAsync(
+                  await new Employee(context).Add()
+               );
             });
 
             endpoints.MapGet("/all", async (HttpContext context) => {
