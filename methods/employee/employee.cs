@@ -49,9 +49,13 @@ namespace CRM {
          return "OK";
       }
 
+      public async Task<IEmployee[]> fetchAllEmployees() {
+         string employee = await new Database<IEmployee>("employee").FetchAll();
+         return DeserializeObject<IEmployee[]>(employee);
+      }
+
       private async Task<bool> isEmployeeExist(IEmployee employee) {
-         string employees = await new Database<IEmployee>("employee").FetchAll();
-         IEmployee[] listOfEmployees = DeserializeObject<IEmployee[]>(employees);
+         IEmployee[] listOfEmployees = await this.fetchAllEmployees();
 
          foreach (IEmployee emp in listOfEmployees) {
             if (employee.MOBILE == emp.MOBILE && employee.ID == emp.ID) {

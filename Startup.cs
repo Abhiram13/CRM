@@ -86,6 +86,14 @@ namespace CRM {
                );
             });
 
+            endpoints.MapGet("/employee/select", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  JsonSerializer.Serialize<IEmployee[]>(
+                     await new Employee(context).fetchAllEmployees()
+                  )
+               );
+            });
+
             endpoints.MapGet("/all", async (HttpContext context) => {
                await context.Response.WriteAsync(await new Database<IEmployee>("employee").FetchAll());
             });
