@@ -94,6 +94,14 @@ namespace CRM {
                );
             });
 
+            endpoints.MapGet("/employee/select/{id}", async (HttpContext context) => {
+               string ID = (string)context.Request.RouteValues["id"];
+               
+               await context.Response.WriteAsync(
+                  ID
+               );
+            });
+
             endpoints.MapGet("/all", async (HttpContext context) => {
                await context.Response.WriteAsync(await new Database<IEmployee>("employee").FetchAll());
             });
