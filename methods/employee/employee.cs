@@ -49,6 +49,10 @@ namespace CRM {
          return "OK";
       }
 
+      private void isEmployeeExist() {
+         
+      }
+
       public async Task<string> Add() {
          string check = await this.Check();
          IEmployee employee = await this.employee;
