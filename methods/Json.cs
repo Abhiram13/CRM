@@ -15,5 +15,9 @@ namespace CRM {
       public Document DeserializeObject<Document>(string doc) {
          return JsonSerializer.Deserialize<Document>(doc);
       }
+
+      public string Serialize<Document>(Document document) {
+         return JsonSerializer.Serialize<Document>(document);
+      }
    }
 }

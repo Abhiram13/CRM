@@ -98,7 +98,7 @@ namespace CRM {
                string ID = (string)context.Request.RouteValues["id"];
                
                await context.Response.WriteAsync(
-                  ID
+                  await new Employee(context).fetchEmployeeById(ID)
                );
             });
 

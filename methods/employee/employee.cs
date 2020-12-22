@@ -54,6 +54,12 @@ namespace CRM {
          return DeserializeObject<IEmployee[]>(employee);
       }
 
+      public async Task<string> fetchEmployeeById(string id) {
+         IEmployee[] employeesList = await this.fetchAllEmployees();
+         IEmployee Employee = Array.Find<IEmployee>(employeesList, employee => employee.ID.ToString() == id);
+         return Serialize<IEmployee>(Employee);
+      }
+
       private async Task<bool> isEmployeeExist(IEmployee employee) {
          IEmployee[] listOfEmployees = await this.fetchAllEmployees();
 
