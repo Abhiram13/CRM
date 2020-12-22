@@ -68,13 +68,18 @@ namespace CRM {
 
          // checks if employee request body object is OKAY
          if (check == "OK") {
+
+            // boolean value tells whether if given already existed
+            // in database and return boolean
             bool isExist = await this.isEmployeeExist(employee);
 
+            // if user does not exist, then add employee to the database
             if (!isExist) {
                new Database<IEmployee>("employee").Insert(employee);
                return "Employee Successfully Added";
             }
 
+            // else return following response
             return "Employee already Existed";
          }
 
