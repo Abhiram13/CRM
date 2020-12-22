@@ -49,18 +49,33 @@ namespace CRM {
          return "OK";
       }
 
-      private async void isEmployeeExist() {
+      private async Task<bool> isEmployeeExist(IEmployee employee) {
          string employees = await new Database<IEmployee>("employee").FetchAll();
-         // IEmployee[] listOfEmployees = Deserilise<IEmployee>();
+         IEmployee[] listOfEmployees = DeserializeObject<IEmployee[]>(employees);
+
+         foreach (IEmployee emp in listOfEmployees) {
+            if (employee.MOBILE == emp.MOBILE && employee.ID == emp.ID) {
+               return true;
+            }
+         }
+
+         return false;
       }
 
       public async Task<string> Add() {
          string check = await this.Check();
          IEmployee employee = await this.employee;
 
+         // checks if employee request body object is OKAY
          if (check == "OK") {
-            new Database<IEmployee>("employee").Insert(employee);
-            return "Employee Successfully Added";
+            bool isExist = await this.isEmployeeExist(employee);
+
+            if (!isExist) {
+               new Database<IEmployee>("employee").Insert(employee);
+               return "Employee Successfully Added";
+            }
+
+            return "Employee already Existed";
          }
 
          return check;
