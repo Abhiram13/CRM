@@ -49,8 +49,9 @@ namespace CRM {
          return "OK";
       }
 
-      private void isEmployeeExist() {
-         
+      private async void isEmployeeExist() {
+         string employees = await new Database<IEmployee>("employee").FetchAll();
+         // IEmployee[] listOfEmployees = Deserilise<IEmployee>();
       }
 
       public async Task<string> Add() {

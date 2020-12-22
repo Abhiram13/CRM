@@ -11,5 +11,9 @@ namespace CRM {
          Task<string> str = reader.ReadToEndAsync();
          return JsonSerializer.Deserialize<DocumentType>(await str);
       }
+
+      public Document DeserializeObject<Document>(string doc) {
+         return JsonSerializer.Deserialize<Document>(doc);
+      }
    }
 }
