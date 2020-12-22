@@ -28,6 +28,7 @@ namespace CRM {
    public class Employee : JSON {
       private HttpContext context;
       private Task<IEmployee> employee;
+
       public Employee(HttpContext Context) {
          context = Context;
          employee = Deserilise<IEmployee>(Context);
@@ -79,8 +80,7 @@ namespace CRM {
          // checks if employee request body object is OKAY
          if (check == "OK") {
 
-            // boolean value tells whether if given already existed
-            // in database and return boolean
+            // boolean value tells whether if given employee already existed in database
             bool isExist = await this.isEmployeeExist(employee);
 
             // if user does not exist, then add employee to the database

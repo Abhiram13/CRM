@@ -12,16 +12,6 @@ using System.Text.Json;
 using System.IO;
 
 namespace CRM {
-   public sealed class Demo {
-      public string name { get; set; }
-
-      [HttpGet]
-      [Route("/api")]
-      public void method() {
-         Console.WriteLine("Routing");
-      }
-   }
-
    public class Startup {
       public Startup(IConfiguration configuration) {
          Configuration = configuration;
@@ -55,18 +45,7 @@ namespace CRM {
          app.UseEndpoints(endpoints => {
             endpoints.MapControllers();
             endpoints.MapGet("/", (HttpContext context) => {
-               return context.Response.WriteAsync("ajhdajh");
-            });
-
-            endpoints.MapPost("/post", async (HttpContext context) => {
-               StreamReader reader = new StreamReader(context.Request.Body);
-               Task<string> str = reader.ReadToEndAsync();
-               Demo demo = JsonSerializer.Deserialize<Demo>(await str);
-               await context.Response.WriteAsync(demo.name);
-            });
-
-            endpoints.MapGet("/get/{id}", (HttpContext context) => {
-               return context.Response.WriteAsync(context.Request.RouteValues["id"].ToString());
+               return context.Response.WriteAsync("Welcome to CRM");
             });
 
             endpoints.MapPost("/addEmployee", async (HttpContext context) => {
@@ -89,10 +68,6 @@ namespace CRM {
                await context.Response.WriteAsync(
                   await new Employee(context).fetchEmployeeById(ID)
                );
-            });
-
-            endpoints.MapGet("/all", async (HttpContext context) => {
-               await context.Response.WriteAsync(await new Database<IEmployee>("employee").FetchAll());
             });
          });
       }
