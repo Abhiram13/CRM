@@ -75,6 +75,12 @@ namespace CRM {
                   await new Product(context).Add()
                );
             });
+
+            endpoints.MapPost("/lifeinsurance/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new LifeTransaction(context).Add()
+               );
+            });
          });
       }
    }

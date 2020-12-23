@@ -28,6 +28,14 @@ namespace CRM {
          transaction = Deserilise<ILifeTransaction>(Context);
       }
 
-      public void Add() {}
+      // private async Task<ILifeTransaction[]> fetchAllTransaction() {
+      //    string allTransactions = await new Database<ILifeTransaction>("life_insurance").FetchAll();
+      //    return DeserializeObject<ILifeTransaction[]>(allTransactions);
+      // }
+
+      public async Task<string> Add() {
+         new Database<ILifeTransaction>("life_insurance").Insert(await this.transaction);
+         return "Transaction successfully added";
+      }
    }
 }
