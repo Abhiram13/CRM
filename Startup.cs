@@ -48,7 +48,7 @@ namespace CRM {
                return context.Response.WriteAsync("Welcome to CRM");
             });
 
-            endpoints.MapPost("/addEmployee", async (HttpContext context) => {
+            endpoints.MapPost("/employee/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
                   await new Employee(context).Add()
                );
@@ -67,6 +67,12 @@ namespace CRM {
                
                await context.Response.WriteAsync(
                   await new Employee(context).fetchEmployeeById(ID)
+               );
+            });
+
+            endpoints.MapPost("/product/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Product(context).Add()
                );
             });
          });

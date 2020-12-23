@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace CRM {
    public class IProduct {
+      [BsonIgnoreIfNull]
+      public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
       public string PRODUCT { get; set; }
       public string COMPANY { get; set; }
       public string TYPE { get; set; }
+      public int? __v { get; } = 1;
    }
 
    public class Product : JSON {
@@ -24,12 +27,26 @@ namespace CRM {
          return DeserializeObject<IProduct[]>(listOfProducts);
       }
 
-      private async void isProductExist() {
+      private async Task<bool> isProductExist() {
+         IProduct[] products = await this.fetchAllProducts();
          IProduct product = await this.product;
+
+         foreach (IProduct prod in products) {
+            if (prod.COMPANY.ToString() == product.COMPANY.ToString() && prod.PRODUCT.ToString() == product.PRODUCT.ToString()) {
+               return true;
+            }
+         }
+
+         return false;
       }
 
-      public async void Add() {
-         new Database<IProduct>("product").Insert(await this.product);
+      public async Task<string> Add() {
+         if (!await this.isProductExist()) {
+            new Database<IProduct>("product").Insert(await this.product);
+            return "Product has Added Successfully";
+         }
+
+         return "Product has already been added";
       }
    }
 }
