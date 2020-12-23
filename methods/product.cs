@@ -5,13 +5,10 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace CRM {
-   public class IProduct {
-      [BsonIgnoreIfNull]
-      public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
+   public class IProduct : IMongoObject {
       public string PRODUCT { get; set; }
       public string COMPANY { get; set; }
       public string TYPE { get; set; }
-      public int? __v { get; } = 1;
    }
 
    public class Product : JSON {

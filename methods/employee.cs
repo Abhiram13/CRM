@@ -5,9 +5,13 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace CRM {
-   public class IEmployee {
+   public abstract class IMongoObject {
       [BsonIgnoreIfNull]
       public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
+      public int? __v { get; } = 1;
+   }
+
+   public class IEmployee : IMongoObject {
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";
       public string FIRSTNAME { get; set; } = "";
@@ -22,7 +26,6 @@ namespace CRM {
       public string STATE { get; set; } = "";
       public string REGION { get; set; } = "";
       public string ROLE { get; set; } = "";
-      public int? __v { get; } = 1;
    }
 
    public class Employee : JSON {
