@@ -1,6 +1,3 @@
-using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
@@ -18,24 +15,5 @@ namespace CRM {
       public string NET { get; set; }
       public string ENTRY_DATE { get; set; }
       public string REVENUE { get; set; }
-   }
-
-   public class LifeTransaction : JSON {
-      HttpContext context;
-      Task<ILifeTransaction> transaction;
-      public LifeTransaction(HttpContext Context) {
-         context = Context;
-         transaction = Deserilise<ILifeTransaction>(Context);
-      }
-
-      // private async Task<ILifeTransaction[]> fetchAllTransaction() {
-      //    string allTransactions = await new Database<ILifeTransaction>("life_insurance").FetchAll();
-      //    return DeserializeObject<ILifeTransaction[]>(allTransactions);
-      // }
-
-      public async Task<string> Add() {
-         new Database<ILifeTransaction>("life_insurance").Insert(await this.transaction);
-         return "Transaction successfully added";
-      }
    }
 }
