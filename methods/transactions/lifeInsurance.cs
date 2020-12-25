@@ -18,13 +18,3 @@ namespace CRM {
       public DateTime ENTRY_DATE { get; set; }
    }
 }
-
-public static class DateEdit {
-   public static DateTime Edit(string date) {
-      int day = Int32.Parse(date.Split("/")[0]);
-      int month = Int32.Parse(date.Split("/")[1]);
-      int year = Int32.Parse(date.Split("/")[2]);
-
-      return new DateTime(year, month, day);
-   }
-}   
