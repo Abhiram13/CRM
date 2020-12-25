@@ -23,9 +23,27 @@ namespace CRM {
          return brch;
       }
 
+      private async Task<bool> Check() {
+         string str = await new Database<IBranch>("branch").FetchAll();
+         IBranch[] listOfBranches = DeserializeObject<IBranch[]>(str);
+         IBranch currentBranch = await this.branch;
+
+         for (int i = 0; i < listOfBranches.Length; i++) {
+            bool checkLocation = listOfBranches[i].LOCATION.ToString() == currentBranch.LOCATION.ToString();
+            bool checkBranch = listOfBranches[i].BRANCH.ToString() == currentBranch.BRANCH.ToString();
+            if (checkBranch && checkLocation) return true;
+         }
+
+         return false;
+      }
+
       public async Task<string> Add() {
-         new Database<IBranch>("branch").Insert(await this.Edit());
-         return "Branch Successfully Added";
+         if (!await this.Check()) {
+            new Database<IBranch>("branch").Insert(await this.Edit());
+            return "Branch Successfully Added";
+         }
+
+         return "Branch already Added";
       }
    }
 }
