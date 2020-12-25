@@ -14,7 +14,8 @@ namespace CRM {
       }
 
       public void Insert(DocumentType doc) {
-         collection.InsertOne(doc);
+         this.Filter();
+         collection.InsertOne(doc);         
       }
 
       public async Task<string> FetchAll() {
@@ -22,6 +23,19 @@ namespace CRM {
          string str = JsonSerializer.Serialize<List<DocumentType>>(list);
 
          return str;
+      }
+
+      public void Filter() {
+         // var filterBuilder1 = Builders<Student>.Filter;
+         // var filter1 = filterBuilder1.Eq(x => x.CreatedOn, today);
+         // List<Student> searchResult1 = collection.Find(filter1).ToList();
+         DateTime now = new DateTime(2020, 10, 11);
+         var filter = Builders<ILifeTransaction>.Filter.Gte(x => x.ENTRY_DATE, now);
+         List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find(filter).ToList();
+
+         foreach (ILifeTransaction life in list) {
+            Console.WriteLine(life.ENTRY_DATE);
+         }
       }
    }
 }
