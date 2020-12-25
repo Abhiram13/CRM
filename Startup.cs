@@ -87,6 +87,12 @@ namespace CRM {
                   await new Branch(context).Add()
                );
             });
+
+            endpoints.MapGet("/branch/fetchall", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Branch(context).FetchAll()
+               );
+            });
          });
       }
    }

@@ -17,15 +17,24 @@ namespace CRM {
          branch = Deserilise<IBranch>(context);
       }
 
-      private async Task<IBranch> Edit() {
+      private async Task<IBranch> GenerateId() {
          IBranch brch = await this.branch;
          brch.ID = Encode($"{brch.BRANCH}_{brch.LOCATION}");
          return brch;
       }
 
-      private async Task<bool> Check() {
-         string str = await new Database<IBranch>("branch").FetchAll();
+      public async Task<string> FetchAll() {
+         return await new Database<IBranch>("branch").FetchAll();
+      }
+
+      private async Task<IBranch[]> Branches() {
+         string str = await this.FetchAll();
          IBranch[] listOfBranches = DeserializeObject<IBranch[]>(str);
+         return listOfBranches;
+      }
+
+      private async Task<bool> Check() {
+         IBranch[] listOfBranches = await this.Branches();
          IBranch currentBranch = await this.branch;
 
          for (int i = 0; i < listOfBranches.Length; i++) {
@@ -39,7 +48,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.Check()) {
-            new Database<IBranch>("branch").Insert(await this.Edit());
+            new Database<IBranch>("branch").Insert(await this.GenerateId());
             return "Branch Successfully Added";
          }
 
