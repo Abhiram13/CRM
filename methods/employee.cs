@@ -18,7 +18,7 @@ namespace CRM {
       public string LASTNAME { get; set; } = "";
       public string EMAIL { get; set; } = "";
       public string PASSWORD { get; set; } = "";
-      public string MOBILE { get; set; } = "";
+      public long MOBILE { get; set; } = 0;
       public string GENDER { get; set; } = "";
       public string DESIGNATION { get; set; } = "";
       public string LOCATION { get; set; } = "";
@@ -43,9 +43,9 @@ namespace CRM {
          foreach (var key in emp.GetType().GetProperties()) {
             bool stringTypeCheck = key.GetValue(emp) is string;
             bool stringValueCheck = key.GetValue(emp).ToString() == "";
-            bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64;
+            bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64 || key.GetValue(emp) is long;
             bool String = stringTypeCheck && stringValueCheck;
-            if (String || (intTypeCheck && Convert.ToInt32(key.GetValue(emp)) == 0)) {
+            if (String || (intTypeCheck && Convert.ToInt64(key.GetValue(emp)) == 0)) {
                return $"{key} cannot be Empty";
             }
          }
