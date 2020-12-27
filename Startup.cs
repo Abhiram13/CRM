@@ -1,8 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -91,6 +88,12 @@ namespace CRM {
             endpoints.MapGet("/branch/fetchall", async (HttpContext context) => {
                await context.Response.WriteAsync(
                   await new Branch(context).FetchAll()
+               );
+            });
+
+            endpoints.MapPost("/designation/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Designation(context).Add()
                );
             });
          });

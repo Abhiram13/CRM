@@ -17,7 +17,7 @@ namespace CRM {
          branch = Deserilise<IBranch>(context);
       }
 
-      private async Task<IBranch> GenerateId() {
+      private async Task<IBranch> editedBranch() {
          IBranch brch = await this.branch;
          brch.ID = Encode($"{brch.BRANCH}_{brch.LOCATION}");
          return brch;
@@ -48,7 +48,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.Check()) {
-            new Database<IBranch>("branch").Insert(await this.GenerateId());
+            new Database<IBranch>("branch").Insert(await this.editedBranch());
             return "Branch Successfully Added";
          }
 
