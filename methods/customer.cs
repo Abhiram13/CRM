@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace CRM {
-   class ICustomer : IMongoObject {
+   public class ICustomer : IMongoObject {
       public string TITLE { get; set; }
       public string FIRSTNAME { get; set; }
       public string LASTNAME { get; set; }
@@ -30,5 +30,77 @@ namespace CRM {
       public string PERMANENT_STATE { get; set; } = "";
       public string PERMANENT_COUNTRY { get; set; } = "";
       public long PERMANENT_PINCODE { get; set; } = 0;
+   }
+
+   public class Customer : JSON {
+      private HttpContext context;
+      private Task<ICustomer> CUSTOMER;
+
+      public Customer(HttpContext Context) {
+         context = Context;
+         CUSTOMER = Deserilise<ICustomer>(Context);
+      }
+
+      private async Task<string> Check() {
+         ICustomer emp = await this.CUSTOMER;
+
+         // foreach (var key in emp.GetType().GetProperties()) {
+         //    bool stringTypeCheck = key.GetValue(emp) is string;
+         //    bool stringValueCheck = key.GetValue(emp).ToString() == "";
+         //    bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64 || key.GetValue(emp) is long;
+         //    bool String = stringTypeCheck && stringValueCheck;
+         //    if (String || (intTypeCheck && Convert.ToInt64(key.GetValue(emp)) == 0)) {
+         //       return $"{key} cannot be Empty";
+         //    }
+         // }
+
+         return "OK";
+      }
+
+      public async Task<ICustomer[]> fetchAllCustomers() {
+         string customer = await new Database<ICustomer>("customer").FetchAll();
+         return DeserializeObject<ICustomer[]>(customer);
+      }
+
+      // public async Task<string> fetchEmployeeById(string id) {
+      //    ICustomer[] customersList = await this.fetchAllCustomers();
+      //    ICustomer Employee = Array.Find<ICustomer>(customersList, customer => customer..ToString() == id);
+      //    return Serialize<ICustomer>(Employee);
+      // }
+
+      private async Task<bool> isCustomerExist(ICustomer customer) {
+         ICustomer[] listOfCustomers = await this.fetchAllCustomers();
+
+         foreach (ICustomer cust in listOfCustomers) {
+            if (customer.MOBILE == cust.MOBILE && customer.AADHAAR == cust.AADHAAR) {
+               return true;
+            }
+         }
+
+         return false;
+      }
+
+      public async Task<string> Add() {
+         string check = await this.Check();
+         ICustomer customer = await this.CUSTOMER;
+
+         // checks if employee request body object is OKAY
+         if (check == "OK") {
+
+            // boolean value tells whether if given employee already existed in database
+            bool isExist = await this.isCustomerExist(customer);
+
+            // if user does not exist, then add employee to the database
+            if (!isExist) {
+               new Database<ICustomer>("customer").Insert(customer);
+               return "Customer Successfully Added";
+            }
+
+            // else return following response
+            return "Customer already Existed";
+         }
+
+         return check;
+      }
    }
 }

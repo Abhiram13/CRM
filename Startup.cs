@@ -96,6 +96,12 @@ namespace CRM {
                   await new Designation(context).Add()
                );
             });
+
+            endpoints.MapPost("/customer/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Customer(context).Add()
+               );
+            });
          });
       }
    }
