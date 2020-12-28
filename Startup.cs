@@ -120,6 +120,12 @@ namespace CRM {
                   await new Transaction<IMutualFunds>(context, "mutual_funds").Add()
                );
             });
+
+            endpoints.MapPost("/lifeinsurancerevenue/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Revenue<ILifeRevenue>(context, "life_insurance_revenue").Add()
+               );
+            });
          });
       }
    }
