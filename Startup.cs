@@ -108,6 +108,12 @@ namespace CRM {
                   await new Transaction<IFixedDeposit>(context, "fixed_deposit").Add()
                );
             });
+
+            endpoints.MapPost("/generalinsurance/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Transaction<IGeneralInsurance>(context, "general_insurance").Add()
+               );
+            });
          });
       }
    }
