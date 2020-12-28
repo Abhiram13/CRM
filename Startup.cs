@@ -126,6 +126,24 @@ namespace CRM {
                   await new Revenue<ILifeRevenue>(context, "life_insurance_revenue").Add()
                );
             });
+
+            endpoints.MapPost("/generalinsurancerevenue/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Revenue<IGeneralInsuranceRevenue>(context, "general_insurance_revenue").Add()
+               );
+            });
+
+            endpoints.MapPost("/fixeddepositrevenue/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Revenue<IFixedDepositRevenue>(context, "fixed_deposit_revenue").Add()
+               );
+            });
+
+            endpoints.MapPost("/mutualfundsrevenue/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Revenue<IMutualFundsRevenue>(context, "mutual_funds_revenue").Add()
+               );
+            });
          });
       }
    }
