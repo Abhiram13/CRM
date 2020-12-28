@@ -102,6 +102,12 @@ namespace CRM {
                   await new Customer(context).Add()
                );
             });
+
+            endpoints.MapPost("/fixeddeposit/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Transaction<IFixedDeposit>(context, "fixed_deposit").Add()
+               );
+            });
          });
       }
    }
