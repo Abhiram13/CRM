@@ -114,6 +114,12 @@ namespace CRM {
                   await new Transaction<IGeneralInsurance>(context, "general_insurance").Add()
                );
             });
+
+            endpoints.MapPost("/mutualfunds/add", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Transaction<IMutualFunds>(context, "mutual_funds").Add()
+               );
+            });
          });
       }
    }
