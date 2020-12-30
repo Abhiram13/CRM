@@ -32,6 +32,10 @@ namespace CRM {
       public long PERMANENT_PINCODE { get; set; } = 0;
    }
 
+   public class CustomerSearchQuery {
+      public long QUERY { get; set; }
+   }
+
    public class Customer : JSON {
       private HttpContext context;
       private Task<ICustomer> CUSTOMER;
@@ -44,15 +48,15 @@ namespace CRM {
       private async Task<string> Check() {
          ICustomer emp = await this.CUSTOMER;
 
-         // foreach (var key in emp.GetType().GetProperties()) {
-         //    bool stringTypeCheck = key.GetValue(emp) is string;
-         //    bool stringValueCheck = key.GetValue(emp).ToString() == "";
-         //    bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64 || key.GetValue(emp) is long;
-         //    bool String = stringTypeCheck && stringValueCheck;
-         //    if (String || (intTypeCheck && Convert.ToInt64(key.GetValue(emp)) == 0)) {
-         //       return $"{key} cannot be Empty";
-         //    }
-         // }
+         foreach (var key in emp.GetType().GetProperties()) {
+            bool stringTypeCheck = key.GetValue(emp) is string;
+            bool stringValueCheck = key.GetValue(emp).ToString() == "";
+            bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64 || key.GetValue(emp) is long;
+            bool String = stringTypeCheck && stringValueCheck;
+            if (String || (intTypeCheck && Convert.ToInt64(key.GetValue(emp)) == 0)) {
+               return $"{key} cannot be Empty";
+            }
+         }
 
          return "OK";
       }
@@ -101,6 +105,27 @@ namespace CRM {
          }
 
          return check;
+      }
+   }
+
+   public class Query : JSON {
+      private HttpContext context;
+      private Task<CustomerSearchQuery> Obj;
+      public Query(HttpContext Context) {
+         context = Context;
+         Obj = Deserilise<CustomerSearchQuery>(Context);
+      }
+
+      public async Task<string> Search() {
+         ICustomer[] listOfCustomers = await new Customer(this.context).fetchAllCustomers();
+         CustomerSearchQuery query = await this.Obj;
+         ICustomer Customer = Array.Find<ICustomer>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
+
+         if (Customer == null) {
+            return "Customer Not Found";
+         }
+
+         return Serialize<ICustomer>(Customer);
       }
    }
 }

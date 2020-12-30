@@ -1,9 +1,21 @@
 ﻿<Properties StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="methods/customer.cs">
     <Files>
-      <File FileName="Startup.cs" Line="23" Column="39" />
+      <File FileName="Startup.cs" Line="27" Column="59" />
+      <File FileName="methods/customer.cs" Line="17" Column="41" />
     </Files>
     <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CRM" expanded="True">
+            <Node name="CRM" expanded="True">
+              <Node name="methods" expanded="True">
+                <Node name="customer.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="CRM" expanded="True" selected="True" />

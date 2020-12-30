@@ -103,6 +103,12 @@ namespace CRM {
                );
             });
 
+            endpoints.MapPost("/customer/search", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Query(context).Search()
+               );
+            });
+
             endpoints.MapPost("/fixeddeposit/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
                   await new Transaction<IFixedDeposit>(context, "fixed_deposit").Add()
@@ -143,7 +149,7 @@ namespace CRM {
                await context.Response.WriteAsync(
                   await new Revenue<IMutualFundsRevenue>(context, "mutual_funds_revenue").Add()
                );
-            });
+            });            
          });
       }
    }
