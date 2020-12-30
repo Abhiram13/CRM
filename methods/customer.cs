@@ -61,17 +61,6 @@ namespace CRM {
          return "OK";
       }
 
-      public async Task<ICustomer[]> fetchAllCustomers() {
-         string customer = await new Database<ICustomer>("customer").FetchAll();
-         return DeserializeObject<ICustomer[]>(customer);
-      }
-
-      // public async Task<string> fetchEmployeeById(string id) {
-      //    ICustomer[] customersList = await this.fetchAllCustomers();
-      //    ICustomer Employee = Array.Find<ICustomer>(customersList, customer => customer..ToString() == id);
-      //    return Serialize<ICustomer>(Employee);
-      // }
-
       private async Task<bool> isCustomerExist(ICustomer customer) {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
 
@@ -82,6 +71,15 @@ namespace CRM {
          }
 
          return false;
+      }
+
+      public async Task<ICustomer[]> fetchAllCustomers() {
+         string customer = await new Database<ICustomer>("customer").FetchAll();
+         return DeserializeObject<ICustomer[]>(customer);
+      }
+
+      public async Task<string> fetchAll() {
+         return Serialize<ICustomer[]>(await this.fetchAllCustomers());
       }
 
       public async Task<string> Add() {

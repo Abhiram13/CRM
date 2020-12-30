@@ -14,11 +14,6 @@ namespace CRM {
       }
 
       public void Insert(DocumentType doc) {
-         // foreach (var key in doc.GetType().GetProperties()) {
-         //    if (key.GetValue(doc) is DateTime) {
-         //       this.Filter(key.GetValue(doc).ToString());
-         //    }
-         // }
          collection.InsertOne(doc);
       }
 
@@ -28,15 +23,5 @@ namespace CRM {
 
          return str;
       }
-
-      // public void Filter(string date) {
-      //    DateTime now = new DateTime(2020, 10, 11);
-      //    var filter = Builders<ILifeTransaction>.Filter.Gte(x => x.ENTRY_DATE, DateTime.Parse(date));
-      //    List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find(filter).ToList();
-
-      //    foreach (ILifeTransaction life in list) {
-      //       Console.WriteLine(life.ENTRY_DATE);
-      //    }
-      // }
    }
 }
