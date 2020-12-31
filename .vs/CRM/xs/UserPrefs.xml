@@ -2,20 +2,9 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="methods/customer.cs">
     <Files>
       <File FileName="Startup.cs" Line="27" Column="59" />
-      <File FileName="methods/customer.cs" Line="17" Column="41" />
+      <File FileName="methods/customer.cs" Line="33" Column="5" />
     </Files>
     <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="CRM" expanded="True">
-            <Node name="CRM" expanded="True">
-              <Node name="methods" expanded="True">
-                <Node name="customer.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="CRM" expanded="True" selected="True" />

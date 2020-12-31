@@ -36,17 +36,19 @@ namespace CRM {
       public long QUERY { get; set; }
    }
 
-   public class Customer : JSON {
-      private HttpContext context;
-      private Task<ICustomer> CUSTOMER;
+   public sealed class Customer : JSON {
+      private HttpContext Context;
 
-      public Customer(HttpContext Context) {
-         context = Context;
-         CUSTOMER = Deserilise<ICustomer>(Context);
+      public Customer(HttpContext context) {
+         Context = context;
       }
 
-      private async Task<string> Check() {
-         ICustomer emp = await this.CUSTOMER;
+      private async Task<ICustomer> body() {
+         return await Deserilise<ICustomer>(this.Context);
+      }
+
+      private async Task<string> check() {
+         ICustomer emp = await this.body();
 
          foreach (var key in emp.GetType().GetProperties()) {
             bool stringTypeCheck = key.GetValue(emp) is string;
@@ -61,8 +63,14 @@ namespace CRM {
          return "OK";
       }
 
-      private async Task<bool> isCustomerExist(ICustomer customer) {
+      private async Task<ICustomer[]> fetchAllCustomers() {
+         string customer = await new Database<ICustomer>("customer").FetchAll();
+         return DeserializeObject<ICustomer[]>(customer);
+      }
+
+      private async Task<bool> isExist() {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
+         ICustomer customer = await this.body();
 
          foreach (ICustomer cust in listOfCustomers) {
             if (customer.MOBILE == cust.MOBILE && customer.AADHAAR == cust.AADHAAR) {
@@ -73,57 +81,31 @@ namespace CRM {
          return false;
       }
 
-      public async Task<ICustomer[]> fetchAllCustomers() {
-         string customer = await new Database<ICustomer>("customer").FetchAll();
-         return DeserializeObject<ICustomer[]>(customer);
-      }
-
-      public async Task<string> fetchAll() {
-         return Serialize<ICustomer[]>(await this.fetchAllCustomers());
-      }
-
       public async Task<string> Add() {
-         string check = await this.Check();
-         ICustomer customer = await this.CUSTOMER;
+         string check = await this.check();
+         ICustomer customer = await this.body();
 
-         // checks if employee request body object is OKAY
          if (check == "OK") {
-
-            // boolean value tells whether if given employee already existed in database
-            bool isExist = await this.isCustomerExist(customer);
-
-            // if user does not exist, then add employee to the database
-            if (!isExist) {
+            if (!await this.isExist()) {
                new Database<ICustomer>("customer").Insert(customer);
                return "Customer Successfully Added";
             }
-
-            // else return following response
             return "Customer already Existed";
          }
 
          return check;
       }
-   }
 
-   public class Query : JSON {
-      private HttpContext context;
-      private Task<CustomerSearchQuery> Obj;
-      public Query(HttpContext Context) {
-         context = Context;
-         Obj = Deserilise<CustomerSearchQuery>(Context);
-      }
+      public async Task<string> search() {
+         ICustomer[] listOfCustomers = await this.fetchAllCustomers();
+         CustomerSearchQuery query = await Deserilise<CustomerSearchQuery>(this.Context);
+         ICustomer customer = Array.Find<ICustomer>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
 
-      public async Task<string> Search() {
-         ICustomer[] listOfCustomers = await new Customer(this.context).fetchAllCustomers();
-         CustomerSearchQuery query = await this.Obj;
-         ICustomer Customer = Array.Find<ICustomer>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
-
-         if (Customer == null) {
+         if (customer == null) {
             return "Customer Not Found";
          }
 
-         return Serialize<ICustomer>(Customer);
+         return Serialize<ICustomer>(customer);
       }
    }
 }

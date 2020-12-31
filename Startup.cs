@@ -105,13 +105,13 @@ namespace CRM {
 
             endpoints.MapPost("/customer/search", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Query(context).Search()
+                  await new Customer(context).search()
                );
             });
 
             endpoints.MapGet("/customer/fetchall", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Customer(context).fetchAll()
+                  await new Database<ICustomer>("customer").FetchAll()
                );
             });
 

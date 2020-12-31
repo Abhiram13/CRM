@@ -13,7 +13,7 @@ namespace CRM {
       }
 
       private async Task<ICustomer> checkIfCustomerExist() {
-         ICustomer[] customers = await new Customer(this.Context).fetchAllCustomers();
+         ICustomer[] customers = DeserializeObject<ICustomer[]>(await new Database<ICustomer[]>("customer").FetchAll());
          var MOBILE = typeof(TransactionType).GetProperty("MOBILE").GetValue(await this.transaction);
          var AADHAAR = typeof(TransactionType).GetProperty("AADHAAR").GetValue(await this.transaction);
 
