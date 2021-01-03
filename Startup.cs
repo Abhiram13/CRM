@@ -105,7 +105,7 @@ namespace CRM {
 
             endpoints.MapPost("/customer/search", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Customer(context).search()
+                  await new Customer(context).search(context)
                );
             });
 

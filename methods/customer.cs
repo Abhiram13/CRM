@@ -7,28 +7,28 @@ namespace CRM {
       public string TITLE { get; set; }
       public string FIRSTNAME { get; set; }
       public string LASTNAME { get; set; }
-      public long MOBILE { get; set; }
+      public long? MOBILE { get; set; }
       public string EMAIL { get; set; }
-      public DateTime BIRTHDATE { get; set; }
+      public DateTime? BIRTHDATE { get; set; }
       public string GENDER { get; set; }
       public string PAN { get; set; }
-      public long AADHAAR { get; set; }
+      public long? AADHAAR { get; set; }
       public string LOCATION { get; set; }
       public string BRANCH { get; set; }
-      public string PRESENT_LINE_1 { get; set; } = "";
-      public string PRESENT_LINE_2 { get; set; } = "";
-      public string PRESENT_CITY { get; set; } = "";
-      public string PRESENT_DISTRICT { get; set; } = "";
-      public string PRESENT_STATE { get; set; } = "";
-      public string PRESENT_COUNTRY { get; set; } = "";
-      public long PRESENT_PINCODE { get; set; } = 0;
+      public string PRESENT_LINE_1 { get; set; }
+      public string PRESENT_LINE_2 { get; set; }
+      public string PRESENT_CITY { get; set; }
+      public string PRESENT_DISTRICT { get; set; }
+      public string PRESENT_STATE { get; set; }
+      public string PRESENT_COUNTRY { get; set; }
+      public long PRESENT_PINCODE { get; set; }
       public bool IS_PERMANENT { get; set; } = true;
-      public string PERMANENT_LINE_1 { get; set; } = "";
-      public string PERMANENT_LINE_2 { get; set; } = "";
-      public string PERMANENT_CITY { get; set; } = "";
-      public string PERMANENT_DISTRICT { get; set; } = "";
-      public string PERMANENT_STATE { get; set; } = "";
-      public string PERMANENT_COUNTRY { get; set; } = "";
+      public string PERMANENT_LINE_1 { get; set; } = null;
+      public string PERMANENT_LINE_2 { get; set; } = null;
+      public string PERMANENT_CITY { get; set; } = null;
+      public string PERMANENT_DISTRICT { get; set; } = null;
+      public string PERMANENT_STATE { get; set; } = null;
+      public string PERMANENT_COUNTRY { get; set; } = null;
       public long PERMANENT_PINCODE { get; set; } = 0;
    }
 
@@ -37,27 +37,36 @@ namespace CRM {
    }
 
    public sealed class Customer : JSON {
-      private HttpContext Context;
+      private Task<ICustomer> customer;
 
       public Customer(HttpContext context) {
-         Context = context;
+         customer = this.body(context);
       }
 
-      private async Task<ICustomer> body() {
-         return await Deserilise<ICustomer>(this.Context);
+      private async Task<ICustomer> body(HttpContext context) {
+         return await Deserilise<ICustomer>(context);
       }
 
       private async Task<string> check() {
-         ICustomer emp = await this.body();
+         ICustomer emp = await this.customer;
+         string ext = "Please Provide";
 
-         foreach (var key in emp.GetType().GetProperties()) {
-            bool stringTypeCheck = key.GetValue(emp) is string;
-            bool stringValueCheck = key.GetValue(emp).ToString() == "";
-            bool intTypeCheck = key.GetValue(emp) is Int32 || key.GetValue(emp) is Int64 || key.GetValue(emp) is long;
-            bool String = stringTypeCheck && stringValueCheck;
-            if (String || (intTypeCheck && Convert.ToInt64(key.GetValue(emp)) == 0)) {
-               return $"{key} cannot be Empty";
-            }
+         if (emp.AADHAAR == null) {
+            return $"{ext} Aadhaar";
+         } else if (emp.BIRTHDATE == null) {
+            return $"{ext} Date of Birth";
+         } else if (emp.BRANCH == "" || emp.BRANCH == null) {
+            return $"{ext} Branch";
+         } else if (emp.EMAIL == "" || emp.EMAIL == null) {
+            return $"{ext} Email";
+         } else if (emp.FIRSTNAME == "" || emp.FIRSTNAME == null) {
+            return $"{ext} Firstname";
+         } else if (emp.LASTNAME == "" || emp.LASTNAME == null) {
+            return $"{ext} Lastname";
+         } else if (emp.GENDER == "" || emp.GENDER == null) {
+            return $"{ext} Gender";
+         } else if (emp.MOBILE == null) {
+            return $"{ext} Mobile";
          }
 
          return "OK";
@@ -70,7 +79,7 @@ namespace CRM {
 
       private async Task<bool> isExist() {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
-         ICustomer customer = await this.body();
+         ICustomer customer = await this.customer;
 
          foreach (ICustomer cust in listOfCustomers) {
             if (customer.MOBILE == cust.MOBILE && customer.AADHAAR == cust.AADHAAR) {
@@ -83,7 +92,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          string check = await this.check();
-         ICustomer customer = await this.body();
+         ICustomer customer = await this.customer;
 
          if (check == "OK") {
             if (!await this.isExist()) {
@@ -96,9 +105,9 @@ namespace CRM {
          return check;
       }
 
-      public async Task<string> search() {
+      public async Task<string> search(HttpContext context) {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
-         CustomerSearchQuery query = await Deserilise<CustomerSearchQuery>(this.Context);
+         CustomerSearchQuery query = await Deserilise<CustomerSearchQuery>(context);
          ICustomer customer = Array.Find<ICustomer>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
 
          if (customer == null) {

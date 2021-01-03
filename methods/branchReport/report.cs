@@ -76,7 +76,7 @@ namespace CRM {
          ICustomer[] customers = await this.filterCustomers();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            long MOBILE = customers[cIndex].MOBILE;
+            long? MOBILE = customers[cIndex].MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                long tMobile = (long)transactions[tIndex].GetType().GetProperty("MOBILE").GetValue(transactions[tIndex]);
