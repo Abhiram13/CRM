@@ -82,7 +82,7 @@ namespace CRM {
          ICustomer customer = await this.customer;
 
          foreach (ICustomer cust in listOfCustomers) {
-            if (customer.MOBILE == cust.MOBILE && customer.AADHAAR == cust.AADHAAR) {
+            if (customer.MOBILE == cust.MOBILE || customer.AADHAAR == cust.AADHAAR) {
                return true;
             }
          }
