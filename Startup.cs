@@ -157,11 +157,11 @@ namespace CRM {
                );
             });
 
-            endpoints.MapPost("/branchreports/fetch", async (HttpContext context) => {
+            endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Report(context).customers()
+                  await new Report<ILifeTransaction>(context, "life_insurance").customers()
                );
-            });          
+            });
          });
       }
    }
