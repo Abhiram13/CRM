@@ -25,11 +25,10 @@ namespace CRM {
       private async Task<ICustomer[]> fetchAllCustomers() {
          IReport report = await this.context;
          string customersStringify = await new Database<ICustomer>("customer").FetchAll();
-         Console.WriteLine(customersStringify);
          return DeserializeObject<ICustomer[]>(customersStringify);
       }
 
-      private async Task<ICustomer[]> filterNumbers() {
+      private async Task<ICustomer[]> filterCustomers() {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
          IReport report = await this.context;
          List<ICustomer> customers = new List<ICustomer>();
@@ -43,8 +42,19 @@ namespace CRM {
          return customers.ToArray();
       }
 
+      private async void filterTransaction() {
+         IReport report = await this.context;
+         var filter = Builders<ILifeTransaction>.Filter.Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
+         List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find(filter).ToList();
+
+         foreach (ILifeTransaction life in list) {
+            Console.WriteLine(life.ENTRY_DATE);
+         }
+      }
+
       public async Task<string> customers() {
-         return Serialize<ICustomer[]>(await this.filterNumbers());
+         this.filterTransaction();
+         return Serialize<ICustomer[]>(await this.filterCustomers());
       }
    }
 }
