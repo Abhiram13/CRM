@@ -155,7 +155,13 @@ namespace CRM {
                await context.Response.WriteAsync(
                   await new Revenue<IMutualFundsRevenue>(context, "mutual_funds_revenue").Add()
                );
-            });            
+            });
+
+            endpoints.MapPost("/branchreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Report(context).customers()
+               );
+            });          
          });
       }
    }
