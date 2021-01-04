@@ -159,7 +159,9 @@ namespace CRM {
 
             endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Report<ILifeTransaction>(context, "life_insurance").customers()
+                  await new Report<ILifeTransaction>(context, "life_insurance").fetch(
+                     LifeInsurance.Report
+                  )
                );
             });
          });
