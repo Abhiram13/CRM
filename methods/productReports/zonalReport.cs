@@ -10,10 +10,10 @@ namespace CRM {
       public DateTime START_DATE { get; set; }
    }   
 
-   public class Report<TransactionType> : JSON {
+   public class ZonalReport<TransactionType> : JSON {
       Task<Zonal> context;
       string TransactionName;
-      public Report(HttpContext Context, string transactionName) {
+      public ZonalReport(HttpContext Context, string transactionName) {
          context = this.REPORT(Context);
          TransactionName = transactionName;
       }

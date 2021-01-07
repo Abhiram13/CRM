@@ -159,7 +159,7 @@ namespace CRM {
 
             endpoints.MapPost("/lifeinsurancezonalreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Report<ILifeTransaction>(context, "life_insurance").fetch(
+                  await new ZonalReport<ILifeTransaction>(context, "life_insurance").fetch(
                      LifeInsurance.Report
                   )
                );
@@ -167,7 +167,7 @@ namespace CRM {
 
             endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Report<IGeneralInsurance>(context, "general_insurance").fetch(
+                  await new ZonalReport<IGeneralInsurance>(context, "general_insurance").fetch(
                      GeneralInsurance.Report
                   )
                );
