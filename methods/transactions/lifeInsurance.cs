@@ -17,6 +17,7 @@ namespace CRM {
       public long NET { get; set; }
       public long REVENUE { get; set; }
       public DateTime ENTRY_DATE { get; set; }
+      public int MANAGER { get; set; }
    }
 
    public class ZonalReport : ILifeTransaction {

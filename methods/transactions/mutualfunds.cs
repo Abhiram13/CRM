@@ -18,5 +18,6 @@ namespace CRM {
       public long REVENUE { get; set; }
       public long MOBILE { get; set; }
       public long AADHAAR { get; set; }
+      public int MANAGER { get; set; }
    }
 }

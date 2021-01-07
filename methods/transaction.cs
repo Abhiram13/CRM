@@ -21,9 +21,22 @@ namespace CRM {
          return c;
       }
 
+      private async Task<IEmployee> checkIfEmployeeExist() {
+         IEmployee[] employees = DeserializeObject<IEmployee[]>(await new Database<IEmployee>("employee").FetchAll());
+         var MANAGER = typeof(TransactionType).GetProperty("MANAGER").GetValue(await this.transaction);
+
+         IEmployee emp = System.Array.Find<IEmployee>(employees, emp => emp.ID == (int)MANAGER);
+
+         return emp;
+      }
+
       public async Task<string> Add() {
          if (await this.checkIfCustomerExist() == null) {
             return "Customer not Found";
+         }
+
+         if (await this.checkIfEmployeeExist() == null) {
+            return "Employee not Found";
          }
 
          new Database<TransactionType>(this.name).Insert(await this.transaction);

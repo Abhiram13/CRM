@@ -14,5 +14,6 @@ namespace CRM {
       public long REVENUE { get; set; }
       public DateTime ENTRY_DATE { get; set; }
       public DateTime ISSUANCE_DATE { get; set; }
+      public int MANAGER { get; set; }
    }
 }
