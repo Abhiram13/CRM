@@ -164,6 +164,14 @@ namespace CRM {
                   )
                );
             });
+
+            endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Report<IGeneralInsurance>(context, "general_insurance").fetch(
+                     GeneralInsurance.Report
+                  )
+               );
+            });
          });
       }
    }
