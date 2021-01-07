@@ -2,28 +2,26 @@ using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using MongoDB.Driver;
-using MongoDB.Bson;
 
 namespace CRM {
-   public class IReport : IMongoObject {
+   public class Zonal : IMongoObject {
       public string LOCATION { get; set; }
       public DateTime END_DATE { get; set; }
       public DateTime START_DATE { get; set; }
    }   
 
    public class Report<TransactionType> : JSON {
-      Task<IReport> context;
+      Task<Zonal> context;
       string TransactionName;
       public Report(HttpContext Context, string transactionName) {
          context = this.REPORT(Context);
          TransactionName = transactionName;
       }
 
-      public delegate TransactionType[] Delegate(ICustomer[] customers, IReport report);
+      public delegate TransactionType[] Delegate(ICustomer[] customers, Zonal report);
 
-      private async Task<IReport> REPORT(HttpContext context) {
-         return await Deserilise<IReport>(context);
+      private async Task<Zonal> REPORT(HttpContext context) {
+         return await Deserilise<Zonal>(context);
       }
 
       private async Task<ICustomer[]> fetchAllCustomers() {
@@ -33,7 +31,7 @@ namespace CRM {
 
       private async Task<ICustomer[]> filterCustomers() {
          ICustomer[] listOfCustomers = await this.fetchAllCustomers();
-         IReport report = await this.context;
+         Zonal report = await this.context;
          List<ICustomer> customers = new List<ICustomer>();
 
          for (int i = 0; i < listOfCustomers.Length; i++) {

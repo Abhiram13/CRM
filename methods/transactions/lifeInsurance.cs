@@ -19,7 +19,7 @@ namespace CRM {
       public DateTime ENTRY_DATE { get; set; }
    }
 
-   public class IReportObject : ILifeTransaction {
+   public class ZonalReport : ILifeTransaction {
       public string FIRSTNAME { get; set; }
       public string LASTNAME { get; set; }
       public string EMAIL { get; set; }
@@ -29,7 +29,7 @@ namespace CRM {
    }
 
    public static class LifeInsurance {
-      private static ILifeTransaction[] filterTransaction(IReport report) {
+      private static ILifeTransaction[] filterTransaction(Zonal report) {
          var gte_start = Builders<ILifeTransaction>.Filter
             .Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
 
@@ -41,9 +41,9 @@ namespace CRM {
          return list.ToArray();
       }
 
-      public static ILifeTransaction[] Report(ICustomer[] customers, IReport report) {
+      public static ILifeTransaction[] Report(ICustomer[] customers, Zonal report) {
          ILifeTransaction[] transactions = filterTransaction(report);
-         List<IReportObject> reports = new List<IReportObject>();
+         List<ZonalReport> reports = new List<ZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             ICustomer customer = customers[cIndex];
@@ -54,7 +54,7 @@ namespace CRM {
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE) {
-                  reports.Add(new IReportObject() {
+                  reports.Add(new ZonalReport() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      BANK = transaction.BANK,

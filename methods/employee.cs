@@ -68,7 +68,7 @@ namespace CRM {
          IEmployee[] listOfEmployees = await this.fetchAllEmployees();
 
          foreach (IEmployee emp in listOfEmployees) {
-            if (employee.MOBILE == emp.MOBILE && employee.ID == emp.ID) {
+            if (employee.MOBILE == emp.MOBILE || employee.ID == emp.ID || employee.EMAIL == emp.EMAIL) {
                return true;
             }
          }
