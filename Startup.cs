@@ -172,6 +172,14 @@ namespace CRM {
                   )
                );
             });
+
+            endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new ZonalReport<IMutualFunds>(context, "mutual_funds").fetch(
+                     MutualFunds.Report
+                  )
+               );
+            });
          });
       }
    }

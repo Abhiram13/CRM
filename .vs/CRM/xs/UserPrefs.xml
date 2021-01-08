@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="methods/customer.cs">
     <Files>
-      <File FileName="Startup.cs" Line="27" Column="59" />
-      <File FileName="methods/customer.cs" Line="33" Column="5" />
+      <File FileName="Startup.cs" Line="181" Column="18" IsPinned="True" />
+      <File FileName="methods/customer.cs" Line="15" Column="41" />
     </Files>
     <Pads>
       <Pad Id="ClassPad">
