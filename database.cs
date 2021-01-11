@@ -10,7 +10,7 @@ namespace CRM {
       private IMongoCollection<DocumentType> collection;
 
       public Database(string CollectionName) {
-         this.collection = Mongo.database.GetCollection<DocumentType>(CollectionName);
+         collection = Mongo.database.GetCollection<DocumentType>(CollectionName);
       }
 
       public void Insert(DocumentType doc) {

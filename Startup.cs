@@ -180,6 +180,14 @@ namespace CRM {
                   )
                );
             });
+
+            endpoints.MapPost("/fixeddepositzonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new ZonalReport<IFixedDeposit>(context, "fixed_deposit").fetch(
+                     FixedDeposit.Report
+                  )
+               );
+            });
          });
       }
    }
