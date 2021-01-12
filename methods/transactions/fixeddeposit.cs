@@ -36,7 +36,9 @@ namespace CRM {
          var lte_end = Builders<IFixedDeposit>.Filter
             .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
 
-         List<IFixedDeposit> list = Mongo.database.GetCollection<IFixedDeposit>("general_insurance").Find<IFixedDeposit>(gte_start & lte_end).ToList();
+         var location = Builders<IFixedDeposit>.Filter.Eq("LOCATION", report.LOCATION);
+
+         List<IFixedDeposit> list = Mongo.database.GetCollection<IFixedDeposit>("fixed_deposit").Find<IFixedDeposit>(gte_start & lte_end & location).ToList();
 
          return list.ToArray();
       }

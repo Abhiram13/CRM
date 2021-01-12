@@ -39,7 +39,9 @@ namespace CRM {
          var lte_end = Builders<IGeneralInsurance>.Filter
             .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
 
-         List<IGeneralInsurance> list = Mongo.database.GetCollection<IGeneralInsurance>("general_insurance").Find<IGeneralInsurance>(gte_start & lte_end).ToList();
+         var location = Builders<IGeneralInsurance>.Filter.Eq("LOCATION", report.LOCATION);
+
+         List<IGeneralInsurance> list = Mongo.database.GetCollection<IGeneralInsurance>("general_insurance").Find<IGeneralInsurance>(gte_start & lte_end & location).ToList();
 
          return list.ToArray();
       }

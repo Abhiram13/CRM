@@ -36,7 +36,9 @@ namespace CRM {
          var lte_end = Builders<ILifeTransaction>.Filter
             .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
 
-         List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find<ILifeTransaction>(gte_start & lte_end).ToList();
+         var filter = gte_start & lte_end;
+
+         List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find<ILifeTransaction>(filter).ToList();
 
          return list.ToArray();
       }
@@ -53,7 +55,7 @@ namespace CRM {
                ILifeTransaction transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
-               if (tMobile == MOBILE) {
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new ZonalReport() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,

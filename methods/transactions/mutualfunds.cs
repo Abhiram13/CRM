@@ -40,7 +40,9 @@ namespace CRM {
          var lte_end = Builders<IMutualFunds>.Filter
             .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
 
-         List<IMutualFunds> list = Mongo.database.GetCollection<IMutualFunds>("mutual_funds").Find<IMutualFunds>(gte_start & lte_end).ToList();
+         var location = Builders<IMutualFunds>.Filter.Eq("LOCATION", report.LOCATION);
+
+         List<IMutualFunds> list = Mongo.database.GetCollection<IMutualFunds>("mutual_funds").Find<IMutualFunds>(gte_start & lte_end & location).ToList();
 
          return list.ToArray();
       }
