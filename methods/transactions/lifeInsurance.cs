@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using MongoDB.Driver;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace CRM {
    public class ILifeTransaction : IMongoObject {
@@ -28,23 +30,28 @@ namespace CRM {
       public string BRANCH { get; set; }
    }
 
-   public static class LifeInsurance {
-      private static ILifeTransaction[] filterTransaction(Zonal report) {
-         var gte_start = Builders<ILifeTransaction>.Filter
-            .Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
+   public class Filter : JSON {
+      public async Task<TransactionType[]> zonalTransactions<TransactionType>(Zonal report, string transactionName) {
+         TransactionType[] transactions = DeserializeObject<TransactionType[]>(await new Database<TransactionType>(transactionName).FetchAll());
+         List<TransactionType> ty = new List<TransactionType>();
 
-         var lte_end = Builders<ILifeTransaction>.Filter
-            .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
+         for (int i = 0; i < transactions.Length; i++) {
+            DateTime entryDate = (DateTime)typeof(TransactionType).GetProperty("ENTRY_DATE").GetValue(transactions[i]);
+            DateTime startDate = DateTime.Parse(report.START_DATE.ToString());
+            DateTime endDate = DateTime.Parse(report.END_DATE.ToString());
 
-         var filter = gte_start & lte_end;
+            if (entryDate >= startDate || entryDate <= endDate) {
+               ty.Add(transactions[i]);
+            }
+         }
 
-         List<ILifeTransaction> list = Mongo.database.GetCollection<ILifeTransaction>("life_insurance").Find<ILifeTransaction>(filter).ToList();
-
-         return list.ToArray();
+         return ty.ToArray();
       }
+   }
 
-      public static ILifeTransaction[] Report(ICustomer[] customers, Zonal report) {
-         ILifeTransaction[] transactions = filterTransaction(report);
+   public static class LifeInsurance {
+      public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, Zonal report) {
+         ILifeTransaction[] transactions = await new Filter().zonalTransactions<ILifeTransaction>(report, "life_insurance");
          List<ZonalReport> reports = new List<ZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
