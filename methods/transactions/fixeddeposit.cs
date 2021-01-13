@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MongoDB.Driver;
+using System.Threading.Tasks;
 
 namespace CRM {
    public class IFixedDeposit : IMongoObject {
@@ -29,22 +30,8 @@ namespace CRM {
    }
 
    public static class FixedDeposit {
-      private static IFixedDeposit[] filterTransaction(Zonal report) {
-         var gte_start = Builders<IFixedDeposit>.Filter
-            .Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
-
-         var lte_end = Builders<IFixedDeposit>.Filter
-            .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
-
-         var location = Builders<IFixedDeposit>.Filter.Eq("LOCATION", report.LOCATION);
-
-         List<IFixedDeposit> list = Mongo.database.GetCollection<IFixedDeposit>("fixed_deposit").Find<IFixedDeposit>(gte_start & lte_end & location).ToList();
-
-         return list.ToArray();
-      }
-
-      public static IFixedDeposit[] Report(ICustomer[] customers, Zonal report) {
-         IFixedDeposit[] transactions = filterTransaction(report);
+      public async static Task<IFixedDeposit[]> Report(ICustomer[] customers, Zonal report) {
+         IFixedDeposit[] transactions = await new Filter().zonalTransactions<IFixedDeposit>(report, "fixed_deposit");
          List<FixedZonalReport> reports = new List<FixedZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -55,7 +42,7 @@ namespace CRM {
                IFixedDeposit transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
-               if (tMobile == MOBILE) {
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new FixedZonalReport() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,

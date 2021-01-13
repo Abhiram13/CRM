@@ -35,4 +35,23 @@ namespace CRM {
          );
       }
    }
+
+   public class Filter : JSON {
+      public async Task<TransactionType[]> zonalTransactions<TransactionType>(Zonal report, string transactionName) {
+         TransactionType[] transactions = DeserializeObject<TransactionType[]>(await new Database<TransactionType>(transactionName).FetchAll());
+         List<TransactionType> ty = new List<TransactionType>();
+
+         for (int i = 0; i < transactions.Length; i++) {
+            DateTime entryDate = (DateTime)typeof(TransactionType).GetProperty("ENTRY_DATE").GetValue(transactions[i]);
+            DateTime startDate = DateTime.Parse(report.START_DATE.ToString());
+            DateTime endDate = DateTime.Parse(report.END_DATE.ToString());
+
+            if (entryDate >= startDate || entryDate <= endDate) {
+               ty.Add(transactions[i]);
+            }
+         }
+
+         return ty.ToArray();
+      }
+   }
 }

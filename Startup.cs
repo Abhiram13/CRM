@@ -165,29 +165,29 @@ namespace CRM {
                );
             });
 
-            // endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
-            //    await context.Response.WriteAsync(
-            //       await new ZonalReport<IGeneralInsurance>(context, "general_insurance").fetch(
-            //          GeneralInsurance.Report
-            //       )
-            //    );
-            // });
+            endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new ZonalReport<IGeneralInsurance>(context, "general_insurance").fetch(
+                     GeneralInsurance.Report
+                  )
+               );
+            });
 
-            // endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
-            //    await context.Response.WriteAsync(
-            //       await new ZonalReport<IMutualFunds>(context, "mutual_funds").fetch(
-            //          MutualFunds.Report
-            //       )
-            //    );
-            // });
+            endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new ZonalReport<IMutualFunds>(context, "mutual_funds").fetch(
+                     MutualFunds.Report
+                  )
+               );
+            });
 
-            // endpoints.MapPost("/fixeddepositzonalreports/fetch", async (HttpContext context) => {
-            //    await context.Response.WriteAsync(
-            //       await new ZonalReport<IFixedDeposit>(context, "fixed_deposit").fetch(
-            //          FixedDeposit.Report
-            //       )
-            //    );
-            // });
+            endpoints.MapPost("/fixeddepositzonalreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new ZonalReport<IFixedDeposit>(context, "fixed_deposit").fetch(
+                     FixedDeposit.Report
+                  )
+               );
+            });
          });
       }
    }

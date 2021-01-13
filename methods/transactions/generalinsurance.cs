@@ -1,6 +1,7 @@
 using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CRM {
    public class IGeneralInsurance : IMongoObject {
@@ -32,22 +33,8 @@ namespace CRM {
    }
 
    public static class GeneralInsurance {
-      private static IGeneralInsurance[] filterTransaction(Zonal report) {
-         var gte_start = Builders<IGeneralInsurance>.Filter
-            .Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
-
-         var lte_end = Builders<IGeneralInsurance>.Filter
-            .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
-
-         var location = Builders<IGeneralInsurance>.Filter.Eq("LOCATION", report.LOCATION);
-
-         List<IGeneralInsurance> list = Mongo.database.GetCollection<IGeneralInsurance>("general_insurance").Find<IGeneralInsurance>(gte_start & lte_end & location).ToList();
-
-         return list.ToArray();
-      }
-
-      public static IGeneralInsurance[] Report(ICustomer[] customers, Zonal report) {
-         IGeneralInsurance[] transactions = filterTransaction(report);
+      public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, Zonal report) {
+         IGeneralInsurance[] transactions = await new Filter().zonalTransactions<IGeneralInsurance>(report, "general_insurance");
          List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -58,7 +45,7 @@ namespace CRM {
                IGeneralInsurance transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
-               if (tMobile == MOBILE) {
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new GeneralZonalReport() {
                      AADHAAR = (long)customer.AADHAAR,
                      INSURANCE_TYPE = transaction.INSURANCE_TYPE,

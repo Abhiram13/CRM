@@ -1,6 +1,7 @@
 using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CRM {
    public class IMutualFunds : IMongoObject {
@@ -33,22 +34,8 @@ namespace CRM {
    }
 
    public static class MutualFunds {
-      private static IMutualFunds[] filterTransaction(Zonal report) {
-         var gte_start = Builders<IMutualFunds>.Filter
-            .Gte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.START_DATE.ToString()));
-
-         var lte_end = Builders<IMutualFunds>.Filter
-            .Lte(transaction => transaction.ENTRY_DATE, DateTime.Parse(report.END_DATE.ToString()));
-
-         var location = Builders<IMutualFunds>.Filter.Eq("LOCATION", report.LOCATION);
-
-         List<IMutualFunds> list = Mongo.database.GetCollection<IMutualFunds>("mutual_funds").Find<IMutualFunds>(gte_start & lte_end & location).ToList();
-
-         return list.ToArray();
-      }
-
-      public static IMutualFunds[] Report(ICustomer[] customers, Zonal report) {
-         IMutualFunds[] transactions = filterTransaction(report);
+      public async static Task<IMutualFunds[]> Report(ICustomer[] customers, Zonal report) {
+         IMutualFunds[] transactions = await new Filter().zonalTransactions<IMutualFunds>(report, "mutual_funds");
          List<MutualZonalReport> reports = new List<MutualZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -59,7 +46,7 @@ namespace CRM {
                IMutualFunds transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
-               if (tMobile == MOBILE) {
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new MutualZonalReport() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
