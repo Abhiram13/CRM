@@ -34,7 +34,7 @@ namespace CRM {
 
    public static class GeneralInsurance {
       public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, Zonal report) {
-         IGeneralInsurance[] transactions = await new Filter().zonalTransactions<IGeneralInsurance>(report, "general_insurance");
+         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, Zonal>(report, "general_insurance");
          List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {

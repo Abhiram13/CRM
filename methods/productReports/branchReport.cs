@@ -27,20 +27,6 @@ namespace CRM {
          return DeserializeObject<ICustomer[]>(customersStringify);
       }
 
-      private async Task<ICustomer[]> filterCustomers() {
-         ICustomer[] listOfCustomers = await this.fetchAllCustomers();
-         IBranchBody report = await this.context;
-         List<ICustomer> customers = new List<ICustomer>();
-
-         for (int i = 0; i < listOfCustomers.Length; i++) {
-            if (listOfCustomers[i].LOCATION.ToString() == report.LOCATION.ToString() && listOfCustomers[i].BRANCH.ToString() == report.BRANCH.ToString()) {
-               customers.Add(listOfCustomers[i]);
-            }
-         }
-
-         return customers.ToArray();
-      }
-
       public async Task<string> fetch(Delegate function) {
          return Serialize<TransactionType[]>(
             function(

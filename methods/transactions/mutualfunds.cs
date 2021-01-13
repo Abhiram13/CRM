@@ -35,7 +35,7 @@ namespace CRM {
 
    public static class MutualFunds {
       public async static Task<IMutualFunds[]> Report(ICustomer[] customers, Zonal report) {
-         IMutualFunds[] transactions = await new Filter().zonalTransactions<IMutualFunds>(report, "mutual_funds");
+         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, Zonal>(report, "mutual_funds");
          List<MutualZonalReport> reports = new List<MutualZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {

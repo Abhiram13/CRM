@@ -30,7 +30,7 @@ namespace CRM {
 
    public static class LifeInsurance {
       public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, Zonal report) {
-         ILifeTransaction[] transactions = await new Filter().zonalTransactions<ILifeTransaction>(report, "life_insurance");
+         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, Zonal>(report, "life_insurance");
          List<ZonalReport> reports = new List<ZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -40,6 +40,8 @@ namespace CRM {
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                ILifeTransaction transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
+
+               bool x = tMobile == MOBILE && customer.LOCATION == report.LOCATION;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new ZonalReport() {
