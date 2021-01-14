@@ -163,7 +163,7 @@ namespace CRM {
                      LifeInsurance.Report
                   )
                );
-            });
+            });            
 
             endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
@@ -171,7 +171,7 @@ namespace CRM {
                      GeneralInsurance.Report
                   )
                );
-            });
+            });            
 
             endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
@@ -185,6 +185,38 @@ namespace CRM {
                await context.Response.WriteAsync(
                   await new ZonalReport<IFixedDeposit>(context, "fixed_deposit").fetch(
                      FixedDeposit.Report
+                  )
+               );
+            });
+
+            endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new BranchReport<ILifeTransaction>(context, "life_insurance").fetch(
+                     LifeInsurance.BranchReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/generalinsurancebranchreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new BranchReport<IGeneralInsurance>(context, "general_insurance").fetch(
+                     GeneralInsurance.BranchReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/mutualfundsbranchreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new BranchReport<IMutualFunds>(context, "mutual_funds").fetch(
+                     MutualFunds.BranchReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/fixeddepositbranchreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new BranchReport<IFixedDeposit>(context, "fixed_deposit").fetch(
+                     FixedDeposit.BranchReport
                   )
                );
             });

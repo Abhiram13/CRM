@@ -1,11 +1,14 @@
-﻿<Properties StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="methods/productReports/zonalReport.cs">
+﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Startup.cs" Line="163" Column="39" IsPinned="True" />
-      <File FileName="methods/customer.cs" Line="39" Column="38" />
-      <File FileName="database.cs" Line="17" Column="36" />
-      <File FileName="methods/Json.cs" Line="12" Column="69" />
-      <File FileName="methods/productReports/zonalReport.cs" Line="15" Column="14" />
+      <File FileName="Startup.cs" Line="222" Column="16" IsPinned="True" />
+      <File FileName="methods/customer.cs" />
+      <File FileName="database.cs" />
+      <File FileName="methods/Json.cs" />
+      <File FileName="methods/productReports/zonalReport.cs" />
+      <File FileName="methods/transactions/lifeInsurance.cs" />
+      <File FileName="methods/revenue/generalinsurane.cs" />
+      <File FileName="methods/transactions/generalinsurance.cs" />
     </Files>
     <Pads>
       <Pad Id="ClassPad">

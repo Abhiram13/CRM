@@ -70,5 +70,45 @@ namespace CRM {
 
          return reports.ToArray();
       }
+
+      public async static Task<ILifeTransaction[]> BranchReport(ICustomer[] customers, IBranchBody report) {
+         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, IBranchBody>(report, "life_insurance");
+         List<ZonalReport> reports = new List<ZonalReport>();
+
+         for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
+            ICustomer customer = customers[cIndex];
+            long? MOBILE = customer.MOBILE;
+
+            for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
+               ILifeTransaction transaction = transactions[tIndex];
+               long tMobile = transaction.MOBILE;
+
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
+                  reports.Add(new ZonalReport() {
+                     AADHAAR = (long)customer.AADHAAR,
+                     ACCOUNT = transaction.ACCOUNT,
+                     BANK = transaction.BANK,
+                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
+                     BRANCH = customer.BRANCH,
+                     COMPANY = transaction.COMPANY,
+                     EMAIL = customer.EMAIL,
+                     ENTRY_DATE = transaction.ENTRY_DATE,
+                     FIRSTNAME = customer.FIRSTNAME,
+                     GROSS = transaction.GROSS,
+                     LASTNAME = customer.LASTNAME,
+                     LOCATION = customer.LOCATION,
+                     MOBILE = (long)customer.MOBILE,
+                     NET = transaction.NET,
+                     PLAN = transaction.PLAN,
+                     PREMIUM_PAYMENT_TERM = transaction.PREMIUM_PAYMENT_TERM,
+                     REVENUE = transaction.REVENUE,
+                     TERM = transaction.TERM,
+                  });
+               }
+            }
+         }
+
+         return reports.ToArray();
+      }
    }
 }

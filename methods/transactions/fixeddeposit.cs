@@ -69,5 +69,45 @@ namespace CRM {
 
          return reports.ToArray();
       }
+
+      public async static Task<IFixedDeposit[]> BranchReport(ICustomer[] customers, IBranchBody report) {
+         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, IBranchBody>(report, "fixed_deposit");
+         List<FixedZonalReport> reports = new List<FixedZonalReport>();
+
+         for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
+            ICustomer customer = customers[cIndex];
+            long? MOBILE = customer.MOBILE;
+
+            for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
+               IFixedDeposit transaction = transactions[tIndex];
+               long tMobile = transaction.MOBILE;
+
+               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
+                  reports.Add(new FixedZonalReport() {
+                     AADHAAR = (long)customer.AADHAAR,
+                     ACCOUNT = transaction.ACCOUNT,
+                     AMOUNT = transaction.AMOUNT,
+                     SCHEMA = transaction.SCHEMA,
+                     TENOUR = transaction.TENOUR,
+                     MANAGER = transaction.MANAGER,
+                     PRODUCT = transaction.PRODUCT,
+                     BANK = transaction.BANK,
+                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
+                     BRANCH = customer.BRANCH,
+                     COMPANY = transaction.COMPANY,
+                     EMAIL = customer.EMAIL,
+                     ENTRY_DATE = transaction.ENTRY_DATE,
+                     FIRSTNAME = customer.FIRSTNAME,
+                     LASTNAME = customer.LASTNAME,
+                     LOCATION = customer.LOCATION,
+                     MOBILE = (long)customer.MOBILE,
+                     REVENUE = transaction.REVENUE,
+                  });
+               }
+            }
+         }
+
+         return reports.ToArray();
+      }
    }
 }

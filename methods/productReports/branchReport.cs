@@ -16,7 +16,7 @@ namespace CRM {
          TransactionName = transactionName;
       }
 
-      public delegate TransactionType[] Delegate(ICustomer[] customers, IBranchBody report);
+      public delegate Task<TransactionType[]> Delegate(ICustomer[] customers, IBranchBody report);
 
       private async Task<IBranchBody> REPORT(HttpContext context) {         
          return await Deserilise<IBranchBody>(context);
@@ -29,7 +29,7 @@ namespace CRM {
 
       public async Task<string> fetch(Delegate function) {
          return Serialize<TransactionType[]>(
-            function(
+            await function(
                await this.fetchAllCustomers(),
                await this.context
             )
