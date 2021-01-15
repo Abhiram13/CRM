@@ -171,7 +171,7 @@ namespace CRM {
                      GeneralInsurance.Report
                   )
                );
-            });            
+            });
 
             endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(

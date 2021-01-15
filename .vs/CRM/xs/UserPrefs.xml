@@ -1,14 +1,14 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
   <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Startup.cs" Line="222" Column="16" IsPinned="True" />
-      <File FileName="methods/customer.cs" />
+      <File FileName="Startup.cs" Line="198" Column="16" IsPinned="True" />
+      <File FileName="methods/customer.cs" Line="114" Column="41" />
       <File FileName="database.cs" />
       <File FileName="methods/Json.cs" />
       <File FileName="methods/productReports/zonalReport.cs" />
       <File FileName="methods/transactions/lifeInsurance.cs" />
-      <File FileName="methods/revenue/generalinsurane.cs" />
-      <File FileName="methods/transactions/generalinsurance.cs" />
+      <File FileName="methods/transactions/generalinsurance.cs" Line="76" Column="7" />
+      <File FileName="methods/transactions/mutualfunds.cs" Line="90" Column="46" />
     </Files>
     <Pads>
       <Pad Id="ClassPad">
