@@ -17,16 +17,7 @@ namespace CRM {
       public long REVENUE { get; set; }
       public DateTime ENTRY_DATE { get; set; }
       public int MANAGER { get; set; }
-   }
-
-   public class ZonalReport : ILifeTransaction {
-      public string FIRSTNAME { get; set; }
-      public string LASTNAME { get; set; }
-      public string EMAIL { get; set; }
-      public DateTime BIRTHDATE { get; set; }
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
+   }   
 
    public static class LifeInsurance {
       public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, Zonal report) {
@@ -40,8 +31,6 @@ namespace CRM {
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                ILifeTransaction transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
-
-               bool x = tMobile == MOBILE && customer.LOCATION == report.LOCATION;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
                   reports.Add(new ZonalReport() {
