@@ -8,18 +8,19 @@ namespace CRM {
       public string BRANCH { get; set; }
    }
 
-   public class BranchReport<TransactionType> : JSON {
-      Task<IBranchBody> context;
+   public class FetchReports<TransactionType, ReportType> : JSON {
+      Task<ReportType> context;
       string TransactionName;
-      public BranchReport(HttpContext Context, string transactionName) {
+
+      public FetchReports(HttpContext Context, string transactionName) {
          context = this.REPORT(Context);
          TransactionName = transactionName;
       }
 
-      public delegate Task<TransactionType[]> Delegate(ICustomer[] customers, IBranchBody report);
+      public delegate Task<TransactionType[]> Delegate(ICustomer[] customers, ReportType report);
 
-      private async Task<IBranchBody> REPORT(HttpContext context) {         
-         return await Deserilise<IBranchBody>(context);
+      private async Task<ReportType> REPORT(HttpContext context) {
+         return await Deserilise<ReportType>(context);
       }
 
       private async Task<ICustomer[]> fetchAllCustomers() {

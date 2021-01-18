@@ -40,7 +40,7 @@ namespace CRM {
       private Task<ICustomer> customer;
 
       public Customer(HttpContext context) {
-         customer = this.body(context);
+         customer = body(context);
       }
 
       private async Task<ICustomer> body(HttpContext context) {
@@ -78,7 +78,7 @@ namespace CRM {
       }
 
       private async Task<bool> isExist() {
-         ICustomer[] listOfCustomers = await this.fetchAllCustomers();
+         ICustomer[] listOfCustomers = await fetchAllCustomers();
          ICustomer customer = await this.customer;
 
          foreach (ICustomer cust in listOfCustomers) {
@@ -95,7 +95,7 @@ namespace CRM {
          ICustomer customer = await this.customer;
 
          if (check == "OK") {
-            if (!await this.isExist()) {
+            if (!await isExist()) {
                new Database<ICustomer>("customer").Insert(customer);
                return "Customer Successfully Added";
             }
