@@ -1,6 +1,6 @@
 
 namespace CRM {
-   public class IBranchBody : Zonal {
+   public class BranchReportBody : ZonalReportBody {
       public string BRANCH { get; set; }
    }   
 }

@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace CRM {
-   public class Zonal : IMongoObject {
-      public string LOCATION { get; set; }
+   public class ReportBody : IMongoObject {
       public DateTime END_DATE { get; set; }
       public DateTime START_DATE { get; set; }
+   }
+
+   public class ZonalReportBody : ReportBody {
+      public string LOCATION { get; set; }
    }
 
    public class ZonalReport : ILifeTransaction {

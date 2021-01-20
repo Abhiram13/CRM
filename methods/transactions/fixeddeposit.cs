@@ -30,8 +30,8 @@ namespace CRM {
    }
 
    public static class FixedDeposit {
-      public async static Task<IFixedDeposit[]> Report(ICustomer[] customers, Zonal report) {
-         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, Zonal>(report, "fixed_deposit");
+      public async static Task<IFixedDeposit[]> Report(ICustomer[] customers, ZonalReportBody report) {
+         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, ZonalReportBody>(report, "fixed_deposit");
          List<FixedZonalReport> reports = new List<FixedZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -70,8 +70,8 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IFixedDeposit[]> BranchReport(ICustomer[] customers, IBranchBody report) {
-         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, IBranchBody>(report, "fixed_deposit");
+      public async static Task<IFixedDeposit[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
+         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, BranchReportBody>(report, "fixed_deposit");
          List<FixedZonalReport> reports = new List<FixedZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {

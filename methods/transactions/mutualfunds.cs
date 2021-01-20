@@ -34,8 +34,8 @@ namespace CRM {
    }
 
    public static class MutualFunds {
-      public async static Task<IMutualFunds[]> Report(ICustomer[] customers, Zonal report) {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, Zonal>(report, "mutual_funds");
+      public async static Task<IMutualFunds[]> Report(ICustomer[] customers, ZonalReportBody report) {
+         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, ZonalReportBody>(report, "mutual_funds");
          List<MutualZonalReport> reports = new List<MutualZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -78,8 +78,8 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IMutualFunds[]> BranchReport(ICustomer[] customers, IBranchBody report) {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, IBranchBody>(report, "mutual_funds");
+      public async static Task<IMutualFunds[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
+         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, BranchReportBody>(report, "mutual_funds");
          List<MutualZonalReport> reports = new List<MutualZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {

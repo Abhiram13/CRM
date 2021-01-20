@@ -20,8 +20,8 @@ namespace CRM {
    }   
 
    public static class LifeInsurance {
-      public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, Zonal report) {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, Zonal>(report, "life_insurance");
+      public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, ZonalReportBody report) {
+         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, ZonalReportBody>(report, "life_insurance");
          List<ZonalReport> reports = new List<ZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -60,8 +60,8 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<ILifeTransaction[]> BranchReport(ICustomer[] customers, IBranchBody report) {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, IBranchBody>(report, "life_insurance");
+      public async static Task<ILifeTransaction[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
+         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, BranchReportBody>(report, "life_insurance");
          List<ZonalReport> reports = new List<ZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -132,6 +132,7 @@ namespace CRM {
                      PREMIUM_PAYMENT_TERM = transaction.PREMIUM_PAYMENT_TERM,
                      REVENUE = transaction.REVENUE,
                      TERM = transaction.TERM,
+                     MANAGER = transaction.MANAGER,
                   });
                }
             }

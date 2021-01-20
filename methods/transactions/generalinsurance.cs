@@ -33,8 +33,8 @@ namespace CRM {
    }
 
    public static class GeneralInsurance {
-      public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, Zonal report) {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, Zonal>(report, "general_insurance");
+      public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, ZonalReportBody report) {
+         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, ZonalReportBody>(report, "general_insurance");
          List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
@@ -73,8 +73,8 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IGeneralInsurance[]> BranchReport(ICustomer[] customers, IBranchBody report) {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, IBranchBody>(report, "general_insurance");
+      public async static Task<IGeneralInsurance[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
+         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, BranchReportBody>(report, "general_insurance");
          List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
