@@ -1,28 +1,14 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
     <Files>
       <File FileName="Startup.cs" Line="206" Column="16" IsPinned="True" />
       <File FileName="database.cs" />
-      <File FileName="methods/productReports/branchReport.cs" Line="8" Column="41" />
-      <File FileName="methods/productReports/zonalReport.cs" Line="20" Column="1" />
-      <File FileName="methods/transactions/lifeInsurance.cs" Line="33" Column="50" />
-      <File FileName="methods/productReports.cs" Line="28" Column="46" />
+      <File FileName="methods/productReports/branchReport.cs" />
+      <File FileName="methods/productReports/zonalReport.cs" />
+      <File FileName="methods/transactions/lifeInsurance.cs" />
+      <File FileName="methods/productReports.cs" />
     </Files>
     <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="CRM" expanded="True">
-            <Node name="CRM" expanded="True">
-              <Node name="methods" expanded="True">
-                <Node name="productReports" expanded="True">
-                  <Node name="zonalReport.cs" selected="True" />
-                </Node>
-                <Node name="transactions" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="CRM" expanded="True" selected="True" />

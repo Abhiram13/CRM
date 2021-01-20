@@ -61,7 +61,7 @@ namespace CRM {
 
             endpoints.MapGet("/employee/select/{id}", async (HttpContext context) => {
                string ID = (string)context.Request.RouteValues["id"];
-               
+
                await context.Response.WriteAsync(
                   await new Employee(context).fetchEmployeeById(ID)
                );
@@ -191,33 +191,41 @@ namespace CRM {
 
             endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                   await new FetchReports<ILifeTransaction, IBranchBody>(context, "life_insurance").fetch(
-                      LifeInsurance.BranchReport
-                   )
+                  await new FetchReports<ILifeTransaction, IBranchBody>(context, "life_insurance").fetch(
+                     LifeInsurance.BranchReport
+                  )
                );
             });
 
             endpoints.MapPost("/generalinsurancebranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                   await new FetchReports<IGeneralInsurance, IBranchBody>(context, "general_insurance").fetch(
-                      GeneralInsurance.BranchReport
-                   )
+                  await new FetchReports<IGeneralInsurance, IBranchBody>(context, "general_insurance").fetch(
+                     GeneralInsurance.BranchReport
+                  )
                );
             });
 
             endpoints.MapPost("/mutualfundsbranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                   await new FetchReports<IMutualFunds, IBranchBody>(context, "mutual_funds").fetch(
-                      MutualFunds.BranchReport
-                   )
+                  await new FetchReports<IMutualFunds, IBranchBody>(context, "mutual_funds").fetch(
+                     MutualFunds.BranchReport
+                  )
                );
             });
 
             endpoints.MapPost("/fixeddepositbranchreports/fetch", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                   await new FetchReports<IFixedDeposit, IBranchBody>(context, "fixed_deposit").fetch(
-                      FixedDeposit.BranchReport
-                   )
+                  await new FetchReports<IFixedDeposit, IBranchBody>(context, "fixed_deposit").fetch(
+                     FixedDeposit.BranchReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/lifeinsurancermreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new FetchReports<ILifeTransaction, RMReportBody>(context, "life_insurance").fetch(
+                     LifeInsurance.RMReport
+                  )
                );
             });
          });
