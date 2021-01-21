@@ -228,6 +228,30 @@ namespace CRM {
                   )
                );
             });
+
+            endpoints.MapPost("/generalinsurancermreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new FetchReports<IGeneralInsurance, RMReportBody>(context, "general_insurance").fetch(
+                     GeneralInsurance.RMReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/mutualfundsrmreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new FetchReports<IMutualFunds, RMReportBody>(context, "mutual_funds").fetch(
+                     MutualFunds.RMReport
+                  )
+               );
+            });
+
+            endpoints.MapPost("/fixeddepositrmreports/fetch", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new FetchReports<IFixedDeposit, RMReportBody>(context, "fixed_deposit").fetch(
+                     FixedDeposit.RMReport
+                  )
+               );
+            });
          });
       }
    }
