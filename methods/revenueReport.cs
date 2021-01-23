@@ -9,19 +9,60 @@ namespace CRM {
       private Task<IEmployee[]> Employees;
       public RevenueReports(HttpContext context) {
          Context = REPORT(context);
-         Employees = fetchAllEmployees();
+         Employees = allManagers();
       }
 
       private async Task<ZonalRevenueReport> REPORT(HttpContext context) {
          return await Deserilise<ZonalRevenueReport>(context);
       }
 
-      private async Task<IEmployee[]> fetchAllEmployees() {
+      private async Task<IEmployee[]> allManagers() {
          string employee = await new Database<IEmployee>("employee").FetchAll();
          return DeserializeObject<IEmployee[]>(employee);
       }
 
-      public async Task<string> role() {
+      private async Task<IEmployee[]> zonalManagers() {
+         List<IEmployee> zonalmanagers = new List<IEmployee>();
+
+         foreach (IEmployee employee in await Employees) {
+            if (employee.ROLE == "Zonal Manager") {
+               zonalmanagers.Add(employee);
+            }
+         }
+
+         return zonalmanagers.ToArray();
+      }
+
+      private async Task<IEmployee[]> branchManagers() {
+         List<IEmployee> branchmanagers = new List<IEmployee>();
+
+         foreach (IEmployee employee in await Employees) {
+            if (employee.ROLE == "Branch Manager") {
+               branchmanagers.Add(employee);
+            }
+         }
+
+         return branchmanagers.ToArray();
+      }
+
+      private async Task<IEmployee[]> fetchEmployees() {
+         string ROLE = await role();
+
+         switch (ROLE) {
+            case "Branch Manager":
+               return await branchManagers();
+            case "Zonal Manager":
+               return await zonalManagers();
+            default:
+               return await allManagers();
+         }
+      }
+
+      public async Task<string> f() {
+         return Serialize<IEmployee[]>(await fetchEmployees());
+      }
+
+      private async Task<string> role() {
          ZonalRevenueReport request = await Context;
          string Role = "";
 
