@@ -92,5 +92,35 @@ namespace CRM {
          IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, ZonalRevenueReport>(await Context, "mutual_funds");
          return transactions;
       }
+
+      private async Task<DateTime[]> extractEntryDates() {
+         List<DateTime> entryDates = new List<DateTime>();
+
+         foreach (ILifeTransaction life in await lifeInsuranceTransactions()) {
+            if (entryDates.Contains(life.ENTRY_DATE) == false) {
+               entryDates.Add(life.ENTRY_DATE);
+            }
+         }
+
+         foreach (IGeneralInsurance general in await generalInsuranceTransactions()) {
+            if (entryDates.Contains(general.ENTRY_DATE) == false) {
+               entryDates.Add(general.ENTRY_DATE);
+            }
+         }
+
+         foreach (IFixedDeposit fixedDeposit in await fixedDepositTransactions()) {
+            if (entryDates.Contains(fixedDeposit.ENTRY_DATE) == false) {
+               entryDates.Add(fixedDeposit.ENTRY_DATE);
+            }
+         }
+
+         foreach (IMutualFunds mutual in await mutualfundsTransactions()) {
+            if (entryDates.Contains(mutual.ENTRY_DATE) == false) {
+               entryDates.Add(mutual.ENTRY_DATE);
+            }
+         }
+
+         return entryDates.ToArray();
+      }
    }
 }

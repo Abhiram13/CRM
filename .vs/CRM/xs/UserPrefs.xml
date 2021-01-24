@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workbench>
     <Files>
       <File FileName="Startup.cs" Line="258" Column="54" IsPinned="True" />
-      <File FileName="methods/transactions/lifeInsurance.cs" Line="24" Column="69" />
+      <File FileName="methods/transactions/lifeInsurance.cs" Line="6" Column="17" />
       <File FileName="methods/productReports.cs" Line="24" Column="68" />
-      <File FileName="methods/revenueReport.cs" Line="86" Column="70" />
+      <File FileName="methods/revenueReport.cs" Line="96" Column="58" />
       <File FileName="methods/productReports/zonalReport.cs" Line="39" Column="30" />
     </Files>
     <Pads>
