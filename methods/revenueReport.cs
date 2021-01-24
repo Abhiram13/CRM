@@ -40,12 +40,6 @@ namespace CRM {
 
          branchmanagers.Add(emply);
 
-         //foreach (IEmployee employee in await Employees) {
-         //   if (employee.ROLE == "Branch Manager") {
-         //      branchmanagers.Add(employee);
-         //   }
-         //}
-
          return branchmanagers.ToArray();
       }
 
@@ -79,10 +73,24 @@ namespace CRM {
          return employee;
       }
 
-      private void employeeById() {
-         //IEmployee[] employeesList = await this.fetchAllEmployees();
-         //IEmployee Employee = Array.Find<IEmployee>(employeesList, employee => employee.ID.ToString() == id);
-         //return Serialize<IEmployee>(Employee);
+      private async Task<ILifeTransaction[]> lifeInsuranceTransactions() {
+         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, ZonalRevenueReport>(await Context, "life_insurance");
+         return transactions;
+      }
+
+      private async Task<IGeneralInsurance[]> generalInsuranceTransactions() {
+         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, ZonalRevenueReport>(await Context, "general_insurance");
+         return transactions;
+      }
+
+      private async Task<IFixedDeposit[]> fixedDepositTransactions() {
+         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, ZonalRevenueReport>(await Context, "fixed_deposit");
+         return transactions;
+      }
+
+      private async Task<IMutualFunds[]> mutualfundsTransactions() {
+         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, ZonalRevenueReport>(await Context, "mutual_funds");
+         return transactions;
       }
    }
 }
