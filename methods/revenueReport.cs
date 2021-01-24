@@ -21,11 +21,13 @@ namespace CRM {
          return DeserializeObject<IEmployee[]>(employee);
       }
 
-      private async Task<IEmployee[]> zonalManagers() {
+      private async Task<IEmployee[]> zonalManagers(IEmployee emply) {
          List<IEmployee> zonalmanagers = new List<IEmployee>();
 
+         zonalmanagers.Add(emply);
+
          foreach (IEmployee employee in await Employees) {
-            if (employee.ROLE == "Zonal Manager") {
+            if (employee.ROLE == "Branch Manager") {
                zonalmanagers.Add(employee);
             }
          }
@@ -33,26 +35,28 @@ namespace CRM {
          return zonalmanagers.ToArray();
       }
 
-      private async Task<IEmployee[]> branchManagers() {
+      private IEmployee[] branchManagers(IEmployee emply) {
          List<IEmployee> branchmanagers = new List<IEmployee>();
 
-         foreach (IEmployee employee in await Employees) {
-            if (employee.ROLE == "Branch Manager") {
-               branchmanagers.Add(employee);
-            }
-         }
+         branchmanagers.Add(emply);
+
+         //foreach (IEmployee employee in await Employees) {
+         //   if (employee.ROLE == "Branch Manager") {
+         //      branchmanagers.Add(employee);
+         //   }
+         //}
 
          return branchmanagers.ToArray();
       }
 
       private async Task<IEmployee[]> fetchEmployees() {
-         string ROLE = await role();
+         IEmployee EMPLOYEE = await role();
 
-         switch (ROLE) {
+         switch (EMPLOYEE.ROLE) {
             case "Branch Manager":
-               return await branchManagers();
+               return branchManagers(EMPLOYEE);
             case "Zonal Manager":
-               return await zonalManagers();
+               return await zonalManagers(EMPLOYEE);
             default:
                return await allManagers();
          }
@@ -62,17 +66,17 @@ namespace CRM {
          return Serialize<IEmployee[]>(await fetchEmployees());
       }
 
-      private async Task<string> role() {
+      private async Task<IEmployee> role() {
          ZonalRevenueReport request = await Context;
-         string Role = "";
+         IEmployee employee = new IEmployee();
 
          foreach (IEmployee emp in await Employees) {
             if (emp.ID == request.MANAGER) {
-               Role = emp.ROLE;
+               employee = emp;
             }
          }
 
-         return Role;
+         return employee;
       }
 
       private void employeeById() {

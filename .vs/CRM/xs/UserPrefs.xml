@@ -2,11 +2,11 @@
   <MonoDevelop.Ide.Workbench>
     <Files>
       <File FileName="Startup.cs" Line="258" Column="54" IsPinned="True" />
-      <File FileName="methods/transactions/lifeInsurance.cs" Line="1" Column="1" />
-      <File FileName="methods/productReports.cs" Line="19" Column="55" />
-      <File FileName="methods/revenueReport.cs" Line="65" Column="14" />
-      <File FileName="methods/Revenue Reports/LifeInsuranceRevenueReport.cs" Line="11" Column="5" />
-      <File FileName="methods/productReports/zonalReport.cs" Line="11" Column="17" />
+      <File FileName="methods/transactions/lifeInsurance.cs" />
+      <File FileName="methods/productReports.cs" />
+      <File FileName="methods/revenueReport.cs" Line="73" Column="54" />
+      <File FileName="methods/Revenue Reports/LifeInsuranceRevenueReport.cs" />
+      <File FileName="methods/productReports/zonalReport.cs" />
     </Files>
     <Pads>
       <Pad Id="ClassPad">
