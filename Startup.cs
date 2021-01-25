@@ -255,7 +255,7 @@ namespace CRM {
 
             endpoints.MapPost("/zonalrevenuereports", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new RevenueReports(context).f()
+                  await new RevenueReports(context).d()
                );
             });
          });

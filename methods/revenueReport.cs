@@ -4,6 +4,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace CRM {
+   public class RevenueReport {
+      public long LIFE { get; set; }
+      public long GENERAL { get; set; }
+      public long MUTUAL { get; set; }
+      public long FIXED { get; set; }
+   }
+
    public class RevenueReports : JSON {
       private Task<ZonalRevenueReport> Context;
       private Task<IEmployee[]> Employees;
@@ -57,7 +64,7 @@ namespace CRM {
       }
 
       public async Task<string> f() {
-         return Serialize<IEmployee[]>(await fetchEmployees());
+         return Serialize<DateTime[]>(await extractEntryDates());
       }
 
       private async Task<IEmployee> role() {
@@ -121,6 +128,42 @@ namespace CRM {
          }
 
          return entryDates.ToArray();
+      }
+
+      private async Task<long> response(DateTime date) {
+         ILifeTransaction[] life = await lifeInsuranceTransactions();
+         IGeneralInsurance[] general = await generalInsuranceTransactions();
+         IMutualFunds[] mutual = await mutualfundsTransactions();
+         IFixedDeposit[] fixedDeposit = await fixedDepositTransactions();
+         List<long> list = new List<long>();
+         long s = 0;
+
+         for (int i = 0; i < life.Length; i++) {
+            if (life[i].ENTRY_DATE == date) {
+               list.Add(life[i].REVENUE);
+            }
+         }
+
+         for (int j = 0; j < list.Count; j++) {
+            s += list[j];
+         }
+
+         return s;
+      }
+
+      public async Task<string> d() {
+         DateTime[] dates = await extractEntryDates();
+         List<RevenueReport> list = new List<RevenueReport>();
+
+         for (int i = 0; i < dates.Length; i++) {
+            list.Add(new RevenueReport() {
+               LIFE = await response(dates[i])
+            });
+         }
+
+         string s = Serialize<RevenueReport[]>(list.ToArray());
+
+         return s;
       }
    }
 }
