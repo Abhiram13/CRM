@@ -130,25 +130,14 @@ namespace CRM {
          return entryDates.ToArray();
       }
 
-      private async Task<long> response(DateTime date) {
-         ILifeTransaction[] life = await lifeInsuranceTransactions();
-         IGeneralInsurance[] general = await generalInsuranceTransactions();
-         IMutualFunds[] mutual = await mutualfundsTransactions();
-         IFixedDeposit[] fixedDeposit = await fixedDepositTransactions();
-         List<long> list = new List<long>();
-         long s = 0;
+      private long revenues<TransactionType>(DateTime date, TransactionType[] transactions) {
          long revenue = 0;
 
-         for (int i = 0; i < life.Length; i++) {
-            if (life[i].ENTRY_DATE == date) {
-               //list.Add(life[i].REVENUE);
-               revenue += life[i].REVENUE;
+         for (int i = 0; i < transactions.Length; i++) {
+            if ((DateTime)typeof(TransactionType).GetProperty("ENTRY_DATE").GetValue(transactions[i]) == date) {
+               revenue += (long)typeof(TransactionType).GetProperty("REVENUE").GetValue(transactions[i]);
             }
          }
-
-         //for (int j = 0; j < list.Count; j++) {
-         //   s += list[j];
-         //}
 
          return revenue;
       }
@@ -159,7 +148,7 @@ namespace CRM {
 
          for (int i = 0; i < dates.Length; i++) {
             list.Add(new RevenueReport() {
-               LIFE = await response(dates[i])
+               LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions())
             });
          }
 
