@@ -148,7 +148,10 @@ namespace CRM {
 
          for (int i = 0; i < dates.Length; i++) {
             list.Add(new RevenueReport() {
-               LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions())
+               LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions()),
+               GENERAL = revenues<IGeneralInsurance>(dates[i], await generalInsuranceTransactions()),
+               MUTUAL = revenues<IMutualFunds>(dates[i], await mutualfundsTransactions()),
+               FIXED = revenues<IFixedDeposit>(dates[i], await fixedDepositTransactions())
             });
          }
 
