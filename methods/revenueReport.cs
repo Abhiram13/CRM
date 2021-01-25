@@ -137,18 +137,20 @@ namespace CRM {
          IFixedDeposit[] fixedDeposit = await fixedDepositTransactions();
          List<long> list = new List<long>();
          long s = 0;
+         long revenue = 0;
 
          for (int i = 0; i < life.Length; i++) {
             if (life[i].ENTRY_DATE == date) {
-               list.Add(life[i].REVENUE);
+               //list.Add(life[i].REVENUE);
+               revenue += life[i].REVENUE;
             }
          }
 
-         for (int j = 0; j < list.Count; j++) {
-            s += list[j];
-         }
+         //for (int j = 0; j < list.Count; j++) {
+         //   s += list[j];
+         //}
 
-         return s;
+         return revenue;
       }
 
       public async Task<string> d() {
