@@ -11,6 +11,11 @@ namespace CRM {
       public long FIXED { get; set; }
    }
 
+   public class ZonalRevenue {
+      public DateTime ENTRY_DATE { get; set; }
+      public RevenueReport DATA { get; set; }
+   }
+
    public class RevenueReports : JSON {
       private Task<ZonalRevenueReport> Context;
       private Task<IEmployee[]> Employees;
@@ -144,18 +149,21 @@ namespace CRM {
 
       public async Task<string> d() {
          DateTime[] dates = await extractEntryDates();
-         List<RevenueReport> list = new List<RevenueReport>();
+         List<ZonalRevenue> list = new List<ZonalRevenue>();
 
          for (int i = 0; i < dates.Length; i++) {
-            list.Add(new RevenueReport() {
-               LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions()),
-               GENERAL = revenues<IGeneralInsurance>(dates[i], await generalInsuranceTransactions()),
-               MUTUAL = revenues<IMutualFunds>(dates[i], await mutualfundsTransactions()),
-               FIXED = revenues<IFixedDeposit>(dates[i], await fixedDepositTransactions())
+            list.Add(new ZonalRevenue() {
+               ENTRY_DATE = dates[i],
+               DATA = new RevenueReport() {
+                  LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions()),
+                  GENERAL = revenues<IGeneralInsurance>(dates[i], await generalInsuranceTransactions()),
+                  MUTUAL = revenues<IMutualFunds>(dates[i], await mutualfundsTransactions()),
+                  FIXED = revenues<IFixedDeposit>(dates[i], await fixedDepositTransactions())
+               },
             });
          }
 
-         string s = Serialize<RevenueReport[]>(list.ToArray());
+         string s = Serialize<ZonalRevenue[]>(list.ToArray());
 
          return s;
       }
