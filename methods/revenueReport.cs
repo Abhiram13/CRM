@@ -68,10 +68,6 @@ namespace CRM {
          }
       }
 
-      public async Task<string> f() {
-         return Serialize<DateTime[]>(await extractEntryDates());
-      }
-
       private async Task<IEmployee> role() {
          ZonalRevenueReport request = await Context;
          IEmployee employee = new IEmployee();
@@ -85,48 +81,37 @@ namespace CRM {
          return employee;
       }
 
-      private async Task<ILifeTransaction[]> lifeInsuranceTransactions() {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, ZonalRevenueReport>(await Context, "life_insurance");
-         return transactions;
-      }
-
-      private async Task<IGeneralInsurance[]> generalInsuranceTransactions() {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, ZonalRevenueReport>(await Context, "general_insurance");
-         return transactions;
-      }
-
-      private async Task<IFixedDeposit[]> fixedDepositTransactions() {
-         IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, ZonalRevenueReport>(await Context, "fixed_deposit");
-         return transactions;
-      }
-
-      private async Task<IMutualFunds[]> mutualfundsTransactions() {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, ZonalRevenueReport>(await Context, "mutual_funds");
+      private async Task<TransactionType[]> dateFilteredTransactions<TransactionType>(string transaction) {
+         TransactionType[] transactions = await new Filter().Transactions<TransactionType, ZonalRevenueReport>(await Context, transaction);
          return transactions;
       }
 
       private async Task<DateTime[]> extractEntryDates() {
          List<DateTime> entryDates = new List<DateTime>();
+         ILifeTransaction[] lifeTransactions = await dateFilteredTransactions<ILifeTransaction>("life_insurance");
+         IGeneralInsurance[] generalTransactions = await dateFilteredTransactions<IGeneralInsurance>("general_insurance");
+         IFixedDeposit[] fixedTransactions = await dateFilteredTransactions<IFixedDeposit>("fixed_deposit");
+         IMutualFunds[] mutualTransactions = await dateFilteredTransactions<IMutualFunds>("mutual_funds");
 
-         foreach (ILifeTransaction life in await lifeInsuranceTransactions()) {
+         foreach (ILifeTransaction life in lifeTransactions) {
             if (entryDates.Contains(life.ENTRY_DATE) == false) {
                entryDates.Add(life.ENTRY_DATE);
             }
          }
 
-         foreach (IGeneralInsurance general in await generalInsuranceTransactions()) {
+         foreach (IGeneralInsurance general in generalTransactions) {
             if (entryDates.Contains(general.ENTRY_DATE) == false) {
                entryDates.Add(general.ENTRY_DATE);
             }
          }
 
-         foreach (IFixedDeposit fixedDeposit in await fixedDepositTransactions()) {
+         foreach (IFixedDeposit fixedDeposit in fixedTransactions) {
             if (entryDates.Contains(fixedDeposit.ENTRY_DATE) == false) {
                entryDates.Add(fixedDeposit.ENTRY_DATE);
             }
          }
 
-         foreach (IMutualFunds mutual in await mutualfundsTransactions()) {
+         foreach (IMutualFunds mutual in mutualTransactions) {
             if (entryDates.Contains(mutual.ENTRY_DATE) == false) {
                entryDates.Add(mutual.ENTRY_DATE);
             }
@@ -147,7 +132,7 @@ namespace CRM {
          return revenue;
       }
 
-      public async Task<string> d() {
+      public async Task<string> report() {
          DateTime[] dates = await extractEntryDates();
          List<ZonalRevenue> list = new List<ZonalRevenue>();
 
@@ -155,10 +140,10 @@ namespace CRM {
             list.Add(new ZonalRevenue() {
                ENTRY_DATE = dates[i],
                DATA = new RevenueReport() {
-                  LIFE = revenues<ILifeTransaction>(dates[i], await lifeInsuranceTransactions()),
-                  GENERAL = revenues<IGeneralInsurance>(dates[i], await generalInsuranceTransactions()),
-                  MUTUAL = revenues<IMutualFunds>(dates[i], await mutualfundsTransactions()),
-                  FIXED = revenues<IFixedDeposit>(dates[i], await fixedDepositTransactions())
+                  LIFE = revenues<ILifeTransaction>(dates[i], await dateFilteredTransactions<ILifeTransaction>("life_insurance")),
+                  GENERAL = revenues<IGeneralInsurance>(dates[i], await dateFilteredTransactions<IGeneralInsurance>("general_insurance")),
+                  MUTUAL = revenues<IMutualFunds>(dates[i], await dateFilteredTransactions<IMutualFunds>("mutual_funds")),
+                  FIXED = revenues<IFixedDeposit>(dates[i], await dateFilteredTransactions<IFixedDeposit>("fixed_deposit"))
                },
             });
          }
