@@ -9,6 +9,7 @@ namespace CRM {
       public long GENERAL { get; set; }
       public long MUTUAL { get; set; }
       public long FIXED { get; set; }
+      public long TOTAL { get; set; }
    }
 
    public class ZonalRevenue {
@@ -137,13 +138,19 @@ namespace CRM {
          List<ZonalRevenue> list = new List<ZonalRevenue>();
 
          for (int i = 0; i < dates.Length; i++) {
+            long LIFE_REVENUE = revenues<ILifeTransaction>(dates[i], await dateFilteredTransactions<ILifeTransaction>("life_insurance"));
+            long GENERAL_REVENUE = revenues<IGeneralInsurance>(dates[i], await dateFilteredTransactions<IGeneralInsurance>("general_insurance"));
+            long FIXED_REVENUE = revenues<IFixedDeposit>(dates[i], await dateFilteredTransactions<IFixedDeposit>("fixed_deposit"));
+            long MUTUAL_REVENUE = revenues<IMutualFunds>(dates[i], await dateFilteredTransactions<IMutualFunds>("mutual_funds"));
+
             list.Add(new ZonalRevenue() {
                ENTRY_DATE = dates[i],
                DATA = new RevenueReport() {
-                  LIFE = revenues<ILifeTransaction>(dates[i], await dateFilteredTransactions<ILifeTransaction>("life_insurance")),
-                  GENERAL = revenues<IGeneralInsurance>(dates[i], await dateFilteredTransactions<IGeneralInsurance>("general_insurance")),
-                  MUTUAL = revenues<IMutualFunds>(dates[i], await dateFilteredTransactions<IMutualFunds>("mutual_funds")),
-                  FIXED = revenues<IFixedDeposit>(dates[i], await dateFilteredTransactions<IFixedDeposit>("fixed_deposit"))
+                  LIFE = LIFE_REVENUE,
+                  GENERAL = GENERAL_REVENUE,
+                  MUTUAL = MUTUAL_REVENUE,
+                  FIXED = FIXED_REVENUE,
+                  TOTAL = LIFE_REVENUE + GENERAL_REVENUE + MUTUAL_REVENUE + FIXED_REVENUE
                },
             });
          }
