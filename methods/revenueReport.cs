@@ -17,6 +17,11 @@ namespace CRM {
       public RevenueReport DATA { get; set; }
    }
 
+   public class Z {
+      public ZonalRevenue[] revenue { get; set; }
+      public RevenueReport total { get; set; }
+   }
+
    public class RevenueReports : JSON {
       private Task<ZonalRevenueReport> Context;
       private Task<IEmployee[]> Employees;
@@ -133,7 +138,34 @@ namespace CRM {
          return revenue;
       }
 
-      public async Task<string> report() {
+      private async Task<RevenueReport> total() {
+         ZonalRevenue[] revenues = await fetchReportData();
+         long life = 0;
+         long general = 0;
+         long fixedD = 0;
+         long mutual = 0;
+         long total = 0;
+
+         for (int i = 0; i < revenues.Length; i++) {
+            life += revenues[i].DATA.LIFE;
+            general += revenues[i].DATA.GENERAL;
+            fixedD += revenues[i].DATA.FIXED;
+            mutual += revenues[i].DATA.MUTUAL;
+            total += revenues[i].DATA.TOTAL;
+         }
+
+         RevenueReport r = new RevenueReport() {
+            FIXED = fixedD,
+            GENERAL = general,
+            LIFE = life,
+            MUTUAL = mutual,
+            TOTAL = total
+         };
+
+         return r;
+      }
+
+      private async Task<ZonalRevenue[]> fetchReportData() {
          DateTime[] dates = await extractEntryDates();
          List<ZonalRevenue> list = new List<ZonalRevenue>();
 
@@ -155,7 +187,18 @@ namespace CRM {
             });
          }
 
-         return Serialize<ZonalRevenue[]>(list.ToArray());
+         return list.ToArray();
+
+         // return Serialize<ZonalRevenue[]>(list.ToArray());
+      }
+
+      public async Task<string> report() {
+         Z zr = new Z() {
+            revenue = await fetchReportData(),
+            total = await total()
+         };
+
+         return Serialize<Z>(zr);
       }
    }
 }
