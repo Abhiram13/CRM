@@ -155,9 +155,7 @@ namespace CRM {
             });
          }
 
-         string s = Serialize<ZonalRevenue[]>(list.ToArray());
-
-         return s;
+         return Serialize<ZonalRevenue[]>(list.ToArray());
       }
    }
 }
