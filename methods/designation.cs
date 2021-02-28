@@ -21,7 +21,7 @@ namespace CRM {
          return desg;
       }
 
-      public async Task<string> FetchAll() {
+      public async Task<string> FetchAll() {         
          return await new Database<IDesignation>("designation").FetchAll();
       }
 

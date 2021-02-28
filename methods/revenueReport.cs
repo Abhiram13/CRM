@@ -154,15 +154,13 @@ namespace CRM {
             total += revenues[i].DATA.TOTAL;
          }
 
-         RevenueReport r = new RevenueReport() {
+         return new RevenueReport() {
             FIXED = fixedD,
             GENERAL = general,
             LIFE = life,
             MUTUAL = mutual,
             TOTAL = total
          };
-
-         return r;
       }
 
       private async Task<ZonalRevenue[]> fetchReportData() {
@@ -188,17 +186,15 @@ namespace CRM {
          }
 
          return list.ToArray();
-
-         // return Serialize<ZonalRevenue[]>(list.ToArray());
       }
 
       public async Task<string> report() {
-         Z zr = new Z() {
-            revenue = await fetchReportData(),
-            total = await total()
-         };
-
-         return Serialize<Z>(zr);
+         return Serialize<Z>(
+            new Z() {
+               revenue = await fetchReportData(),
+               total = await total()
+            }
+         );
       }
    }
 }

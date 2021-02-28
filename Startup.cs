@@ -97,6 +97,12 @@ namespace CRM {
                );
             });
 
+            endpoints.MapGet("/designation/all", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  await new Designation(context).FetchAll()
+               );
+            });
+
             endpoints.MapPost("/customer/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
                   await new Customer(context).Add()
