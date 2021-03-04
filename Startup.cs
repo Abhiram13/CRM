@@ -27,6 +27,12 @@ namespace CRM {
          services.Configure<IISServerOptions>(options => {
             options.AllowSynchronousIO = true;
          });
+
+         services.AddCors(options => {
+            options.AddPolicy(
+                "Open",
+                builder => builder.AllowAnyOrigin().AllowAnyHeader());
+         });
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,8 +42,9 @@ namespace CRM {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1"));
          }
-         app.UseHttpsRedirection();
+         // app.UseHttpsRedirection();
          app.UseRouting();
+         app.UseCors("Open");
          app.UseAuthorization();
          app.UseEndpoints(endpoints => {
             endpoints.MapControllers();
@@ -100,6 +107,12 @@ namespace CRM {
             endpoints.MapGet("/designation/all", async (HttpContext context) => {
                await context.Response.WriteAsync(
                   await new Designation(context).FetchAll()
+               );
+            });
+
+            endpoints.MapGet("/roles/all", async (HttpContext context) => {
+               await context.Response.WriteAsync(
+                  Employee.Roles()
                );
             });
 

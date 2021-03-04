@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace CRM {
    public abstract class IMongoObject {
@@ -97,6 +98,27 @@ namespace CRM {
          }
 
          return check;
+      }
+
+      public static string Roles() {
+         string[] roles = new string[] { 
+            "Admin", 
+            "Zonal Manager", 
+            "Branch Manager", 
+            "Relational Manager", 
+            "Sr.Relational Manager", 
+            "National Sales Manager", 
+            "Regional Sales Manager",
+            "Assistant Manager", 
+            "Team Leader", 
+            "Sr.Team Leader", 
+            "Telesales Manager", 
+            "Backend Operations", 
+            "Account Manager", 
+            "HR" 
+         };
+
+         return JsonSerializer.Serialize<string[]>(roles);
       }
    }
 }
