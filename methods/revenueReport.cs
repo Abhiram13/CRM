@@ -17,7 +17,7 @@ namespace CRM {
       public RevenueData DATA { get; set; }
    }
 
-   public class Z {
+   public class RevenueReportTotal {
       public RevenueReport[] revenue { get; set; }
       public RevenueData total { get; set; }
    }
@@ -189,8 +189,8 @@ namespace CRM {
       }
 
       public async Task<string> report() {
-         return Serialize<Z>(
-            new Z() {
+         return Serialize<RevenueReportTotal>(
+            new RevenueReportTotal() {
                revenue = await fetchReportData(),
                total = await total()
             }
