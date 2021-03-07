@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace CRM {
-   public class RevenueReport {
+   public class RevenueData {
       public long LIFE { get; set; }
       public long GENERAL { get; set; }
       public long MUTUAL { get; set; }
@@ -12,14 +12,14 @@ namespace CRM {
       public long TOTAL { get; set; }
    }
 
-   public class ZonalRevenue {
+   public class RevenueReport {
       public DateTime ENTRY_DATE { get; set; }
-      public RevenueReport DATA { get; set; }
+      public RevenueData DATA { get; set; }
    }
 
    public class Z {
-      public ZonalRevenue[] revenue { get; set; }
-      public RevenueReport total { get; set; }
+      public RevenueReport[] revenue { get; set; }
+      public RevenueData total { get; set; }
    }
 
    public class RevenueReports : JSON {
@@ -138,8 +138,8 @@ namespace CRM {
          return revenue;
       }
 
-      private async Task<RevenueReport> total() {
-         ZonalRevenue[] revenues = await fetchReportData();
+      private async Task<RevenueData> total() {
+         RevenueReport[] revenues = await fetchReportData();
          long life = 0;
          long general = 0;
          long fixedD = 0;
@@ -154,7 +154,7 @@ namespace CRM {
             total += revenues[i].DATA.TOTAL;
          }
 
-         return new RevenueReport() {
+         return new RevenueData() {
             FIXED = fixedD,
             GENERAL = general,
             LIFE = life,
@@ -163,9 +163,9 @@ namespace CRM {
          };
       }
 
-      private async Task<ZonalRevenue[]> fetchReportData() {
+      private async Task<RevenueReport[]> fetchReportData() {
          DateTime[] dates = await extractEntryDates();
-         List<ZonalRevenue> list = new List<ZonalRevenue>();
+         List<RevenueReport> list = new List<RevenueReport>();
 
          for (int i = 0; i < dates.Length; i++) {
             long LIFE_REVENUE = revenues<ILifeTransaction>(dates[i], await dateFilteredTransactions<ILifeTransaction>("life_insurance"));
@@ -173,9 +173,9 @@ namespace CRM {
             long FIXED_REVENUE = revenues<IFixedDeposit>(dates[i], await dateFilteredTransactions<IFixedDeposit>("fixed_deposit"));
             long MUTUAL_REVENUE = revenues<IMutualFunds>(dates[i], await dateFilteredTransactions<IMutualFunds>("mutual_funds"));
 
-            list.Add(new ZonalRevenue() {
+            list.Add(new RevenueReport() {
                ENTRY_DATE = dates[i],
-               DATA = new RevenueReport() {
+               DATA = new RevenueData() {
                   LIFE = LIFE_REVENUE,
                   GENERAL = GENERAL_REVENUE,
                   MUTUAL = MUTUAL_REVENUE,

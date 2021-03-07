@@ -120,5 +120,24 @@ namespace CRM {
 
          return JsonSerializer.Serialize<string[]>(roles);
       }
+
+      // public static string States() {
+      //    string[] roles = new string[] {
+      //       "Andhra Pradesh",
+      //       "Telangana",
+      //       "Kerala",
+      //       "Tamilnadu",
+      //       "Maharastra",
+      //       "Uttar Pradesh",
+      //       "Haryana",
+      //       "Karnataka",
+      //       "Jammu and Kashmir",
+      //       "Uttarakand",
+      //       "New Delhi",
+      //       ""
+      //    };
+
+      //    return JsonSerializer.Serialize<string[]>(roles);
+      // }
    }
 }
