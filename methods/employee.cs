@@ -117,8 +117,8 @@ namespace CRM {
             "Account Manager", 
             "HR" 
          };
-
-         return JsonSerializer.Serialize<string[]>(roles);
+         
+         return SerializeStatic<string[]>(roles);
       }
 
       // public static string States() {
