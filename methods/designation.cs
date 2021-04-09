@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CRM {
    public class IDesignation : IMongoObject {
@@ -21,8 +22,17 @@ namespace CRM {
          return desg;
       }
 
-      public async Task<string> FetchAll() {         
-         return await new Database<IDesignation>("designation").FetchAll();
+      public async Task<string> FetchAll() {
+         string designations = await new Database<IDesignation>("designation").FetchAll();
+         IDesignation[] listOfDesignations = DeserializeObject<IDesignation[]>(designations);
+         List<string> designationsList = new List<string>();
+
+         foreach (IDesignation dsg in listOfDesignations) {
+            designationsList.Add(dsg.DESIGNATION);
+         }
+
+         return Serialize<string[]>(designationsList.ToArray());
+         // return 
       }
 
       private async Task<IDesignation[]> Designations() {

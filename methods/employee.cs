@@ -32,13 +32,13 @@ namespace CRM {
    public class Employee : JSON {
       private HttpContext context;
       private Task<IEmployee> employee;
-
+      
       public Employee(HttpContext Context) {
          context = Context;
          employee = Deserilise<IEmployee>(Context);
       }
 
-      private async Task<string> Check() {         
+      private async Task<string> Check() {
          IEmployee emp = await this.employee;
 
          foreach (var key in emp.GetType().GetProperties()) {
