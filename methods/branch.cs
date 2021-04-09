@@ -9,55 +9,6 @@ namespace CRM {
       public string BRANCH { get; set; }
    }
 
-   public class BranchandDesignation<Type> : JSON {
-      private HttpContext Context;
-      private Task<Type> givenContext;
-      private string name;
-
-      public BranchandDesignation(HttpContext context, string Name) {
-         Context = context;
-         name = Name;
-         givenContext = Deserilise<Type>(context);
-      }
-
-      private async Task<Type[]> ListOfAll() {
-         string list = await new Database<Type>(this.name).FetchAll();
-         return DeserializeObject<Type[]>(list);
-      }
-
-      public async Task<string> Fetch() {
-         Type[] list = await this.ListOfAll();
-         List<string> designationsList = new List<string>();
-
-         foreach (Type dsg in list) {
-            designationsList.Add(typeof(d));
-         }
-
-         return Serialize<string[]>(designationsList.ToArray());
-      }
-
-      private async Task<bool> Check() {
-         IDesignation[] listOfDesignations = await this.AllDesignations();
-         IDesignation dsg = await this.givenDesignation;
-
-         for (int i = 0; i < listOfDesignations.Length; i++) {
-            bool isDesignationExist = listOfDesignations[i].DESIGNATION.ToString() == dsg.DESIGNATION.ToString();
-            if (isDesignationExist) return true;
-         }
-
-         return false;
-      }
-
-      public async Task<string> Add() {
-         if (!await this.Check()) {
-            new Database<IDesignation>("designation").Insert(await this.givenDesignation);
-            return "Designation Successfully Added";
-         }
-
-         return "Designation already Added";
-      }
-   }
-
    public class Branch : String {
       HttpContext Context;
       Task<IBranch> branch;
