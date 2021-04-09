@@ -106,7 +106,7 @@ namespace CRM {
 
             endpoints.MapGet("/designation/all", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Designation(context).FetchAll()
+                  await new Designation(context).FetchDesignations()
                );
             });
 
