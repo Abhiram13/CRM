@@ -1,12 +1,61 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CRM {
    public class IBranch : IMongoObject {
-      public string ID { get; set; } = "";
       public string LOCATION { get; set; }
       public string BRANCH { get; set; }
+   }
+
+   public class BranchandDesignation<Type> : JSON {
+      private HttpContext Context;
+      private Task<Type> givenContext;
+      private string name;
+
+      public BranchandDesignation(HttpContext context, string Name) {
+         Context = context;
+         name = Name;
+         givenContext = Deserilise<Type>(context);
+      }
+
+      private async Task<Type[]> ListOfAll() {
+         string list = await new Database<Type>(this.name).FetchAll();
+         return DeserializeObject<Type[]>(list);
+      }
+
+      public async Task<string> Fetch() {
+         Type[] list = await this.ListOfAll();
+         List<string> designationsList = new List<string>();
+
+         foreach (Type dsg in list) {
+            designationsList.Add(typeof(d));
+         }
+
+         return Serialize<string[]>(designationsList.ToArray());
+      }
+
+      private async Task<bool> Check() {
+         IDesignation[] listOfDesignations = await this.AllDesignations();
+         IDesignation dsg = await this.givenDesignation;
+
+         for (int i = 0; i < listOfDesignations.Length; i++) {
+            bool isDesignationExist = listOfDesignations[i].DESIGNATION.ToString() == dsg.DESIGNATION.ToString();
+            if (isDesignationExist) return true;
+         }
+
+         return false;
+      }
+
+      public async Task<string> Add() {
+         if (!await this.Check()) {
+            new Database<IDesignation>("designation").Insert(await this.givenDesignation);
+            return "Designation Successfully Added";
+         }
+
+         return "Designation already Added";
+      }
    }
 
    public class Branch : String {
@@ -15,12 +64,6 @@ namespace CRM {
       public Branch(HttpContext context) {
          Context = context;
          branch = Deserilise<IBranch>(context);
-      }
-
-      private async Task<IBranch> editedBranch() {
-         IBranch brch = await this.branch;
-         brch.ID = Encode($"{brch.BRANCH}_{brch.LOCATION}");
-         return brch;
       }
 
       public async Task<string> FetchAll() {
@@ -48,11 +91,12 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.Check()) {
-            new Database<IBranch>("branch").Insert(await this.editedBranch());
+            new Database<IBranch>("branch").Insert(await this.branch);
             return "Branch Successfully Added";
          }
 
          return "Branch already Added";
       }
+
    }
 }
