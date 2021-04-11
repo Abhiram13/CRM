@@ -30,7 +30,6 @@ namespace CRM {
    }
 
    public static class FixedDeposit {
-
       public async static Task<IFixedDeposit[]> Report(ICustomer[] customers, ZonalReportBody report) {
          IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, ZonalReportBody>(report, "fixed_deposit");
          List<FixedZonalReport> reports = new List<FixedZonalReport>();
