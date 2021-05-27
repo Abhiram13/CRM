@@ -78,12 +78,12 @@ namespace Models {
       }
 
       // BranchRequestBody
-      public class Branch : RequestBody {
+      public class BranchProduct : ZonalProduct {
          public string BRANCH { get; set; }
       }
 
       //ZonalRequestBody
-      public class Zonal : RequestBody {
+      public class ZonalProduct : RequestBody {
          public string LOCATION { get; set; }
       }
 
@@ -94,7 +94,7 @@ namespace Models {
       }
 
       //RMRequestBody
-      public class RM : RequestBody {
+      public class RMProduct : RequestBody {
          public long MANAGER { get; set; }
       }
    }
@@ -145,7 +145,7 @@ namespace Models {
          public int? __v { get; } = 1;
       }
 
-      public class FixedDeposit : IMongoObject {
+      public class FixedDepositBody : IMongoObject {
          public string COMPANY { get; set; }
          public string PRODUCT { get; set; }
          public string SCHEMA { get; set; }
@@ -161,7 +161,7 @@ namespace Models {
          public int MANAGER { get; set; }
       }
 
-      public class GeneralInsurance : IMongoObject {
+      public class GeneralInsuranceBody : IMongoObject {
          public string COMPANY { get; set; }
          public string PRODUCT { get; set; }
          public long GROSS { get; set; }
@@ -180,7 +180,7 @@ namespace Models {
          public int MANAGER { get; set; }
       }
 
-      public class LifeInsurance : IMongoObject {
+      public class LifeInsuranceBody : IMongoObject {
          public long MOBILE { get; set; }
          public long AADHAAR { get; set; }
          public string ACCOUNT { get; set; }
@@ -196,7 +196,7 @@ namespace Models {
          public int MANAGER { get; set; }
       }
 
-      public class MutualFunds : IMongoObject {
+      public class MutualFundsBody : IMongoObject {
          public string AMC { get; set; }
          public string PRODUCT { get; set; }
          public string FUND { get; set; }
@@ -218,7 +218,7 @@ namespace Models {
    }
 
    namespace ZonalReportsResponseBody {
-      public class FixedDeposit : TransactionsRequestBody.FixedDeposit {
+      public class FixedDepositZ : TransactionsRequestBody.FixedDepositBody {
          public string FIRSTNAME { get; set; }
          public string LASTNAME { get; set; }
          public string EMAIL { get; set; }
@@ -227,7 +227,7 @@ namespace Models {
          public string BRANCH { get; set; }
       }
 
-      public class GeneralInsurance : TransactionsRequestBody.GeneralInsurance {
+      public class GeneralInsuranceZ : TransactionsRequestBody.GeneralInsuranceBody {
          public string FIRSTNAME { get; set; }
          public string LASTNAME { get; set; }
          public string EMAIL { get; set; }
@@ -236,7 +236,7 @@ namespace Models {
          public string BRANCH { get; set; }
       }
 
-      public class MutualFunds : TransactionsRequestBody.MutualFunds {
+      public class MutualFundsZ : TransactionsRequestBody.MutualFundsBody {
          public string FIRSTNAME { get; set; }
          public string LASTNAME { get; set; }
          public string EMAIL { get; set; }
@@ -245,7 +245,7 @@ namespace Models {
          public string BRANCH { get; set; }
       }
 
-      public class LifeInsurance : TransactionsRequestBody.LifeInsurance {
+      public class LifeInsuranceZ : TransactionsRequestBody.LifeInsuranceBody {
          public string FIRSTNAME { get; set; }
          public string LASTNAME { get; set; }
          public string EMAIL { get; set; }
@@ -257,7 +257,7 @@ namespace Models {
 
    namespace RevenueReport {
       namespace Zonal {
-         public class ReportRequestBody : ProductReportsRequestBody.Zonal {
+         public class ReportRequestBody : ProductReportsRequestBody.ZonalProduct {
             public long MANAGER { get; set; }
          }
       }
