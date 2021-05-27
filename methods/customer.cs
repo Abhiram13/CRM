@@ -49,24 +49,11 @@ namespace CRM {
 
       private async Task<string> check() {
          ICustomer emp = await this.customer;
-         string ext = "Please Provide";
 
-         if (emp.AADHAAR == null) {
-            return $"{ext} Aadhaar";
-         } else if (emp.BIRTHDATE == null) {
-            return $"{ext} Date of Birth";
-         } else if (emp.BRANCH == "" || emp.BRANCH == null) {
-            return $"{ext} Branch";
-         } else if (emp.EMAIL == "" || emp.EMAIL == null) {
-            return $"{ext} Email";
-         } else if (emp.FIRSTNAME == "" || emp.FIRSTNAME == null) {
-            return $"{ext} Firstname";
-         } else if (emp.LASTNAME == "" || emp.LASTNAME == null) {
-            return $"{ext} Lastname";
-         } else if (emp.GENDER == "" || emp.GENDER == null) {
-            return $"{ext} Gender";
-         } else if (emp.MOBILE == null) {
-            return $"{ext} Mobile";
+         foreach (var prop in emp.GetType().GetProperties()) {
+            if (prop.GetValue(emp) == null) {
+               return $"Please provide {prop.Name.ToLower()}";
+            }            
          }
 
          return "OK";

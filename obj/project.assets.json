@@ -5312,14 +5312,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/abhiramnagadi/Documents/CRM/CRM.csproj",
+      "projectUniqueName": "/Users/abhiramnagadi/Documents/CRM_/CRM.NET/CRM.csproj",
       "projectName": "CRM",
-      "projectPath": "/Users/abhiramnagadi/Documents/CRM/CRM.csproj",
+      "projectPath": "/Users/abhiramnagadi/Documents/CRM_/CRM.NET/CRM.csproj",
       "packagesPath": "/Users/abhiramnagadi/.nuget/packages/",
-      "outputPath": "/Users/abhiramnagadi/Documents/CRM/obj/",
+      "outputPath": "/Users/abhiramnagadi/Documents/CRM_/CRM.NET/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/abhiramnagadi/.config/NuGet/NuGet.Config"
+        "/Users/abhiramnagadi/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -5384,7 +5384,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.202/RuntimeIdentifierGraph.json"
       }
     }
   }

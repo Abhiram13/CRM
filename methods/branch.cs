@@ -10,8 +10,8 @@ namespace CRM {
    }
 
    public class Branch : String {
-      HttpContext Context;
-      Task<IBranch> branch;
+      private HttpContext Context;
+      private Task<IBranch> branch;
       public Branch(HttpContext context) {
          Context = context;
          branch = Deserilise<IBranch>(context);
