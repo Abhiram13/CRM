@@ -1,24 +1,27 @@
 using System;
-using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Models;
+using Models.ProductReportsRequestBody;
+using Models.TransactionsRequestBody;
+using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public static class GeneralInsurance {
-      public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, ZonalReportBody report) {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, ZonalReportBody>(report, "general_insurance");
-         List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
+      public async static Task<GeneralInsuranceBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+         GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, ZonalProduct>(report, "general_insurance");
+         List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IGeneralInsurance transaction = transactions[tIndex];
+               GeneralInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
-                  reports.Add(new GeneralZonalReport() {
+                  reports.Add(new GeneralInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      INSURANCE_TYPE = transaction.INSURANCE_TYPE,
                      MANAGER = transaction.MANAGER,
@@ -45,20 +48,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IGeneralInsurance[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, BranchReportBody>(report, "general_insurance");
-         List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
+      public async static Task<GeneralInsuranceBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+         GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, BranchProduct>(report, "general_insurance");
+         List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IGeneralInsurance transaction = transactions[tIndex];
+               GeneralInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
-                  reports.Add(new GeneralZonalReport() {
+                  reports.Add(new GeneralInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      INSURANCE_TYPE = transaction.INSURANCE_TYPE,
                      MANAGER = transaction.MANAGER,
@@ -85,20 +88,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IGeneralInsurance[]> RMReport(ICustomer[] customers, RMReportBody report) {
-         IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, RMReportBody>(report, "general_insurance");
-         List<GeneralZonalReport> reports = new List<GeneralZonalReport>();
+      public async static Task<GeneralInsuranceBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+         GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, RMProduct>(report, "general_insurance");
+         List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IGeneralInsurance transaction = transactions[tIndex];
+               GeneralInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (report.MANAGER == transaction.MANAGER) {
-                  reports.Add(new GeneralZonalReport() {
+                  reports.Add(new GeneralInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      INSURANCE_TYPE = transaction.INSURANCE_TYPE,
                      MANAGER = transaction.MANAGER,

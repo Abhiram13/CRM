@@ -1,24 +1,27 @@
 using System;
-using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Models;
+using Models.ProductReportsRequestBody;
+using Models.TransactionsRequestBody;
+using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public static class MutualFunds {
-      public async static Task<IMutualFunds[]> Report(ICustomer[] customers, ZonalReportBody report) {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, ZonalReportBody>(report, "mutual_funds");
-         List<MutualZonalReport> reports = new List<MutualZonalReport>();
+      public async static Task<MutualFundsBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+         MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, ZonalProduct>(report, "mutual_funds");
+         List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IMutualFunds transaction = transactions[tIndex];
+               MutualFundsBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
-                  reports.Add(new MutualZonalReport() {
+                  reports.Add(new MutualFundsZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      AMC = transaction.AMC,
@@ -49,20 +52,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IMutualFunds[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, BranchReportBody>(report, "mutual_funds");
-         List<MutualZonalReport> reports = new List<MutualZonalReport>();
+      public async static Task<MutualFundsBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+         MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, BranchProduct>(report, "mutual_funds");
+         List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IMutualFunds transaction = transactions[tIndex];
+               MutualFundsBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
-                  reports.Add(new MutualZonalReport() {
+                  reports.Add(new MutualFundsZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      AMC = transaction.AMC,
@@ -93,20 +96,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<IMutualFunds[]> RMReport(ICustomer[] customers, RMReportBody report) {
-         IMutualFunds[] transactions = await new Filter().Transactions<IMutualFunds, RMReportBody>(report, "mutual_funds");
-         List<MutualZonalReport> reports = new List<MutualZonalReport>();
+      public async static Task<MutualFundsBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+         MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, RMProduct>(report, "mutual_funds");
+         List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               IMutualFunds transaction = transactions[tIndex];
+               MutualFundsBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (report.MANAGER == transaction.MANAGER) {
-                  reports.Add(new MutualZonalReport() {
+                  reports.Add(new MutualFundsZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      AMC = transaction.AMC,

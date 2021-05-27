@@ -1,23 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Models;
+using Models.ProductReportsRequestBody;
+using Models.TransactionsRequestBody;
+using Models.ZonalReportsResponseBody;
 
 namespace CRM {   
    public static class LifeInsurance {
-      public async static Task<ILifeTransaction[]> Report(ICustomer[] customers, ZonalReportBody report) {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, ZonalReportBody>(report, "life_insurance");
-         List<ZonalReport> reports = new List<ZonalReport>();
+      public async static Task<LifeInsuranceBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+         LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, ZonalProduct>(report, "life_insurance");
+         List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               ILifeTransaction transaction = transactions[tIndex];
+               LifeInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
-                  reports.Add(new ZonalReport() {
+                  reports.Add(new LifeInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      BANK = transaction.BANK,
@@ -44,20 +48,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<ILifeTransaction[]> BranchReport(ICustomer[] customers, BranchReportBody report) {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, BranchReportBody>(report, "life_insurance");
-         List<ZonalReport> reports = new List<ZonalReport>();
+      public async static Task<LifeInsuranceBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+         LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, BranchProduct>(report, "life_insurance");
+         List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               ILifeTransaction transaction = transactions[tIndex];
+               LifeInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
-                  reports.Add(new ZonalReport() {
+                  reports.Add(new LifeInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      BANK = transaction.BANK,
@@ -84,20 +88,20 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<ILifeTransaction[]> RMReport(ICustomer[] customers, RMReportBody report) {
-         ILifeTransaction[] transactions = await new Filter().Transactions<ILifeTransaction, RMReportBody>(report, "life_insurance");
-         List<ZonalReport> reports = new List<ZonalReport>();
+      public async static Task<LifeInsuranceBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+         LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, RMProduct>(report, "life_insurance");
+         List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
-               ILifeTransaction transaction = transactions[tIndex];
+               LifeInsuranceBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 
                if (report.MANAGER == transaction.MANAGER) {
-                  reports.Add(new ZonalReport() {
+                  reports.Add(new LifeInsuranceZ() {
                      AADHAAR = (long)customer.AADHAAR,
                      ACCOUNT = transaction.ACCOUNT,
                      BANK = transaction.BANK,

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Models;
 
 namespace CRM {
    public class Transaction<TransactionType> : JSON {
@@ -12,20 +13,20 @@ namespace CRM {
          name = transactionName;
       }
 
-      private async Task<ICustomer> checkIfCustomerExist() {
-         ICustomer[] customers = DeserializeObject<ICustomer[]>(await new Database<ICustomer>("customer").FetchAll());
+      private async Task<CustomerModel> checkIfCustomerExist() {
+         CustomerModel[] customers = DeserializeObject<CustomerModel[]>(await new Database<CustomerModel>("customer").FetchAll());
          var MOBILE = typeof(TransactionType).GetProperty("MOBILE").GetValue(await this.transaction);
          var AADHAAR = typeof(TransactionType).GetProperty("AADHAAR").GetValue(await this.transaction);
 
-         ICustomer c = System.Array.Find<ICustomer>(customers, cust => cust.AADHAAR == (long)AADHAAR && cust.MOBILE == (long)MOBILE);
+         CustomerModel c = System.Array.Find<CustomerModel>(customers, cust => cust.AADHAAR == (long)AADHAAR && cust.MOBILE == (long)MOBILE);
          return c;
       }
 
-      private async Task<IEmployee> checkIfEmployeeExist() {
-         IEmployee[] employees = DeserializeObject<IEmployee[]>(await new Database<IEmployee>("employee").FetchAll());
+      private async Task<EmployeeModel> checkIfEmployeeExist() {
+         EmployeeModel[] employees = DeserializeObject<EmployeeModel[]>(await new Database<EmployeeModel>("employee").FetchAll());
          var MANAGER = typeof(TransactionType).GetProperty("MANAGER").GetValue(await this.transaction);
 
-         IEmployee emp = System.Array.Find<IEmployee>(employees, emp => emp.ID == (int)MANAGER);
+         EmployeeModel emp = System.Array.Find<EmployeeModel>(employees, emp => emp.ID == (int)MANAGER);
 
          return emp;
       }
