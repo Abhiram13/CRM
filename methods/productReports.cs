@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using Models;
 
 namespace CRM {
    public class FetchReports<TransactionType, ReportType> : JSON {
@@ -13,15 +13,15 @@ namespace CRM {
          TransactionName = transactionName;
       }
 
-      public delegate Task<TransactionType[]> Delegate(ICustomer[] customers, ReportType report);
+      public delegate Task<TransactionType[]> Delegate(CustomerModel[] customers, ReportType report);
 
       private async Task<ReportType> REPORT(HttpContext context) {
          return await Deserilise<ReportType>(context);
       }
 
-      private async Task<ICustomer[]> fetchAllCustomers() {
-         string customersStringify = await new Database<ICustomer>("customer").FetchAll();
-         return DeserializeObject<ICustomer[]>(customersStringify);
+      private async Task<CustomerModel[]> fetchAllCustomers() {
+         string customersStringify = await new Database<CustomerModel>("customer").FetchAll();
+         return DeserializeObject<CustomerModel[]>(customersStringify);
       }
 
       public async Task<string> fetch(Delegate function) {

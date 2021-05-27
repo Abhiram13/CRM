@@ -1,27 +1,27 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
+using Models;
 
 namespace CRM {
    public class Designation : JSON {
       private HttpContext Context;
-      private Task<IDesignation> givenDesignation;
+      private Task<DesignationModel> givenDesignation;
       public Designation(HttpContext context) {
          Context = context;
-         givenDesignation = Deserilise<IDesignation>(context);
+         givenDesignation = Deserilise<DesignationModel>(context);
       }
 
-      private async Task<IDesignation[]> AllDesignations() {
-         string designations = await new Database<IDesignation>("designation").FetchAll();
-         return DeserializeObject<IDesignation[]>(designations);
+      private async Task<DesignationModel[]> AllDesignations() {
+         string designations = await new Database<DesignationModel>("designation").FetchAll();
+         return DeserializeObject<DesignationModel[]>(designations);
       }
 
       public async Task<string> FetchDesignations() {
-         IDesignation[] listOfDesignations = await this.AllDesignations();
+         DesignationModel[] listOfDesignations = await this.AllDesignations();
          List<string> designationsList = new List<string>();
 
-         foreach (IDesignation dsg in listOfDesignations) {
+         foreach (DesignationModel dsg in listOfDesignations) {
             designationsList.Add(dsg.DESIGNATION);
          }
 
@@ -29,8 +29,8 @@ namespace CRM {
       }
 
       private async Task<bool> Check() {
-         IDesignation[] listOfDesignations = await this.AllDesignations();
-         IDesignation dsg = await this.givenDesignation;
+         DesignationModel[] listOfDesignations = await this.AllDesignations();
+         DesignationModel dsg = await this.givenDesignation;
 
          for (int i = 0; i < listOfDesignations.Length; i++) {
             bool isDesignationExist = listOfDesignations[i].DESIGNATION.ToString() == dsg.DESIGNATION.ToString();
@@ -42,7 +42,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.Check()) {
-            new Database<IDesignation>("designation").Insert(await this.givenDesignation);
+            new Database<DesignationModel>("designation").Insert(await this.givenDesignation);
             return "Designation Successfully Added";
          }
 

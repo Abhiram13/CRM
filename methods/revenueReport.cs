@@ -2,31 +2,35 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Models;
+using Models.RevenueReport.Reports;
+using Models.RevenueReport.Zonal;
+using Models.TransactionsRequestBody;
 
 namespace CRM { 
    public class RevenueReports : JSON {
-      private Task<ZonalRevenueReport> Context;
-      private Task<IEmployee[]> Employees;
+      private Task<ReportRequestBody> Context;
+      private Task<EmployeeModel[]> Employees;
       public RevenueReports(HttpContext context) {
          Context = REPORT(context);
          Employees = allManagers();
       }
 
-      private async Task<ZonalRevenueReport> REPORT(HttpContext context) {
-         return await Deserilise<ZonalRevenueReport>(context);
+      private async Task<ReportRequestBody> REPORT(HttpContext context) {
+         return await Deserilise<ReportRequestBody>(context);
       }
 
-      private async Task<IEmployee[]> allManagers() {
-         string employee = await new Database<IEmployee>("employee").FetchAll();
-         return DeserializeObject<IEmployee[]>(employee);
+      private async Task<EmployeeModel[]> allManagers() {
+         string employee = await new Database<EmployeeModel>("employee").FetchAll();
+         return DeserializeObject<EmployeeModel[]>(employee);
       }
 
-      private async Task<IEmployee[]> zonalManagers(IEmployee emply) {
-         List<IEmployee> zonalmanagers = new List<IEmployee>();
+      private async Task<EmployeeModel[]> zonalManagers(EmployeeModel emply) {
+         List<EmployeeModel> zonalmanagers = new List<EmployeeModel>();
 
          zonalmanagers.Add(emply);
 
-         foreach (IEmployee employee in await Employees) {
+         foreach (EmployeeModel employee in await Employees) {
             if (employee.ROLE == "Branch Manager") {
                zonalmanagers.Add(employee);
             }
@@ -35,16 +39,16 @@ namespace CRM {
          return zonalmanagers.ToArray();
       }
 
-      private IEmployee[] branchManagers(IEmployee emply) {
-         List<IEmployee> branchmanagers = new List<IEmployee>();
+      private EmployeeModel[] branchManagers(EmployeeModel emply) {
+         List<EmployeeModel> branchmanagers = new List<EmployeeModel>();
 
          branchmanagers.Add(emply);
 
          return branchmanagers.ToArray();
       }
 
-      private async Task<IEmployee[]> fetchEmployees() {
-         IEmployee EMPLOYEE = await role();
+      private async Task<EmployeeModel[]> fetchEmployees() {
+         EmployeeModel EMPLOYEE = await role();
 
          switch (EMPLOYEE.ROLE) {
             case "Branch Manager":
@@ -56,11 +60,11 @@ namespace CRM {
          }
       }
 
-      private async Task<IEmployee> role() {
-         ZonalRevenueReport request = await Context;
-         IEmployee employee = new IEmployee();
+      private async Task<EmployeeModel> role() {
+         ReportRequestBody request = await Context;
+         EmployeeModel employee = new EmployeeModel();
 
-         foreach (IEmployee emp in await Employees) {
+         foreach (EmployeeModel emp in await Employees) {
             if (emp.ID == request.MANAGER) {
                employee = emp;
             }
@@ -70,36 +74,36 @@ namespace CRM {
       }
 
       private async Task<TransactionType[]> dateFilteredTransactions<TransactionType>(string transaction) {
-         TransactionType[] transactions = await new Filter().Transactions<TransactionType, ZonalRevenueReport>(await Context, transaction);
+         TransactionType[] transactions = await new Filter().Transactions<TransactionType, ReportRequestBody>(await Context, transaction);
          return transactions;
       }
 
       private async Task<DateTime[]> extractEntryDates() {
          List<DateTime> entryDates = new List<DateTime>();
-         ILifeTransaction[] lifeTransactions = await dateFilteredTransactions<ILifeTransaction>("life_insurance");
-         IGeneralInsurance[] generalTransactions = await dateFilteredTransactions<IGeneralInsurance>("general_insurance");
-         IFixedDeposit[] fixedTransactions = await dateFilteredTransactions<IFixedDeposit>("fixed_deposit");
-         IMutualFunds[] mutualTransactions = await dateFilteredTransactions<IMutualFunds>("mutual_funds");
+         LifeInsuranceBody[] lifeTransactions = await dateFilteredTransactions<LifeInsuranceBody>("life_insurance");
+         GeneralInsuranceBody[] generalTransactions = await dateFilteredTransactions<GeneralInsuranceBody>("general_insurance");
+         FixedDepositBody[] fixedTransactions = await dateFilteredTransactions<FixedDepositBody>("fixed_deposit");
+         MutualFundsBody[] mutualTransactions = await dateFilteredTransactions<MutualFundsBody>("mutual_funds");
 
-         foreach (ILifeTransaction life in lifeTransactions) {
+         foreach (LifeInsuranceBody life in lifeTransactions) {
             if (entryDates.Contains(life.ENTRY_DATE) == false) {
                entryDates.Add(life.ENTRY_DATE);
             }
          }
 
-         foreach (IGeneralInsurance general in generalTransactions) {
+         foreach (GeneralInsuranceBody general in generalTransactions) {
             if (entryDates.Contains(general.ENTRY_DATE) == false) {
                entryDates.Add(general.ENTRY_DATE);
             }
          }
 
-         foreach (IFixedDeposit fixedDeposit in fixedTransactions) {
+         foreach (FixedDepositBody fixedDeposit in fixedTransactions) {
             if (entryDates.Contains(fixedDeposit.ENTRY_DATE) == false) {
                entryDates.Add(fixedDeposit.ENTRY_DATE);
             }
          }
 
-         foreach (IMutualFunds mutual in mutualTransactions) {
+         foreach (MutualFundsBody mutual in mutualTransactions) {
             if (entryDates.Contains(mutual.ENTRY_DATE) == false) {
                entryDates.Add(mutual.ENTRY_DATE);
             }
@@ -120,13 +124,9 @@ namespace CRM {
          return revenue;
       }
 
-      private async Task<RevenueData> total() {
-         RevenueReport[] revenues = await fetchReportData();
-         long life = 0;
-         long general = 0;
-         long fixedD = 0;
-         long mutual = 0;
-         long total = 0;
+      private async Task<DataModel> total() {
+         ReportModel[] revenues = await fetchReportData();
+         long life = 0, general = 0, fixedD = 0, mutual = 0, total = 0;
 
          for (int i = 0; i < revenues.Length; i++) {
             life += revenues[i].DATA.LIFE;
@@ -136,7 +136,7 @@ namespace CRM {
             total += revenues[i].DATA.TOTAL;
          }
 
-         return new RevenueData() {
+         return new DataModel() {
             FIXED = fixedD,
             GENERAL = general,
             LIFE = life,
@@ -145,19 +145,19 @@ namespace CRM {
          };
       }
 
-      private async Task<RevenueReport[]> fetchReportData() {
+      private async Task<ReportModel[]> fetchReportData() {
          DateTime[] dates = await extractEntryDates();
-         List<RevenueReport> list = new List<RevenueReport>();
+         List<ReportModel> list = new List<ReportModel>();
 
          for (int i = 0; i < dates.Length; i++) {
-            long LIFE_REVENUE = revenues<ILifeTransaction>(dates[i], await dateFilteredTransactions<ILifeTransaction>("life_insurance"));
-            long GENERAL_REVENUE = revenues<IGeneralInsurance>(dates[i], await dateFilteredTransactions<IGeneralInsurance>("general_insurance"));
-            long FIXED_REVENUE = revenues<IFixedDeposit>(dates[i], await dateFilteredTransactions<IFixedDeposit>("fixed_deposit"));
-            long MUTUAL_REVENUE = revenues<IMutualFunds>(dates[i], await dateFilteredTransactions<IMutualFunds>("mutual_funds"));
+            long LIFE_REVENUE = revenues<LifeInsuranceBody>(dates[i], await dateFilteredTransactions<LifeInsuranceBody>("life_insurance"));
+            long GENERAL_REVENUE = revenues<GeneralInsuranceBody>(dates[i], await dateFilteredTransactions<GeneralInsuranceBody>("general_insurance"));
+            long FIXED_REVENUE = revenues<FixedDepositBody>(dates[i], await dateFilteredTransactions<FixedDepositBody>("fixed_deposit"));
+            long MUTUAL_REVENUE = revenues<MutualFundsBody>(dates[i], await dateFilteredTransactions<MutualFundsBody>("mutual_funds"));
 
-            list.Add(new RevenueReport() {
+            list.Add(new ReportModel() {
                ENTRY_DATE = dates[i],
-               DATA = new RevenueData() {
+               DATA = new DataModel() {
                   LIFE = LIFE_REVENUE,
                   GENERAL = GENERAL_REVENUE,
                   MUTUAL = MUTUAL_REVENUE,
@@ -171,8 +171,8 @@ namespace CRM {
       }
 
       public async Task<string> report() {
-         return Serialize<RevenueReportTotal>(
-            new RevenueReportTotal() {
+         return Serialize<TotalModel>(
+            new TotalModel() {
                revenue = await fetchReportData(),
                total = await total()
             }

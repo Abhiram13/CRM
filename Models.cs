@@ -106,20 +106,20 @@ namespace Models {
          public int? __v { get; } = 1;
       }
 
-      public class FixedDeposit : IMongoObject {
+      public class FixedDepositRevenue : IMongoObject {
          public string SCHEMA { get; set; }
          public string COMPANY { get; set; }
          public int TENOUR { get; set; }
          public float REVENUE { get; set; }
       }
 
-      public class GeneralInsurance : IMongoObject {
+      public class GeneralInsuranceRevenue : IMongoObject {
          public string PRODUCT { get; set; }
          public string COMPANY { get; set; }
          public int REVENUE { get; set; }
       }
 
-      public class LifeInsurance : IMongoObject {
+      public class LifeInsuranceRevenue : IMongoObject {
          public string PRODUCT { get; set; }
          public string COMPANY { get; set; }
          public string PLAN { get; set; }
@@ -127,7 +127,7 @@ namespace Models {
          public int REVENUE { get; set; }
       }
 
-      public class MutualFunds : IMongoObject {
+      public class MutualFundsRevenue : IMongoObject {
          public string AMC { get; set; }
          public string FUNDS { get; set; }
          public string PLAN { get; set; }

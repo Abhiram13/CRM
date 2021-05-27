@@ -1,25 +1,26 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Models;
 
 namespace CRM {
    public class Product : JSON {
       HttpContext context;
-      Task<IProduct> product;
+      Task<ProductModel> product;
       public Product(HttpContext Context) {
          context = Context;
-         product = Deserilise<IProduct>(Context);
+         product = Deserilise<ProductModel>(Context);
       }
 
-      public async Task<IProduct[]> fetchAllProducts() {
-         string listOfProducts = await new Database<IProduct>("product").FetchAll();
-         return DeserializeObject<IProduct[]>(listOfProducts);
+      public async Task<ProductModel[]> fetchAllProducts() {
+         string listOfProducts = await new Database<ProductModel>("product").FetchAll();
+         return DeserializeObject<ProductModel[]>(listOfProducts);
       }
 
       private async Task<bool> isProductExist() {
-         IProduct[] products = await this.fetchAllProducts();
-         IProduct product = await this.product;
+         ProductModel[] products = await this.fetchAllProducts();
+         ProductModel product = await this.product;
 
-         foreach (IProduct prod in products) {
+         foreach (ProductModel prod in products) {
             if (prod.COMPANY.ToString() == product.COMPANY.ToString() && prod.PRODUCT.ToString() == product.PRODUCT.ToString()) {
                return true;
             }
@@ -30,7 +31,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.isProductExist()) {
-            new Database<IProduct>("product").Insert(await this.product);
+            new Database<ProductModel>("product").Insert(await this.product);
             return "Product has Added Successfully";
          }
 

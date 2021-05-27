@@ -2,29 +2,32 @@ using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Models;
+using Models.ProductReportsRequestBody;
+using Models.TransactionsRequestBody;
+using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public class Branch : String {
       private HttpContext Context;
-      private Task<IBranch> branch;
+      private Task<BranchModel> branch;
       public Branch(HttpContext context) {
          Context = context;
-         branch = Deserilise<IBranch>(context);
+         branch = Deserilise<BranchModel>(context);
       }
 
       public async Task<string> FetchAll() {
-         return await new Database<IBranch>("branch").FetchAll();
+         return await new Database<BranchModel>("branch").FetchAll();
       }
 
-      private async Task<IBranch[]> Branches() {
+      private async Task<BranchModel[]> Branches() {
          string str = await this.FetchAll();
-         IBranch[] listOfBranches = DeserializeObject<IBranch[]>(str);
+         BranchModel[] listOfBranches = DeserializeObject<BranchModel[]>(str);
          return listOfBranches;
       }
 
       private async Task<bool> Check() {
-         IBranch[] listOfBranches = await this.Branches();
-         IBranch currentBranch = await this.branch;
+         BranchModel[] listOfBranches = await this.Branches();
+         BranchModel currentBranch = await this.branch;
 
          for (int i = 0; i < listOfBranches.Length; i++) {
             bool checkLocation = listOfBranches[i].LOCATION.ToString() == currentBranch.LOCATION.ToString();
@@ -37,7 +40,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          if (!await this.Check()) {
-            new Database<IBranch>("branch").Insert(await this.branch);
+            new Database<BranchModel>("branch").Insert(await this.branch);
             return "Branch Successfully Added";
          }
 
