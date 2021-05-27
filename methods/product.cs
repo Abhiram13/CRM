@@ -2,12 +2,6 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace CRM {
-   public class IProduct : IMongoObject {
-      public string PRODUCT { get; set; }
-      public string COMPANY { get; set; }
-      public string TYPE { get; set; }
-   }
-
    public class Product : JSON {
       HttpContext context;
       Task<IProduct> product;

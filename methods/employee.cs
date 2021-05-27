@@ -1,34 +1,9 @@
 using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using System.Text.Json;
+using Models;
 
 namespace CRM {
-   public abstract class IMongoObject {
-      [BsonIgnoreIfNull]
-      public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
-      public int? __v { get; } = 1;
-   }
-
-   public class IEmployee : IMongoObject {
-      public int ID { get; set; } = 0;
-      public string TITLE { get; set; } = "";
-      public string FIRSTNAME { get; set; } = "";
-      public string LASTNAME { get; set; } = "";
-      public string EMAIL { get; set; } = "";
-      public string PASSWORD { get; set; } = "";
-      public long MOBILE { get; set; } = 0;
-      public string GENDER { get; set; } = "";
-      public string DESIGNATION { get; set; } = "";
-      public string LOCATION { get; set; } = "";
-      public string BRANCH { get; set; } = "";
-      public string STATE { get; set; } = "";
-      public string REGION { get; set; } = "";
-      public string ROLE { get; set; } = "";
-   }
-
    public class Employee : JSON {
       private HttpContext context;
       private Task<IEmployee> employee;

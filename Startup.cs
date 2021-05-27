@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.IO;
+using Models;
 
 namespace CRM {
    public class Startup {

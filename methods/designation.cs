@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System;
 
 namespace CRM {
-   public class IDesignation : IMongoObject {
-      public string DESIGNATION { get; set; }
-   }
-
    public class Designation : JSON {
       private HttpContext Context;
       private Task<IDesignation> givenDesignation;

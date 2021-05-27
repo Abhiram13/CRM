@@ -1,41 +1,16 @@
 using System;
 using System.Collections.Generic;
-using MongoDB.Driver;
 using System.Threading.Tasks;
+using Models;
 
 namespace CRM {
-   public class IFixedDeposit : IMongoObject {
-      public string COMPANY { get; set; }
-      public string PRODUCT { get; set; }
-      public string SCHEMA { get; set; }
-      public int TENOUR { get; set; }
-      public long MOBILE { get; set; }
-      public long AADHAAR { get; set; }
-      public string ACCOUNT { get; set; }
-      public string BANK { get; set; }
-      public long AMOUNT { get; set; }
-      public long REVENUE { get; set; }
-      public DateTime ENTRY_DATE { get; set; }
-      public DateTime ISSUANCE_DATE { get; set; }
-      public int MANAGER { get; set; }
-   }
-
-   public class FixedZonalReport : IFixedDeposit {
-      public string FIRSTNAME { get; set; }
-      public string LASTNAME { get; set; }
-      public string EMAIL { get; set; }
-      public DateTime BIRTHDATE { get; set; }
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
-
    public static class FixedDeposit {
-      public async static Task<IFixedDeposit[]> Report(ICustomer[] customers, ZonalReportBody report) {
+      public async static Task<IFixedDeposit[]> Report(CustomerModel[] customers, ZonalReportBody report) {
          IFixedDeposit[] transactions = await new Filter().Transactions<IFixedDeposit, ZonalReportBody>(report, "fixed_deposit");
          List<FixedZonalReport> reports = new List<FixedZonalReport>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            ICustomer customer = customers[cIndex];
+            CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {

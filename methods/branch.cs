@@ -1,14 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using Models;
 
 namespace CRM {
-   public class IBranch : IMongoObject {
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
-
    public class Branch : String {
       private HttpContext Context;
       private Task<IBranch> branch;

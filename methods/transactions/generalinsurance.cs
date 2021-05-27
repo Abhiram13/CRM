@@ -4,34 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CRM {
-   public class IGeneralInsurance : IMongoObject {
-      public string COMPANY { get; set; }
-      public string PRODUCT { get; set; }
-      public long GROSS { get; set; }
-      public long NET { get; set; }      
-      public string POLICY_NUMBER { get; set; }
-      public int POLICY_TENOUR { get; set; }
-      public string POLICY_TYPE { get; set; }
-      public DateTime POLICY_LOGIN_DATE { get; set; }
-      public string INSURANCE_TYPE { get; set; }
-      public string BANK { get; set; }
-      public int PAYMENT_TERM { get; set; }
-      public DateTime ENTRY_DATE { get; set; }
-      public long REVENUE { get; set; }
-      public long MOBILE { get; set; }
-      public long AADHAAR { get; set; }
-      public int MANAGER { get; set; }
-   }
-
-   public class GeneralZonalReport : IGeneralInsurance {
-      public string FIRSTNAME { get; set; }
-      public string LASTNAME { get; set; }
-      public string EMAIL { get; set; }
-      public DateTime BIRTHDATE { get; set; }
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
-
    public static class GeneralInsurance {
       public async static Task<IGeneralInsurance[]> Report(ICustomer[] customers, ZonalReportBody report) {
          IGeneralInsurance[] transactions = await new Filter().Transactions<IGeneralInsurance, ZonalReportBody>(report, "general_insurance");

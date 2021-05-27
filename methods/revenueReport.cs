@@ -3,25 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace CRM {
-   public class RevenueData {
-      public long LIFE { get; set; }
-      public long GENERAL { get; set; }
-      public long MUTUAL { get; set; }
-      public long FIXED { get; set; }
-      public long TOTAL { get; set; }
-   }
-
-   public class RevenueReport {
-      public DateTime ENTRY_DATE { get; set; }
-      public RevenueData DATA { get; set; }
-   }
-
-   public class RevenueReportTotal {
-      public RevenueReport[] revenue { get; set; }
-      public RevenueData total { get; set; }
-   }
-
+namespace CRM { 
    public class RevenueReports : JSON {
       private Task<ZonalRevenueReport> Context;
       private Task<IEmployee[]> Employees;

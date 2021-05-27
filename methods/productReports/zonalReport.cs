@@ -1,26 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+// using Models;
 
-namespace CRM {
-   public class ReportBody : IMongoObject {
-      public DateTime END_DATE { get; set; }
-      public DateTime START_DATE { get; set; }
-   }
-
-   public class ZonalReportBody : ReportBody {
-      public string LOCATION { get; set; }
-   }
-
-   public class ZonalReport : ILifeTransaction {
-      public string FIRSTNAME { get; set; }
-      public string LASTNAME { get; set; }
-      public string EMAIL { get; set; }
-      public DateTime BIRTHDATE { get; set; }
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
-
+namespace CRM {   
    public class Filter : JSON {
       public async Task<TransactionType[]> Transactions<TransactionType, ProductType>(ProductType report, string transactionName) {
          TransactionType[] transactions = DeserializeObject<TransactionType[]>(await new Database<TransactionType>(transactionName).FetchAll());
