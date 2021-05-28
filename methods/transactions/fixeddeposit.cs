@@ -9,7 +9,7 @@ using Models.ZonalReportsResponseBody;
 namespace CRM {
    public static class FixedDeposit {
       public async static Task<FixedDepositBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
-         List<FixedDepositBody> transactions = await Transactions.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, "fixed_deposit");
+         List<FixedDepositBody> transactions = await Transactions.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, Table.fixedDeposit);
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
