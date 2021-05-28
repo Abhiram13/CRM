@@ -93,7 +93,7 @@ namespace CRM {
             "HR" 
          };
 
-         return SerializeStatic<string[]>(roles);
+         return new JSON().Serialize<string[]>(roles);
       }
    }
 }

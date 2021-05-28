@@ -18,6 +18,11 @@ namespace CRM {
       private async Task<CustomerModel> body(HttpContext context) {
          return await Deserilise<CustomerModel>(context);
       }
+
+      public async static Task<CustomerModel[]> fetchAllCustomers() {
+         string customer = await new Database<CustomerModel>("customer").FetchAll();
+         return new JSON().DeserializeObject<CustomerModel[]>(customer);
+      }
    }
 
    public sealed class Customer : JSON {
