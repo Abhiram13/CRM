@@ -9,14 +9,14 @@ using Models.ZonalReportsResponseBody;
 namespace CRM {
    public static class FixedDeposit {
       public async static Task<FixedDepositBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
-         FixedDepositBody[] transactions = await new Filter().Transactions<FixedDepositBody, ZonalProduct>(report, "fixed_deposit");
+         List<FixedDepositBody> transactions = await Transactions.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, "fixed_deposit");
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             CustomerModel customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
-            for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
+            for (int tIndex = 0; tIndex < transactions.Count; tIndex++) {
                FixedDepositBody transaction = transactions[tIndex];
                long tMobile = transaction.MOBILE;
 

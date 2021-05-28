@@ -34,4 +34,20 @@ namespace CRM {
       //    return JsonSerializer.Serialize<Document>(document);
       // }
    }
+
+   public static class JSONObject {
+      public async static Task<DocumentType> Deserilise<DocumentType>(HttpContext context) {
+         StreamReader reader = new StreamReader(context.Request.Body);
+         Task<string> str = reader.ReadToEndAsync();
+         return JsonSerializer.Deserialize<DocumentType>(await str);
+      }
+
+      public static Document DeserializeObject<Document>(string doc) {
+         return JsonSerializer.Deserialize<Document>(doc);
+      }
+
+      public static string Serialize<Document>(Document document) {
+         return JsonSerializer.Serialize<Document>(document);
+      }
+   }
 }

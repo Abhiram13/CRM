@@ -20,7 +20,7 @@ namespace CRM {
       }
 
       public async static Task<CustomerModel[]> fetchAllCustomers() {
-         string customer = await new Database<CustomerModel>("customer").FetchAll();
+         string customer = await new Database<CustomerModel>(Table.customer).FetchAll();
          return new JSON().DeserializeObject<CustomerModel[]>(customer);
       }
    }
