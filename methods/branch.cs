@@ -2,14 +2,12 @@ using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Models;
-using Models.ProductReportsRequestBody;
-using Models.TransactionsRequestBody;
-using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public class Branch : String {
       private HttpContext Context;
       private Task<BranchModel> branch;
+      
       public Branch(HttpContext context) {
          Context = context;
          branch = Deserilise<BranchModel>(context);

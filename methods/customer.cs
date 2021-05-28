@@ -8,6 +8,18 @@ namespace CRM {
       public long QUERY { get; set; }
    }
 
+   public sealed class Cust : JSON {
+      private Task<CustomerModel> customer;
+
+      public Cust(HttpContext context) {
+         customer = body(context);
+      }
+
+      private async Task<CustomerModel> body(HttpContext context) {
+         return await Deserilise<CustomerModel>(context);
+      }
+   }
+
    public sealed class Customer : JSON {
       private Task<CustomerModel> customer;
 
@@ -25,7 +37,7 @@ namespace CRM {
          foreach (var prop in emp.GetType().GetProperties()) {
             if (prop.GetValue(emp) == null) {
                return $"Please provide {prop.Name.ToLower()}";
-            }            
+            }
          }
 
          return "OK";
