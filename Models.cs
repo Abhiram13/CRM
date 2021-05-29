@@ -9,6 +9,11 @@ namespace Models {
       public int? __v { get; } = 1;
    }
 
+   public struct CustomerDetails {
+      public long mobile { get; set; }
+      public long aadhaar { get; set; }
+   }
+
    public class EmployeeModel : IMongoObject {
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";

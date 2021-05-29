@@ -5,6 +5,7 @@ using Models;
 using Models.ProductReportsRequestBody;
 using Models.TransactionsRequestBody;
 using Models.ZonalReportsResponseBody;
+using Microsoft.AspNetCore.Http;
 
 namespace CRM {   
    public static class LifeInsurance {
@@ -127,6 +128,29 @@ namespace CRM {
          }
 
          return reports.ToArray();
+      }
+   }
+
+   // fetches request body from httpcontext //// over
+   // deserilise object from context //// over
+   // verifies if user and customer exists
+   // if any of them do not exists, send response
+   // if everything is good, add to database
+   public class LifeInsuranceTransactions {
+      private HttpContext context;
+      private Task<LifeInsuranceBody> lifeInsurance;
+
+      public LifeInsuranceTransactions(HttpContext Context) {
+         this.context = Context;
+         this.lifeInsurance = this.deseriliseContext();
+      }
+
+      private async Task<LifeInsuranceBody> deseriliseContext() {
+         return await JSONObject.Deserilise<LifeInsuranceBody>(this.context);
+      }
+
+      private async void isCustomerExist() {
+         //
       }
    }
 }

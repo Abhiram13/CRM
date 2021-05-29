@@ -10,8 +10,15 @@ namespace CRM {
          this.Context = context;
       }
 
-      private async void deseriliseContext<T>() {
-         CustomerModel[] listOfCustomers = await Customer.fetchAllCustomers();
+      private async Task<CustomerDetails> GivenTransaction<T>() {
+         T trans = await JSONObject.Deserilise<T>(this.Context);
+         var mobile = typeof(T).GetProperty("MOBILE").GetValue(trans);
+         var aadhaar = typeof(T).GetProperty("AADHAAR").GetValue(trans);
+
+         return new CustomerDetails() {
+            aadhaar = (long)aadhaar,
+            mobile = (long)mobile
+         };
       }
 
       /// <summary>
@@ -20,7 +27,9 @@ namespace CRM {
       /// <typeparam name="T">Type of Transaction</typeparam>
       /// <returns></returns>
       public async Task Add<T>() {
-         
+         CustomerDetails details = await GivenTransaction<T>();
+
+         if (Customer.isCustomerExist(details.mobile, details.aadhaar) == null) { }
       }
    }
 
