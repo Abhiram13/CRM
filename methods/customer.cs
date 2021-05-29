@@ -8,23 +8,6 @@ namespace CRM {
       public long QUERY { get; set; }
    }
 
-   public sealed class Cust : JSON {
-      private Task<CustomerModel> customer;
-
-      public Cust(HttpContext context) {
-         customer = body(context);
-      }
-
-      private async Task<CustomerModel> body(HttpContext context) {
-         return await Deserilise<CustomerModel>(context);
-      }
-
-      public async static Task<CustomerModel[]> fetchAllCustomers() {
-         string customer = await new Database<CustomerModel>(Table.customer).FetchAll();
-         return new JSON().DeserializeObject<CustomerModel[]>(customer);
-      }
-   }
-
    public sealed class Customer : JSON {
       private Task<CustomerModel> customer;
 
@@ -48,22 +31,14 @@ namespace CRM {
          return "OK";
       }
 
-      private async Task<CustomerModel[]> fetchAllCustomers() {
+      public static async Task<CustomerModel[]> fetchAllCustomers() {
          string customer = await new Database<CustomerModel>("customer").FetchAll();
-         return DeserializeObject<CustomerModel[]>(customer);
+         return JSONObject.DeserializeObject<CustomerModel[]>(customer);
       }
 
-      private async Task<bool> isExist() {
-         CustomerModel[] listOfCustomers = await fetchAllCustomers();
-         CustomerModel customer = await this.customer;
-
-         foreach (CustomerModel cust in listOfCustomers) {
-            if (customer.MOBILE == cust.MOBILE || customer.AADHAAR == cust.AADHAAR) {
-               return true;
-            }
-         }
-
-         return false;
+      public static async Task<CustomerModel> isCustomerExist(long? mobile, long? aadhaar) {
+         CustomerModel[] listOfCustomers = await Customer.fetchAllCustomers();
+         return Array.Find<CustomerModel>(listOfCustomers, c => c.MOBILE == mobile && c.AADHAAR == aadhaar);
       }
 
       public async Task<string> Add() {
@@ -71,7 +46,7 @@ namespace CRM {
          CustomerModel customer = await this.customer;
 
          if (check == "OK") {
-            if (!await isExist()) {
+            if (await Customer.isCustomerExist(customer.MOBILE, customer.AADHAAR) == null) {
                new Database<CustomerModel>("customer").Insert(customer);
                return "Customer Successfully Added";
             }
@@ -82,7 +57,7 @@ namespace CRM {
       }
 
       public async Task<string> search(HttpContext context) {
-         CustomerModel[] listOfCustomers = await this.fetchAllCustomers();
+         CustomerModel[] listOfCustomers = await Customer.fetchAllCustomers();
          CustomerSearchQuery query = await Deserilise<CustomerSearchQuery>(context);
          CustomerModel customer = Array.Find<CustomerModel>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
 

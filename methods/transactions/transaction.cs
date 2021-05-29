@@ -3,6 +3,27 @@ using System.Threading.Tasks;
 using Models;
 
 namespace CRM {
+   public sealed partial class Transactions {
+      private HttpContext Context;
+
+      public Transactions(HttpContext context) {
+         this.Context = context;
+      }
+
+      private async void deseriliseContext<T>() {
+         CustomerModel[] listOfCustomers = await Customer.fetchAllCustomers();
+      }
+
+      /// <summary>
+      /// Adds given transaction to the database
+      /// </summary>
+      /// <typeparam name="T">Type of Transaction</typeparam>
+      /// <returns></returns>
+      public async Task Add<T>() {
+         
+      }
+   }
+
    public class Transaction<TransactionType> : JSON {
       private HttpContext Context;
       private Task<TransactionType> transaction;
@@ -13,7 +34,7 @@ namespace CRM {
          name = transactionName;
       }
 
-      private async Task<CustomerModel> checkIfCustomerExist() {
+      private async Task<CustomerModel> checkIfCustomerExist() {         
          CustomerModel[] customers = DeserializeObject<CustomerModel[]>(await new Database<CustomerModel>("customer").FetchAll());
          var MOBILE = typeof(TransactionType).GetProperty("MOBILE").GetValue(await this.transaction);
          var AADHAAR = typeof(TransactionType).GetProperty("AADHAAR").GetValue(await this.transaction);
