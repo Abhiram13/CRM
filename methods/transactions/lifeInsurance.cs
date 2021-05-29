@@ -131,11 +131,6 @@ namespace CRM {
       }
    }
 
-   // fetches request body from httpcontext //// over
-   // deserilise object from context //// over
-   // verifies if user and customer exists
-   // if any of them do not exists, send response
-   // if everything is good, add to database
    public class LifeInsuranceTransactions {
       private HttpContext context;
       private Task<LifeInsuranceBody> lifeInsurance;
@@ -149,8 +144,9 @@ namespace CRM {
          return await JSONObject.Deserilise<LifeInsuranceBody>(this.context);
       }
 
-      private async void isCustomerExist() {
-         //
+      private async Task<bool> isCustomerExist() {
+         LifeInsuranceBody transaction = await lifeInsurance;
+         return Customer.isCustomerExist(transaction.MOBILE, transaction.AADHAAR) == null;
       }
    }
 }

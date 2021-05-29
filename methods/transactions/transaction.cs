@@ -4,33 +4,7 @@ using Models;
 
 namespace CRM {
    public sealed partial class Transactions {
-      private HttpContext Context;
-
-      public Transactions(HttpContext context) {
-         this.Context = context;
-      }
-
-      private async Task<CustomerDetails> GivenTransaction<T>() {
-         T trans = await JSONObject.Deserilise<T>(this.Context);
-         var mobile = typeof(T).GetProperty("MOBILE").GetValue(trans);
-         var aadhaar = typeof(T).GetProperty("AADHAAR").GetValue(trans);
-
-         return new CustomerDetails() {
-            aadhaar = (long)aadhaar,
-            mobile = (long)mobile
-         };
-      }
-
-      /// <summary>
-      /// Adds given transaction to the database
-      /// </summary>
-      /// <typeparam name="T">Type of Transaction</typeparam>
-      /// <returns></returns>
-      public async Task Add<T>() {
-         CustomerDetails details = await GivenTransaction<T>();
-
-         if (Customer.isCustomerExist(details.mobile, details.aadhaar) == null) { }
-      }
+      
    }
 
    public class Transaction<TransactionType> : JSON {
