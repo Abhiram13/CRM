@@ -58,25 +58,25 @@ namespace CRM {
             });
 
             endpoints.MapPost("/employee/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new EmployeeController(context).Add()
-               );
+               // await context.Response.WriteAsync(
+               //    // await new EmployeeController(context).Add()
+               // );
             });
 
             endpoints.MapGet("/employee/select", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  JsonSerializer.Serialize<Employee[]>(
-                     await new EmployeeController(context).fetchAllEmployees()
-                  )
-               );
+               // await context.Response.WriteAsync(
+               //    JsonSerializer.Serialize<Employee[]>(
+               //       await new EmployeeController(context).fetchAllEmployees()
+               //    )
+               // );
             });
 
             endpoints.MapGet("/employee/select/{id}", async (HttpContext context) => {
                string ID = (string)context.Request.RouteValues["id"];
 
-               await context.Response.WriteAsync(
-                  await new EmployeeController(context).fetchEmployeeById(ID)
-               );
+               // await context.Response.WriteAsync(
+               //    await new EmployeeController(context).fetchEmployeeById(ID)
+               // );
             });
 
             endpoints.MapPost("/product/add", async (HttpContext context) => {
@@ -116,9 +116,9 @@ namespace CRM {
             });
 
             endpoints.MapGet("/roles/all", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  EmployeeController.Roles()
-               );
+               // await context.Response.WriteAsync(
+               //    EmployeeController.Roles()
+               // );
             });
 
             endpoints.MapPost("/customer/add", async (HttpContext context) => {
