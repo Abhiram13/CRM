@@ -17,12 +17,12 @@ namespace CRM {
          name = transactionName;
       }
 
-      private async Task<CustomerModel> checkIfCustomerExist() {         
-         CustomerModel[] customers = DeserializeObject<CustomerModel[]>(await new Database<CustomerModel>("customer").FetchAll());
+      private async Task<Customer> checkIfCustomerExist() {         
+         Customer[] customers = DeserializeObject<Customer[]>(await new Database<Customer>("customer").FetchAll());
          var MOBILE = typeof(TransactionType).GetProperty("MOBILE").GetValue(await this.transaction);
          var AADHAAR = typeof(TransactionType).GetProperty("AADHAAR").GetValue(await this.transaction);
 
-         CustomerModel c = System.Array.Find<CustomerModel>(customers, cust => cust.AADHAAR == (long)AADHAAR && cust.MOBILE == (long)MOBILE);
+         Customer c = System.Array.Find<Customer>(customers, cust => cust.AADHAAR == (long)AADHAAR && cust.MOBILE == (long)MOBILE);
          return c;
       }
 

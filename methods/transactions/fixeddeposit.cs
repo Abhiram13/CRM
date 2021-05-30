@@ -8,12 +8,12 @@ using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public static class FixedDeposit {
-      public async static Task<FixedDepositBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+      public async static Task<FixedDepositBody[]> Report(Customer[] customers, ZonalProduct report) {
          List<FixedDepositBody> transactions = await Transactions.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, Table.fixedDeposit);
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Count; tIndex++) {
@@ -48,12 +48,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<FixedDepositBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+      public async static Task<FixedDepositBody[]> BranchReport(Customer[] customers, BranchProduct report) {
          FixedDepositBody[] transactions = await new Filter().Transactions<FixedDepositBody, BranchProduct>(report, "fixed_deposit");
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -88,12 +88,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<FixedDepositBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+      public async static Task<FixedDepositBody[]> RMReport(Customer[] customers, RMProduct report) {
          FixedDepositBody[] transactions = await new Filter().Transactions<FixedDepositBody, RMProduct>(report, "fixed_deposit");
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {

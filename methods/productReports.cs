@@ -13,15 +13,15 @@ namespace CRM {
          TransactionName = transactionName;
       }
 
-      public delegate Task<TransactionType[]> Delegate(CustomerModel[] customers, ReportType report);
+      public delegate Task<TransactionType[]> Delegate(Customer[] customers, ReportType report);
 
       private async Task<ReportType> REPORT(HttpContext context) {
          return await Deserilise<ReportType>(context);
       }
 
-      private async Task<CustomerModel[]> fetchAllCustomers() {
-         string customersStringify = await new Database<CustomerModel>("customer").FetchAll();
-         return DeserializeObject<CustomerModel[]>(customersStringify);
+      private async Task<Customer[]> fetchAllCustomers() {
+         string customersStringify = await new Database<Customer>("customer").FetchAll();
+         return DeserializeObject<Customer[]>(customersStringify);
       }
 
       public async Task<string> fetch(Delegate function) {

@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using Models;
 using CRM;
+using System;
 
 namespace EmployeeManagement {
-   public sealed partial class EmployeeController {
+   public sealed partial class EmployeeController : Controller {
       public static async Task<Employee[]> FetchAllEmployees() {
-         string employee = await new Database<Employee>("employee").FetchAll();
-         return JSONObject.DeserializeObject<Employee[]>(employee);         
+         return await FetchAll<Employee>(Table.employee);
       }
    }
 }

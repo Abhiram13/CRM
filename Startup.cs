@@ -123,20 +123,20 @@ namespace CRM {
             });
 
             endpoints.MapPost("/customer/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Customer(context).Add()
-               );
+               // await context.Response.WriteAsync(
+               //    await new Customer(context).Add()
+               // );
             });
 
             endpoints.MapPost("/customer/search", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Customer(context).search(context)
-               );
+               // await context.Response.WriteAsync(
+               //    await new Customer(context).search(context)
+               // );
             });
 
             endpoints.MapGet("/customer/fetchall", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Database<CustomerModel>("customer").FetchAll()
+                  await new Database<Customer>("customer").FetchAll()
                );
             });
 

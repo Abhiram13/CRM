@@ -8,12 +8,12 @@ using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public static class GeneralInsurance {
-      public async static Task<GeneralInsuranceBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+      public async static Task<GeneralInsuranceBody[]> Report(Customer[] customers, ZonalProduct report) {
          GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, ZonalProduct>(report, "general_insurance");
          List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -48,12 +48,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<GeneralInsuranceBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+      public async static Task<GeneralInsuranceBody[]> BranchReport(Customer[] customers, BranchProduct report) {
          GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, BranchProduct>(report, "general_insurance");
          List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -88,12 +88,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<GeneralInsuranceBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+      public async static Task<GeneralInsuranceBody[]> RMReport(Customer[] customers, RMProduct report) {
          GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, RMProduct>(report, "general_insurance");
          List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {

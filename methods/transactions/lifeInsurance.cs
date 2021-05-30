@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace CRM {   
    public static class LifeInsurance {
-      public async static Task<LifeInsuranceBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+      public async static Task<LifeInsuranceBody[]> Report(Customer[] customers, ZonalProduct report) {
          LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, ZonalProduct>(report, "life_insurance");
          List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -49,12 +49,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<LifeInsuranceBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+      public async static Task<LifeInsuranceBody[]> BranchReport(Customer[] customers, BranchProduct report) {
          LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, BranchProduct>(report, "life_insurance");
          List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -89,12 +89,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<LifeInsuranceBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+      public async static Task<LifeInsuranceBody[]> RMReport(Customer[] customers, RMProduct report) {
          LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, RMProduct>(report, "life_insurance");
          List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -144,9 +144,9 @@ namespace CRM {
          return await JSONObject.Deserilise<LifeInsuranceBody>(this.context);
       }
 
-      private async Task<bool> isCustomerExist() {
-         LifeInsuranceBody transaction = await lifeInsurance;
-         return Customer.isCustomerExist(transaction.MOBILE, transaction.AADHAAR) == null;
-      }
+      // private async Task<bool> isCustomerExist() {
+      //    LifeInsuranceBody transaction = await lifeInsurance;
+      //    return Customer.isCustomerExist(transaction.MOBILE, transaction.AADHAAR) == null;
+      // }
    }
 }

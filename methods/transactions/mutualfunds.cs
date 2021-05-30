@@ -8,12 +8,12 @@ using Models.ZonalReportsResponseBody;
 
 namespace CRM {
    public static class MutualFunds {
-      public async static Task<MutualFundsBody[]> Report(CustomerModel[] customers, ZonalProduct report) {
+      public async static Task<MutualFundsBody[]> Report(Customer[] customers, ZonalProduct report) {
          MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, ZonalProduct>(report, "mutual_funds");
          List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -52,12 +52,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<MutualFundsBody[]> BranchReport(CustomerModel[] customers, BranchProduct report) {
+      public async static Task<MutualFundsBody[]> BranchReport(Customer[] customers, BranchProduct report) {
          MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, BranchProduct>(report, "mutual_funds");
          List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
@@ -96,12 +96,12 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<MutualFundsBody[]> RMReport(CustomerModel[] customers, RMProduct report) {
+      public async static Task<MutualFundsBody[]> RMReport(Customer[] customers, RMProduct report) {
          MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, RMProduct>(report, "mutual_funds");
          List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
-            CustomerModel customer = customers[cIndex];
+            Customer customer = customers[cIndex];
             long? MOBILE = customer.MOBILE;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {

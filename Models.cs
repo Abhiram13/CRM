@@ -31,7 +31,7 @@ namespace Models {
       public string ROLE { get; set; } = "";
    }
 
-   public class CustomerModel : IMongoObject {
+   public class Customer : IMongoObject {
       public string TITLE { get; set; }
       public string FIRSTNAME { get; set; }
       public string LASTNAME { get; set; }
