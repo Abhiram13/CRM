@@ -10,7 +10,7 @@ using Models.TransactionsRequestBody;
 namespace CRM { 
    public class RevenueReports : JSON {
       private Task<ReportRequestBody> Context;
-      private Task<EmployeeModel[]> Employees;
+      private Task<Employee[]> Employees;
       public RevenueReports(HttpContext context) {
          Context = REPORT(context);
          Employees = allManagers();
@@ -20,17 +20,17 @@ namespace CRM {
          return await Deserilise<ReportRequestBody>(context);
       }
 
-      private async Task<EmployeeModel[]> allManagers() {
-         string employee = await new Database<EmployeeModel>("employee").FetchAll();
-         return DeserializeObject<EmployeeModel[]>(employee);
+      private async Task<Employee[]> allManagers() {
+         string employee = await new Database<Employee>("employee").FetchAll();
+         return DeserializeObject<Employee[]>(employee);
       }
 
-      private async Task<EmployeeModel[]> zonalManagers(EmployeeModel emply) {
-         List<EmployeeModel> zonalmanagers = new List<EmployeeModel>();
+      private async Task<Employee[]> zonalManagers(Employee emply) {
+         List<Employee> zonalmanagers = new List<Employee>();
 
          zonalmanagers.Add(emply);
 
-         foreach (EmployeeModel employee in await Employees) {
+         foreach (Employee employee in await Employees) {
             if (employee.ROLE == "Branch Manager") {
                zonalmanagers.Add(employee);
             }
@@ -39,16 +39,16 @@ namespace CRM {
          return zonalmanagers.ToArray();
       }
 
-      private EmployeeModel[] branchManagers(EmployeeModel emply) {
-         List<EmployeeModel> branchmanagers = new List<EmployeeModel>();
+      private Employee[] branchManagers(Employee emply) {
+         List<Employee> branchmanagers = new List<Employee>();
 
          branchmanagers.Add(emply);
 
          return branchmanagers.ToArray();
       }
 
-      private async Task<EmployeeModel[]> fetchEmployees() {
-         EmployeeModel EMPLOYEE = await role();
+      private async Task<Employee[]> fetchEmployees() {
+         Employee EMPLOYEE = await role();
 
          switch (EMPLOYEE.ROLE) {
             case "Branch Manager":
@@ -60,11 +60,11 @@ namespace CRM {
          }
       }
 
-      private async Task<EmployeeModel> role() {
+      private async Task<Employee> role() {
          ReportRequestBody request = await Context;
-         EmployeeModel employee = new EmployeeModel();
+         Employee employee = new Employee();
 
-         foreach (EmployeeModel emp in await Employees) {
+         foreach (Employee emp in await Employees) {
             if (emp.ID == request.MANAGER) {
                employee = emp;
             }

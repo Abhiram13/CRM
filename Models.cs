@@ -14,7 +14,7 @@ namespace Models {
       public long aadhaar { get; set; }
    }
 
-   public class EmployeeModel : IMongoObject {
+   public class Employee : IMongoObject {
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";
       public string FIRSTNAME { get; set; } = "";

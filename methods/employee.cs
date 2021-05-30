@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 using Models;
 
 namespace CRM {
-   public class Employee : JSON {
+   public class EmployeeController : JSON {
       private HttpContext context;
-      private Task<EmployeeModel> employee;
+      private Task<Employee> employee;
       
-      public Employee(HttpContext Context) {
+      public EmployeeController(HttpContext Context) {
          context = Context;
-         employee = Deserilise<EmployeeModel>(Context);
+         employee = Deserilise<Employee>(Context);
       }
 
       private async Task<string> Check() {
-         EmployeeModel emp = await this.employee;
+         Employee emp = await this.employee;
 
          foreach (var key in emp.GetType().GetProperties()) {
             bool stringTypeCheck = key.GetValue(emp) is string;
@@ -29,21 +29,21 @@ namespace CRM {
          return "OK";
       }
 
-      public async Task<EmployeeModel[]> fetchAllEmployees() {
-         string employee = await new Database<EmployeeModel>("employee").FetchAll();
-         return DeserializeObject<EmployeeModel[]>(employee);
+      public async Task<Employee[]> fetchAllEmployees() {
+         string employee = await new Database<Employee>("employee").FetchAll();
+         return DeserializeObject<Employee[]>(employee);
       }
 
       public async Task<string> fetchEmployeeById(string id) {
-         EmployeeModel[] employeesList = await this.fetchAllEmployees();
-         EmployeeModel Employee = Array.Find<EmployeeModel>(employeesList, employee => employee.ID.ToString() == id);
-         return Serialize<EmployeeModel>(Employee);
+         Employee[] employeesList = await this.fetchAllEmployees();
+         Employee Employee = Array.Find<Employee>(employeesList, employee => employee.ID.ToString() == id);
+         return Serialize<Employee>(Employee);
       }
 
-      private async Task<bool> isEmployeeExist(EmployeeModel employee) {
-         EmployeeModel[] listOfEmployees = await this.fetchAllEmployees();
+      private async Task<bool> isEmployeeExist(Employee employee) {
+         Employee[] listOfEmployees = await this.fetchAllEmployees();
 
-         foreach (EmployeeModel emp in listOfEmployees) {
+         foreach (Employee emp in listOfEmployees) {
             if (employee.MOBILE == emp.MOBILE || employee.ID == emp.ID || employee.EMAIL == emp.EMAIL) {
                return true;
             }
@@ -54,7 +54,7 @@ namespace CRM {
 
       public async Task<string> Add() {
          string check = await this.Check();
-         EmployeeModel employee = await this.employee;
+         Employee employee = await this.employee;
 
          // checks if employee request body object is OKAY
          if (check == "OK") {
@@ -64,7 +64,7 @@ namespace CRM {
 
             // if user does not exist, then add employee to the database
             if (!isExist) {
-               new Database<EmployeeModel>("employee").Insert(employee);
+               new Database<Employee>("employee").Insert(employee);
                return "Employee Successfully Added";
             }
 

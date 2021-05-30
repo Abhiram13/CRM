@@ -59,14 +59,14 @@ namespace CRM {
 
             endpoints.MapPost("/employee/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Employee(context).Add()
+                  await new EmployeeController(context).Add()
                );
             });
 
             endpoints.MapGet("/employee/select", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  JsonSerializer.Serialize<EmployeeModel[]>(
-                     await new Employee(context).fetchAllEmployees()
+                  JsonSerializer.Serialize<Employee[]>(
+                     await new EmployeeController(context).fetchAllEmployees()
                   )
                );
             });
@@ -75,7 +75,7 @@ namespace CRM {
                string ID = (string)context.Request.RouteValues["id"];
 
                await context.Response.WriteAsync(
-                  await new Employee(context).fetchEmployeeById(ID)
+                  await new EmployeeController(context).fetchEmployeeById(ID)
                );
             });
 
@@ -117,7 +117,7 @@ namespace CRM {
 
             endpoints.MapGet("/roles/all", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  Employee.Roles()
+                  EmployeeController.Roles()
                );
             });
 

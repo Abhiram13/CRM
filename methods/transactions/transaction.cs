@@ -26,11 +26,11 @@ namespace CRM {
          return c;
       }
 
-      private async Task<EmployeeModel> checkIfEmployeeExist() {
-         EmployeeModel[] employees = DeserializeObject<EmployeeModel[]>(await new Database<EmployeeModel>("employee").FetchAll());
+      private async Task<Employee> checkIfEmployeeExist() {
+         Employee[] employees = DeserializeObject<Employee[]>(await new Database<Employee>("employee").FetchAll());
          var MANAGER = typeof(TransactionType).GetProperty("MANAGER").GetValue(await this.transaction);
 
-         EmployeeModel emp = System.Array.Find<EmployeeModel>(employees, emp => emp.ID == (int)MANAGER);
+         Employee emp = System.Array.Find<Employee>(employees, emp => emp.ID == (int)MANAGER);
 
          return emp;
       }
