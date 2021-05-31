@@ -13,6 +13,7 @@ using Models.TransactionsRequestBody;
 using Models.ZonalReportsResponseBody;
 using Models.RevenuesRequestBody;
 using EmployeeManagement;
+using CustomerManagement;
 
 namespace CRM {
    public class Startup {
@@ -123,9 +124,9 @@ namespace CRM {
             });
 
             endpoints.MapPost("/customer/add", async (HttpContext context) => {
-               // await context.Response.WriteAsync(
-               //    await new Customer(context).Add()
-               // );
+               await context.Response.WriteAsync(
+                  await new CustomerController(context).Add()
+               );
             });
 
             endpoints.MapPost("/customer/search", async (HttpContext context) => {
