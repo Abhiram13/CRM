@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using Models;
-using CRM;
 
 namespace CustomerManagement {
    public sealed partial class CustomerController {      

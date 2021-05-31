@@ -1,7 +1,3 @@
-using System;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using Models;
 
 namespace CRM {
    public class CustomerSearchQuery {

@@ -8,7 +8,7 @@ namespace CustomerManagement {
    public sealed partial class CustomerController {
       private Task<Customer> customer;
 
-      public CustomerController(HttpContext Context) {
+      public CustomerController(HttpContext Context) : base(Context) {
          this.customer = JSONObject.Deserilise<Customer>(Context);
       }
 
@@ -16,12 +16,7 @@ namespace CustomerManagement {
          long query = (long)(await this.customer).MOBILE;
          bool isCustomerExist = await IsCustomerExist(query);
 
-         if (!isCustomerExist) {
-            new Database<Customer>(Table.customer).Insert(await this.customer);
-            return "Customer Successfully Added";
-         }
-
-         return "Customer already Existed";
+         return Add<Customer>(isCustomerExist, Table.customer, await this.customer);
       }
    }
 }
