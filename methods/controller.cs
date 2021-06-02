@@ -3,24 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace CRM {
-   // public sealed partial class EmployeeController {
-   //    private Task<Employee> employee;
-
-   //    public EmployeeController(HttpContext Context) {
-   //       this.employee = JSONObject.Deserilise<Employee>(Context);
-   //    }
-
-   //    public async Task<string> Add() {
-   //       bool isEmployeeExist = await EmployeeController.IsEmployeeExist(this.employee.Id);
-
-   //       if (!isEmployeeExist) {
-   //          new Database<Employee>(Table.employee).Insert(await this.employee);
-   //          return "Employee Successfully Added";
-   //       }
-
-   //       return "Employee already Existed";
-   //    }
-   // }
    public abstract class Controller {
       private HttpContext context;
 
@@ -39,8 +21,8 @@ namespace CRM {
          return JSONObject.DeserializeObject<Table[]>(documents);
       }
 
-      public string Add<Table>(bool b, string table, Table doc) {
-         if (!b) {
+      public string Add<Table>(bool isExist, string table, Table doc) {
+         if (!isExist) {
             new Database<Table>(table).Insert(doc);
             return "Successfully Added";
          }
