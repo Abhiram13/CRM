@@ -14,6 +14,13 @@ namespace Models {
       public long aadhaar { get; set; }
    }
 
+   public struct TransactionVerification<T> {
+      public bool isEmployeeExist { get; set; }
+      public bool isCustomerExist { get; set; }
+      public string table { get; set; }
+      public T document { get; set; }
+   }
+
    public class Employee : IMongoObject {
       public int ID { get; set; } = 0;
       public string TITLE { get; set; } = "";

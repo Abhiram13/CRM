@@ -5,5 +5,6 @@ namespace System {
       public const string customer = "customer";
       public const string fixedDeposit = "fixed_deposit";
       public const string employee = "employee";
+      public const string lifeInsurance = "life_insurance";
    }
 }
