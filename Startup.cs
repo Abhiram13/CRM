@@ -14,6 +14,7 @@ using Models.ZonalReportsResponseBody;
 using Models.RevenuesRequestBody;
 using EmployeeManagement;
 using CustomerManagement;
+using TransactionManagement;
 
 namespace CRM {
    public class Startup {
@@ -89,7 +90,8 @@ namespace CRM {
 
             endpoints.MapPost("/lifeinsurance/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Transaction<LifeInsuranceBody>(context, "life_insurance").Add()
+                  // await new Transaction<LifeInsuranceBody>(context, "life_insurance").Add()
+                  await new LifeInsuranceTransactionController(context).Add()
                );
             });
 

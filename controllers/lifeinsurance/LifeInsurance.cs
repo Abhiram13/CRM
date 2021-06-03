@@ -15,7 +15,7 @@ namespace TransactionManagement {
          this.transaction = JSONObject.Deserilise<LifeInsuranceBody>(context);
       }
 
-      public async Task Add() {
+      public async Task<string> Add() {
          LifeInsuranceBody trans = await this.transaction;
          TransactionVerification<LifeInsuranceBody> details = new TransactionVerification<LifeInsuranceBody>() {
             document = trans,
@@ -24,7 +24,7 @@ namespace TransactionManagement {
             table = Table.lifeInsurance,
          };
 
-         AddTransaction<LifeInsuranceBody>(details);
+         return AddTransaction<LifeInsuranceBody>(details);
       }
    }
 }
