@@ -5,11 +5,12 @@ using Models;
 using Models.ProductReportsRequestBody;
 using Models.TransactionsRequestBody;
 using Models.ZonalReportsResponseBody;
+using TransactionManagement;
 
 namespace CRM {
    public static class FixedDeposit {
       public async static Task<FixedDepositBody[]> Report(Customer[] customers, ZonalProduct report) {
-         List<FixedDepositBody> transactions = await Transactions.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, Table.fixedDeposit);
+         List<FixedDepositBody> transactions = await TransactionController.FetchFromDateRange<FixedDepositBody, ZonalProduct>(report, Table.fixedDeposit);
          List<FixedDepositZ> reports = new List<FixedDepositZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {

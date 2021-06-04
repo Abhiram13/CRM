@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace CRM {
-   public sealed partial class Transactions {
+   public partial class TransactionController {
       
       /// <summary>
       /// Fetches Transactions within Date Range
