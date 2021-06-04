@@ -21,7 +21,7 @@ namespace TransactionManagement {
             document = trans,
             isCustomerExist = await CustomerController.IsCustomerExist(trans.MOBILE),
             isEmployeeExist = await EmployeeController.IsEmployeeExist(trans.MANAGER),
-            table = Table.lifeInsurance,
+            table = Table.fixedDeposit,
          };
 
          return AddTransaction<FixedDepositBody>(details);

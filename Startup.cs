@@ -90,7 +90,6 @@ namespace CRM {
 
             endpoints.MapPost("/lifeinsurance/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  // await new Transaction<LifeInsuranceBody>(context, "life_insurance").Add()
                   await new LifeInsuranceTransactionController(context).Add()
                );
             });
@@ -145,19 +144,19 @@ namespace CRM {
 
             endpoints.MapPost("/fixeddeposit/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Transaction<FixedDepositBody>(context, "fixed_deposit").Add()
+                  await new FixedDepositTransactionController(context).Add()
                );
             });
 
             endpoints.MapPost("/generalinsurance/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Transaction<GeneralInsuranceBody>(context, "general_insurance").Add()
+                  await new GeneralInsuranceTransactionController(context).Add()
                );
             });
 
             endpoints.MapPost("/mutualfunds/add", async (HttpContext context) => {
                await context.Response.WriteAsync(
-                  await new Transaction<MutualFundsBody>(context, "mutual_funds").Add()
+                  await new MutualFundsTransactionController(context).Add()
                );
             });
 
