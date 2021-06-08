@@ -15,8 +15,9 @@ namespace Models {
    }
 
    public struct TransactionVerification<T> {
-      public bool isEmployeeExist { get; set; }
-      public bool isCustomerExist { get; set; }
+      // public bool isEmployeeExist { get; set; }
+      // public bool isCustomerExist { get; set; }
+      public bool boolean { get; set; }
       public string table { get; set; }
       public T document { get; set; }
    }

@@ -19,8 +19,7 @@ namespace TransactionManagement {
          MutualFundsBody trans = await this.transaction;
          TransactionVerification<MutualFundsBody> details = new TransactionVerification<MutualFundsBody>() {
             document = trans,
-            isCustomerExist = await CustomerController.IsCustomerExist(trans.MOBILE),
-            isEmployeeExist = await EmployeeController.IsEmployeeExist(trans.MANAGER),
+            boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.mutualFunds,
          };
 

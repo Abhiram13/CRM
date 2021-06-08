@@ -4,7 +4,7 @@ using CRM;
 namespace TransactionManagement {
    public partial class TransactionController {
       public string AddTransaction<T>(TransactionVerification<T> transaction) {
-         if (!transaction.isEmployeeExist && !transaction.isCustomerExist) {
+         if (transaction.boolean) {
             new Database<T>(transaction.table).Insert(transaction.document);
             return "Transaction successfully Added";
          }
