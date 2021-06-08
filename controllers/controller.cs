@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Models;
 
 namespace CRM {
    public abstract class Controller {
@@ -21,9 +22,9 @@ namespace CRM {
          return JSONObject.DeserializeObject<Table[]>(documents);
       }
 
-      public string Add<Table>(bool isExist, string table, Table doc) {
-         if (!isExist) {
-            new Database<Table>(table).Insert(doc);
+      public string Add<T>(TransactionVerification<T> value) {
+         if (value.boolean) {
+            new Database<T>(value.table).Insert(value.document);
             return "Successfully Added";
          }
 

@@ -5,7 +5,7 @@ using CRM;
 using System;
 
 namespace CustomerManagement {
-   public sealed partial class CustomerController {
+   public sealed partial class CustomerController : Controller {
       private Task<Customer> customer;
 
       public CustomerController(HttpContext Context) : base(Context) {
@@ -14,9 +14,14 @@ namespace CustomerManagement {
 
       public async Task<string> Add() {
          long query = (long)(await this.customer).MOBILE;
-         bool isCustomerExist = await IsCustomerExist(query);
 
-         return Add<Customer>(isCustomerExist, Table.customer, await this.customer);
+         TransactionVerification<Customer> details = new TransactionVerification<Customer>() {
+            boolean = !(await IsCustomerExist(query)),
+            table = Table.customer,
+            document = await this.customer,
+         };
+
+         return Add<Customer>(details);
       }
    }
 }

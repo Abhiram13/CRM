@@ -5,7 +5,7 @@ using CRM;
 using System;
 
 namespace EmployeeManagement {
-   public sealed partial class EmployeeController {
+   public sealed partial class EmployeeController : Controller {
       private Task<Employee> employee;
 
       public EmployeeController(HttpContext Context) : base(Context) {
@@ -13,9 +13,13 @@ namespace EmployeeManagement {
       }
 
       public async Task<string> Add() {
-         bool isEmployeeExist = await EmployeeController.IsEmployeeExist(this.employee.Id);
+         TransactionVerification<Employee> details = new TransactionVerification<Employee>() {
+            boolean = !(await EmployeeController.IsEmployeeExist(this.employee.Id)),
+            table = Table.employee,
+            document = await this.employee,
+         };
 
-         return Add<Employee>(isEmployeeExist, Table.employee, await this.employee);
+         return Add<Employee>(details);
       }
    }
 }
