@@ -8,10 +8,10 @@ using CustomerManagement;
 using EmployeeManagement;
 
 namespace TransactionManagement {
-   public class MutualFundsTransactionController : TransactionController {
+   public class MutualFundsTransactionController : Controller {
       private Task<MutualFundsBody> transaction;
 
-      public MutualFundsTransactionController(HttpContext context) {
+      public MutualFundsTransactionController(HttpContext context) : base(context) {
          this.transaction = JSONObject.Deserilise<MutualFundsBody>(context);
       }
 
@@ -23,7 +23,7 @@ namespace TransactionManagement {
             table = Table.mutualFunds,
          };
 
-         return AddTransaction<MutualFundsBody>(details);
+         return Add<MutualFundsBody>(details);
       }
    }
 }

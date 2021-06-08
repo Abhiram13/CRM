@@ -8,10 +8,10 @@ using CustomerManagement;
 using EmployeeManagement;
 
 namespace TransactionManagement {
-   public class FixedDepositTransactionController : TransactionController {
+   public class FixedDepositTransactionController : Controller {
       private Task<FixedDepositBody> transaction;
 
-      public FixedDepositTransactionController(HttpContext context) {
+      public FixedDepositTransactionController(HttpContext context) : base(context) {
          this.transaction = JSONObject.Deserilise<FixedDepositBody>(context);
       }
 
@@ -19,13 +19,11 @@ namespace TransactionManagement {
          FixedDepositBody trans = await this.transaction;
          TransactionVerification<FixedDepositBody> details = new TransactionVerification<FixedDepositBody>() {
             document = trans,
-            // isCustomerExist = await CustomerController.IsCustomerExist(trans.MOBILE),
-            // isEmployeeExist = await EmployeeController.IsEmployeeExist(trans.MANAGER),
             boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.fixedDeposit,
          };
 
-         return AddTransaction<FixedDepositBody>(details);
+         return Add<FixedDepositBody>(details);
       }
    }
 }

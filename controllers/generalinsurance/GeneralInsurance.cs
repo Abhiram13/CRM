@@ -8,10 +8,10 @@ using CustomerManagement;
 using EmployeeManagement;
 
 namespace TransactionManagement {
-   public class GeneralInsuranceTransactionController : TransactionController {
+   public class GeneralInsuranceTransactionController : Controller {
       private Task<GeneralInsuranceBody> transaction;
 
-      public GeneralInsuranceTransactionController(HttpContext context) {
+      public GeneralInsuranceTransactionController(HttpContext context) : base(context) {
          this.transaction = JSONObject.Deserilise<GeneralInsuranceBody>(context);
       }
 
@@ -19,13 +19,11 @@ namespace TransactionManagement {
          GeneralInsuranceBody trans = await this.transaction;
          TransactionVerification<GeneralInsuranceBody> details = new TransactionVerification<GeneralInsuranceBody>() {
             document = trans,
-            // isCustomerExist = await CustomerController.IsCustomerExist(trans.MOBILE),
-            // isEmployeeExist = await EmployeeController.IsEmployeeExist(trans.MANAGER),
             boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.generalInsurance,
          };
 
-         return AddTransaction<GeneralInsuranceBody>(details);
+         return Add<GeneralInsuranceBody>(details);
       }
    }
 }
