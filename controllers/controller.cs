@@ -22,7 +22,7 @@ namespace CRM {
          return JSONObject.DeserializeObject<Table[]>(documents);
       }
 
-      public string Add<T>(TransactionVerification<T> value) {
+      public string Add<T>(DocumentVerification<T> value) {
          if (value.boolean) {
             new Database<T>(value.table).Insert(value.document);
             return "Successfully Added";

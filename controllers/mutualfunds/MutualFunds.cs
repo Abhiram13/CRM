@@ -17,7 +17,7 @@ namespace TransactionManagement {
 
       public async Task<string> Add() {
          MutualFundsBody trans = await this.transaction;
-         TransactionVerification<MutualFundsBody> details = new TransactionVerification<MutualFundsBody>() {
+         DocumentVerification<MutualFundsBody> details = new DocumentVerification<MutualFundsBody>() {
             document = trans,
             boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.mutualFunds,

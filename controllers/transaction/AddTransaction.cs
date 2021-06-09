@@ -3,7 +3,7 @@ using CRM;
 
 namespace TransactionManagement {
    public partial class TransactionController {
-      // public string AddTransaction<T>(TransactionVerification<T> transaction) {
+      // public string AddTransaction<T>(DocumentVerification<T> transaction) {
       //    if (transaction.boolean) {
       //       new Database<T>(transaction.table).Insert(transaction.document);
       //       return "Transaction successfully Added";

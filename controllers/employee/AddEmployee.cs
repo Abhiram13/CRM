@@ -13,7 +13,7 @@ namespace EmployeeManagement {
       }
 
       public async Task<string> Add() {
-         TransactionVerification<Employee> details = new TransactionVerification<Employee>() {
+         DocumentVerification<Employee> details = new DocumentVerification<Employee>() {
             boolean = !(await EmployeeController.IsEmployeeExist(this.employee.Id)),
             table = Table.employee,
             document = await this.employee,

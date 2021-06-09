@@ -17,7 +17,7 @@ namespace TransactionManagement {
 
       public async Task<string> Add() {
          LifeInsuranceBody trans = await this.transaction;
-         TransactionVerification<LifeInsuranceBody> details = new TransactionVerification<LifeInsuranceBody>() {
+         DocumentVerification<LifeInsuranceBody> details = new DocumentVerification<LifeInsuranceBody>() {
             document = trans,
             boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.lifeInsurance,

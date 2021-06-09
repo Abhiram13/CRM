@@ -17,7 +17,7 @@ namespace TransactionManagement {
 
       public async Task<string> Add() {
          FixedDepositBody trans = await this.transaction;
-         TransactionVerification<FixedDepositBody> details = new TransactionVerification<FixedDepositBody>() {
+         DocumentVerification<FixedDepositBody> details = new DocumentVerification<FixedDepositBody>() {
             document = trans,
             boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
             table = Table.fixedDeposit,

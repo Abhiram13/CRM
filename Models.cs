@@ -14,7 +14,7 @@ namespace Models {
       public long aadhaar { get; set; }
    }
 
-   public struct TransactionVerification<T> {
+   public struct DocumentVerification<T> {
       public bool boolean { get; set; }
       public string table { get; set; }
       public T document { get; set; }

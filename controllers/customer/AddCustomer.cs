@@ -15,7 +15,7 @@ namespace CustomerManagement {
       public async Task<string> Add() {
          long query = (long)(await this.customer).MOBILE;
 
-         TransactionVerification<Customer> details = new TransactionVerification<Customer>() {
+         DocumentVerification<Customer> details = new DocumentVerification<Customer>() {
             boolean = !(await IsCustomerExist(query)),
             table = Table.customer,
             document = await this.customer,
