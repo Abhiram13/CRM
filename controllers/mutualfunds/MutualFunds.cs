@@ -11,7 +11,7 @@ namespace TransactionManagement {
    public class MutualFundsTransactionController : Controller {
       private Task<MutualFundsBody> transaction;
 
-      public MutualFundsTransactionController(HttpContext context) : base(context) {
+      public MutualFundsTransactionController(HttpContext context) {
          this.transaction = JSONObject.Deserilise<MutualFundsBody>(context);
       }
 

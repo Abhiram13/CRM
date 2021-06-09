@@ -8,7 +8,7 @@ namespace CustomerManagement {
    public sealed partial class CustomerController : Controller {
       private Task<Customer> customer;
 
-      public CustomerController(HttpContext Context) : base(Context) {
+      public CustomerController(HttpContext Context) {
          this.customer = JSONObject.Deserilise<Customer>(Context);
       }
 

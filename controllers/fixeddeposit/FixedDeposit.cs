@@ -11,7 +11,7 @@ namespace TransactionManagement {
    public class FixedDepositTransactionController : Controller {
       private Task<FixedDepositBody> transaction;
 
-      public FixedDepositTransactionController(HttpContext context) : base(context) {
+      public FixedDepositTransactionController(HttpContext context) {
          this.transaction = JSONObject.Deserilise<FixedDepositBody>(context);
       }
 

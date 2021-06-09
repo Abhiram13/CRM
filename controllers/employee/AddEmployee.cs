@@ -8,7 +8,7 @@ namespace EmployeeManagement {
    public sealed partial class EmployeeController : Controller {
       private Task<Employee> employee;
 
-      public EmployeeController(HttpContext Context) : base(Context) {
+      public EmployeeController(HttpContext Context) {
          this.employee = JSONObject.Deserilise<Employee>(Context);
       }
 

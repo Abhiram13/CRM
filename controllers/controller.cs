@@ -7,9 +7,9 @@ namespace CRM {
    public abstract class Controller {
       private HttpContext context;
 
-      public Controller(HttpContext Context) {
-         this.context = Context;
-      }
+      // public Controller(HttpContext Context) {
+      //    this.context = Context;
+      // }
 
       /// <summary>
       /// Fetches all documents from the specified table

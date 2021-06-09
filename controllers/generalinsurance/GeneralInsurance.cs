@@ -11,7 +11,7 @@ namespace TransactionManagement {
    public class GeneralInsuranceTransactionController : Controller {
       private Task<GeneralInsuranceBody> transaction;
 
-      public GeneralInsuranceTransactionController(HttpContext context) : base(context) {
+      public GeneralInsuranceTransactionController(HttpContext context) {
          this.transaction = JSONObject.Deserilise<GeneralInsuranceBody>(context);
       }
 
