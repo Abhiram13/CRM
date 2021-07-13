@@ -5,6 +5,7 @@ using Models;
 
 namespace CRM {
    public abstract class Controller {
+      
       /// <summary>
       /// Fetches all documents from the specified table
       /// </summary>
