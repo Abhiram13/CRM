@@ -5,6 +5,8 @@ using CRM;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using AuthenticationService;
+using System.Threading.Tasks;
 
 namespace Authentication {
    [Route("")]
@@ -14,8 +16,9 @@ namespace Authentication {
       public string Home() => "Hello World";
 
       [HttpPost]
-      public void Login() {
-         
+      [Route("login")]
+      public async Task<string> Login() {
+         return new Authenticate.Login(await JSONN.httpContextDeseriliser<LoginRequest>(Request)).authenticate();
       }
 
       // private LoginRequest request;
