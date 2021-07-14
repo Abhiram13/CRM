@@ -30,9 +30,17 @@ namespace AuthenticationController {
          return collection.Find(filter).ToList();
       }
 
-      public void authenticate() {
+      public string authenticate() {
          int id = this.employeeId().Count;
-         int password = this.password().Count;         
+         int password = this.password().Count;
+
+         if (id > 0 && password > 0) {
+            return "Ok";
+         } else if (id == 0) {
+            return "Employee does not exist";
+         }
+
+         return "password is incorrect";
       }
    }
 }

@@ -51,242 +51,245 @@ namespace CRM {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1"));
          }
-         // app.UseHttpsRedirection();
+         app.UseHttpsRedirection();
          app.UseRouting();
          app.UseCors("Open");
          app.UseAuthorization();
          app.UseEndpoints(endpoints => {
             endpoints.MapControllers();
-            endpoints.MapGet("/", (HttpContext context) => {
-               return context.Response.WriteAsync("Welcome to CRM");
-            });
-
-            endpoints.MapPost("/employee/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new EmployeeController(context).Add()
-               );
-            });
-
-            endpoints.MapGet("/employee/select", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  JsonSerializer.Serialize<Employee[]>(
-                     await EmployeeController.FetchAllEmployees()
-                  )
-               );
-            });
-
-            endpoints.MapGet("/employee/select/{id}", async (HttpContext context) => {
-               string ID = (string)context.Request.RouteValues["id"];
-
-               await context.Response.WriteAsync(
-                  JSONObject.Serialize<Employee>(await EmployeeController.FetchById(ID))
-               );
-            });
-
-            endpoints.MapPost("/product/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Product(context).Add()
-               );
-            });
-
-            endpoints.MapPost("/lifeinsurance/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new LifeInsuranceTransactionController(context).Add()
-               );
-            });
-
-            endpoints.MapPost("/branch/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Branch(context).Add()
-               );
-            });
-
-            endpoints.MapGet("/branch/fetchall", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Branch(context).FetchAll()
-               );
-            });
-
-            endpoints.MapPost("/designation/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Designation(context).Add()
-               );
-            });
-
-            endpoints.MapGet("/designation/all", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Designation(context).FetchDesignations()
-               );
-            });
-
-            endpoints.MapGet("/roles/all", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  EmployeeController.Roles()
-               );
-            });
-
-            endpoints.MapPost("/customer/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new CustomerController(context).Add()
-               );
-            });
-
-            // endpoints.MapPost("/customer/search", async (HttpContext context) => {
-            //    // await context.Response.WriteAsync(
-            //    //    await new Customer(context).search(context)
-            //    // );
-            // });
-
-            endpoints.MapGet("/customer/fetchall", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Database<Customer>("customer").FetchAll()
-               );
-            });
-
-            endpoints.MapPost("/fixeddeposit/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FixedDepositTransactionController(context).Add()
-               );
-            });
-
-            endpoints.MapPost("/generalinsurance/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new GeneralInsuranceTransactionController(context).Add()
-               );
-            });
-
-            endpoints.MapPost("/mutualfunds/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new MutualFundsTransactionController(context).Add()
-               );
-            });
-
-            endpoints.MapPost("/lifeinsurancerevenue/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Revenue<LifeInsuranceRevenue>(context, "life_insurance_revenue").Add()
-               );
-            });
-
-            endpoints.MapPost("/generalinsurancerevenue/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Revenue<GeneralInsuranceRevenue>(context, "general_insurance_revenue").Add()
-               );
-            });
-
-            endpoints.MapPost("/fixeddepositrevenue/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Revenue<FixedDepositRevenue>(context, "fixed_deposit_revenue").Add()
-               );
-            });
-
-            endpoints.MapPost("/mutualfundsrevenue/add", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new Revenue<MutualFundsRevenue>(context, "mutual_funds_revenue").Add()
-               );
-            });
-
-            endpoints.MapPost("/lifeinsurancezonalreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                   await new FetchReports<LifeInsuranceBody, ZonalProduct>(context, "life_insurance").fetch(
-                      LifeInsurance.Report
-                   )
-               );
-            });
-
-            endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<GeneralInsuranceBody, ZonalProduct>(context, "general_insurance").fetch(
-                     GeneralInsurance.Report
-                  )
-               );
-            });
-
-            endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<MutualFundsBody, ZonalProduct>(context, "mutual_funds").fetch(
-                     MutualFunds.Report
-                  )
-               );
-            });
-
-            endpoints.MapPost("/fixeddepositzonalreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<FixedDepositBody, ZonalProduct>(context, "fixed_deposit").fetch(
-                     FixedDeposit.Report
-                  )
-               );
-            });
-
-            endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<LifeInsuranceBody, BranchProduct>(context, "life_insurance").fetch(
-                     LifeInsurance.BranchReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/generalinsurancebranchreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<GeneralInsuranceBody, BranchProduct>(context, "general_insurance").fetch(
-                     GeneralInsurance.BranchReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/mutualfundsbranchreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<MutualFundsBody, BranchProduct>(context, "mutual_funds").fetch(
-                     MutualFunds.BranchReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/fixeddepositbranchreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<FixedDepositBody, BranchProduct>(context, "fixed_deposit").fetch(
-                     FixedDeposit.BranchReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/lifeinsurancermreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<LifeInsuranceBody, RMProduct>(context, "life_insurance").fetch(
-                     LifeInsurance.RMReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/generalinsurancermreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<GeneralInsuranceBody, RMProduct>(context, "general_insurance").fetch(
-                     GeneralInsurance.RMReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/mutualfundsrmreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<MutualFundsBody, RMProduct>(context, "mutual_funds").fetch(
-                     MutualFunds.RMReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/fixeddepositrmreports/fetch", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new FetchReports<FixedDepositBody, RMProduct>(context, "fixed_deposit").fetch(
-                     FixedDeposit.RMReport
-                  )
-               );
-            });
-
-            endpoints.MapPost("/zonalrevenuereports", async (HttpContext context) => {
-               await context.Response.WriteAsync(
-                  await new RevenueReports(context).report()
-               );
-            });
          });
+         // app.UseEndpoints(endpoints => {
+         //    endpoints.MapControllers();
+         //    endpoints.MapGet("/", (HttpContext context) => {
+         //       return context.Response.WriteAsync("Welcome to CRM");
+         //    });
+
+         //    endpoints.MapPost("/employee/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new EmployeeController(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapGet("/employee/select", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          JsonSerializer.Serialize<Employee[]>(
+         //             await EmployeeController.FetchAllEmployees()
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapGet("/employee/select/{id}", async (HttpContext context) => {
+         //       string ID = (string)context.Request.RouteValues["id"];
+
+         //       await context.Response.WriteAsync(
+         //          JSONObject.Serialize<Employee>(await EmployeeController.FetchById(ID))
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/product/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Product(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/lifeinsurance/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new LifeInsuranceTransactionController(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/branch/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Branch(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapGet("/branch/fetchall", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Branch(context).FetchAll()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/designation/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Designation(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapGet("/designation/all", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Designation(context).FetchDesignations()
+         //       );
+         //    });
+
+         //    endpoints.MapGet("/roles/all", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          EmployeeController.Roles()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/customer/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new CustomerController(context).Add()
+         //       );
+         //    });
+
+         //    // endpoints.MapPost("/customer/search", async (HttpContext context) => {
+         //    //    // await context.Response.WriteAsync(
+         //    //    //    await new Customer(context).search(context)
+         //    //    // );
+         //    // });
+
+         //    endpoints.MapGet("/customer/fetchall", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Database<Customer>("customer").FetchAll()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/fixeddeposit/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FixedDepositTransactionController(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/generalinsurance/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new GeneralInsuranceTransactionController(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/mutualfunds/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new MutualFundsTransactionController(context).Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/lifeinsurancerevenue/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Revenue<LifeInsuranceRevenue>(context, "life_insurance_revenue").Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/generalinsurancerevenue/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Revenue<GeneralInsuranceRevenue>(context, "general_insurance_revenue").Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/fixeddepositrevenue/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Revenue<FixedDepositRevenue>(context, "fixed_deposit_revenue").Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/mutualfundsrevenue/add", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new Revenue<MutualFundsRevenue>(context, "mutual_funds_revenue").Add()
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/lifeinsurancezonalreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //           await new FetchReports<LifeInsuranceBody, ZonalProduct>(context, "life_insurance").fetch(
+         //              LifeInsurance.Report
+         //           )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/generalinsurancezonalreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<GeneralInsuranceBody, ZonalProduct>(context, "general_insurance").fetch(
+         //             GeneralInsurance.Report
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/mutualfundszonalreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<MutualFundsBody, ZonalProduct>(context, "mutual_funds").fetch(
+         //             MutualFunds.Report
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/fixeddepositzonalreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<FixedDepositBody, ZonalProduct>(context, "fixed_deposit").fetch(
+         //             FixedDeposit.Report
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/lifeinsurancebranchreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<LifeInsuranceBody, BranchProduct>(context, "life_insurance").fetch(
+         //             LifeInsurance.BranchReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/generalinsurancebranchreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<GeneralInsuranceBody, BranchProduct>(context, "general_insurance").fetch(
+         //             GeneralInsurance.BranchReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/mutualfundsbranchreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<MutualFundsBody, BranchProduct>(context, "mutual_funds").fetch(
+         //             MutualFunds.BranchReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/fixeddepositbranchreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<FixedDepositBody, BranchProduct>(context, "fixed_deposit").fetch(
+         //             FixedDeposit.BranchReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/lifeinsurancermreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<LifeInsuranceBody, RMProduct>(context, "life_insurance").fetch(
+         //             LifeInsurance.RMReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/generalinsurancermreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<GeneralInsuranceBody, RMProduct>(context, "general_insurance").fetch(
+         //             GeneralInsurance.RMReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/mutualfundsrmreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<MutualFundsBody, RMProduct>(context, "mutual_funds").fetch(
+         //             MutualFunds.RMReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/fixeddepositrmreports/fetch", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new FetchReports<FixedDepositBody, RMProduct>(context, "fixed_deposit").fetch(
+         //             FixedDeposit.RMReport
+         //          )
+         //       );
+         //    });
+
+         //    endpoints.MapPost("/zonalrevenuereports", async (HttpContext context) => {
+         //       await context.Response.WriteAsync(
+         //          await new RevenueReports(context).report()
+         //       );
+         //    });
+         // });
       }
    }
 }
