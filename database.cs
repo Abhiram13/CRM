@@ -19,9 +19,19 @@ namespace CRM {
 
       public async Task<string> FetchAll() {
          List<DocumentType> list = await collection.Find<DocumentType>(new BsonDocument()).ToListAsync<DocumentType>();
-         string str = JsonSerializer.Serialize<List<DocumentType>>(list);         
+         string str = JsonSerializer.Serialize<List<DocumentType>>(list);
 
          return str;
+      }
+   }
+
+   public sealed class DB<D> {
+      public IMongoCollection<D> collection;
+      public FilterDefinitionBuilder<D> builders;
+      
+      public DB(string collectionName) {
+         collection = Mongo.database.GetCollection<D>(collectionName);
+         builders = Builders<D>.Filter;
       }
    }
 }

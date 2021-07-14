@@ -8,12 +8,31 @@ using CRM;
 using Models;
 
 namespace AuthenticationController {
-   public partial class Authorise {
-      public static List<Employee> findOne() {
-         IMongoCollection<Employee> collection = new Database<Employee>(Table.employee).collection;
-         var builder = Builders<Employee>.Filter;
-         var filter = builder.Eq("ID", 123456) & builder.Eq("PASSWORD", "123");
-         return collection.Find(filter).ToList();    
+   public partial class Login {
+      private LoginRequest request;
+      public Login(LoginRequest req) {
+         request = req;
+      }
+
+      private List<Employee> employeeId() {
+         DB<Employee> db = new DB<Employee>(Table.employee);
+         IMongoCollection<Employee> collection = db.collection;
+         FilterDefinitionBuilder<Employee> builder = db.builders;
+         FilterDefinition<Employee> filter = builder.Eq("ID", request.id);
+         return collection.Find(filter).ToList();
+      }
+
+      private List<Employee> password() {
+         DB<Employee> db = new DB<Employee>(Table.employee);
+         IMongoCollection<Employee> collection = db.collection;
+         FilterDefinitionBuilder<Employee> builder = db.builders;
+         FilterDefinition<Employee> filter = builder.Eq("ID", request.id) & builder.Eq("PASSWORD", request.password);
+         return collection.Find(filter).ToList();
+      }
+
+      public void authenticate() {
+         int id = this.employeeId().Count;
+         int password = this.password().Count;         
       }
    }
 }
