@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Database;
 
 namespace AuthenticationService {
@@ -17,11 +18,13 @@ namespace AuthenticationService {
 
          private bool isEmployee() {
             FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id);
+            List<Employee> list = this.collection.Find(filter).ToList();            
             return this.collection.Find(filter).ToList().Count > 0;
          }
 
          private bool passwordCheck() {
-            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id) & this.builders.Eq("password", request.password);
+            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id) & this.builders.Eq("PASSWORD", request.password);
+            List<Employee> list = this.collection.Find(filter).ToList();            
             return this.collection.Find(filter).ToList().Count > 0;
          }
 
@@ -29,17 +32,18 @@ namespace AuthenticationService {
             bool isEmployee = this.isEmployee();
             bool passwordCheck = this.passwordCheck();
 
-            Console.WriteLine(isEmployee);
-            Console.WriteLine(passwordCheck);
-
             ResponseBody<string> response = new ResponseBody<string>();
 
             if (isEmployee == false) {
                response.body = "Employee does not exist";
                response.statusCode = 404;
-            } else if (isEmployee == false && passwordCheck == false) {
+               return response;
+            }
+
+            if (passwordCheck == false) {
                response.body = "password is incorrect";
                response.statusCode = 401;
+               return response;
             }
 
             response.body = "Authorise";
