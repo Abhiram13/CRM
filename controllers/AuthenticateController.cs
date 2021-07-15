@@ -21,6 +21,7 @@ namespace Authentication {
          LoginRequest request = await JSONN.httpContextDeseriliser<LoginRequest>(Request);
          ResponseBody<string> response = new Authenticate.Login(request).authenticate();
          Response.StatusCode = response.statusCode;
+         Response.Cookies.Append("auth", response.body);
          return response.body;
       }
 

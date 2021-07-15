@@ -46,7 +46,7 @@ namespace AuthenticationService {
                return response;
             }
 
-            response.body = "Authorise";
+            response.body = Text.Encode($"{request.id.ToString()}_{request.password.ToString()}");
             response.statusCode = 200;
 
             return response;
