@@ -18,7 +18,10 @@ namespace Authentication {
       [HttpPost]
       [Route("login")]
       public async Task<string> Login() {
-         return new Authenticate.Login(await JSONN.httpContextDeseriliser<LoginRequest>(Request)).authenticate();
+         LoginRequest request = await JSONN.httpContextDeseriliser<LoginRequest>(Request);
+         ResponseBody<string> response = new Authenticate.Login(request).authenticate();
+         Response.StatusCode = response.statusCode;
+         return response.body;
       }
 
       // private LoginRequest request;
