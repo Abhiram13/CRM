@@ -26,8 +26,7 @@ namespace CRM {
       public IConfiguration Configuration { get; }
 
       // This method gets called by the runtime. Use this method to add services to the container.
-      public void ConfigureServices(IServiceCollection services) {
-         services.AddControllers();
+      public void ConfigureServices(IServiceCollection services) {         
          services.AddSwaggerGen(c => {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM", Version = "v1" });
          });
@@ -38,10 +37,11 @@ namespace CRM {
          });
 
          services.AddCors(options => {
-            options.AddPolicy(
-                "Open",
-                builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            options.AddDefaultPolicy(builder => {
+               builder.WithOrigins("http://localhost:3000");
+            });
          });
+         services.AddControllers();
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +53,7 @@ namespace CRM {
          }
          app.UseHttpsRedirection();
          app.UseRouting();
-         app.UseCors("Open");
+         app.UseCors();
          app.UseAuthorization();
          app.UseEndpoints(endpoints => {
             endpoints.MapControllers();

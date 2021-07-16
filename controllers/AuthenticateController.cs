@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CRM;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Headers;
 using AuthenticationService;
 using System.Threading.Tasks;
 
@@ -13,7 +13,13 @@ namespace Authentication {
    public class AuthenticationController : Microsoft.AspNetCore.Mvc.Controller {
 
       [HttpGet]
-      public string Home() => "Hello World";
+      public ResponseBody<string> Home() {
+         Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");         
+         return new ResponseBody<string> {
+            body = "Hello World",
+            statusCode = 200,
+         };
+      }
 
       [HttpPost]
       [Route("login")]
