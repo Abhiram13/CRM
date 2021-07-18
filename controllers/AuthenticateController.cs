@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace Authentication {
-   [Route("")]
+   [Route("")]   
    public class AuthenticationController : Microsoft.AspNetCore.Mvc.Controller {
 
       [HttpGet]
@@ -42,7 +42,8 @@ namespace Authentication {
       [Route("/demo")]
       public void Demo() {
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-         Console.WriteLine(Request.Headers.ContainsKey("Cookie"));
+         Console.WriteLine(Request.Headers["Cookie"]);
+         //auth=MTIzNDU2XzEyMw%3D%3D
       }
 
       // private LoginRequest request;
