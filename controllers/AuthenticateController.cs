@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Text;
 
 namespace Authentication {
    [Route("")]
@@ -42,7 +43,7 @@ namespace Authentication {
       public string Demo() {
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
          Console.WriteLine(Request.Headers["Cookie"]);
-         string password = "Abhiram";
+         string password = "123";
 
          // generate a 128-bit salt using a secure PRNG
          byte[] salt = new byte[128 / 8];
@@ -51,10 +52,13 @@ namespace Authentication {
          }
          Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
 
+         // hash::: ZmDSZq0sUL54xT7lda3TcX+njxHnm+cB81K1FBT9LWc=
+         // salt::: yZCSv8JvkE5XFJ1jmokKlw==
+
          // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
          string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
              password: password,
-             salt: salt,
+             salt: Encoding.ASCII.GetBytes("yZCSv8JvkE5XFJ1jmokKlw=="),
              prf: KeyDerivationPrf.HMACSHA1,
              iterationCount: 10000,
              numBytesRequested: 256 / 8));

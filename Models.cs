@@ -14,6 +14,11 @@ namespace Models {
       public long aadhaar { get; set; }
    }
 
+   public struct HashDetails {
+      public string salt { get; set; }
+      public string password { get; set; }
+   }
+
    public struct DocumentVerification<T> {
       public bool boolean { get; set; }
       public string table { get; set; }
