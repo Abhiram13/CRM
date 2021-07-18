@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.Headers;
 using AuthenticationService;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Authentication {
    [Route("")]
@@ -14,7 +15,7 @@ namespace Authentication {
 
       [HttpGet]
       public ResponseBody<string> Home() {
-         Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");         
+         Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");      
          return new ResponseBody<string> {
             body = "Hello World",
             statusCode = 200,
@@ -26,8 +27,14 @@ namespace Authentication {
       public async Task<string> Login() {
          LoginRequest request = await JSONN.httpContextDeseriliser<LoginRequest>(Request);
          ResponseBody<string> response = new Authenticate.Login(request).authenticate();
-         Response.StatusCode = response.statusCode;
-         Response.Cookies.Append("auth", response.body);
+         CookieOptions options = new CookieOptions() {
+            SameSite = SameSiteMode.None,
+            Domain = "localhost",
+            Secure = true,
+         };
+         Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+         Response.StatusCode = response.statusCode;         
+         Response.Cookies.Append("auth", response.body, options);
          return response.body;
       }
 
