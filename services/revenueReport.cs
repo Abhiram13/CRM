@@ -31,7 +31,7 @@ namespace CRM {
          zonalmanagers.Add(emply);
 
          foreach (Employee employee in await Employees) {
-            if (employee.ROLE == "Branch Manager") {
+            if (employee.role == "Branch Manager") {
                zonalmanagers.Add(employee);
             }
          }
@@ -50,7 +50,7 @@ namespace CRM {
       private async Task<Employee[]> fetchEmployees() {
          Employee EMPLOYEE = await role();
 
-         switch (EMPLOYEE.ROLE) {
+         switch (EMPLOYEE.role) {
             case "Branch Manager":
                return branchManagers(EMPLOYEE);
             case "Zonal Manager":
@@ -65,7 +65,7 @@ namespace CRM {
          Employee employee = new Employee();
 
          foreach (Employee emp in await Employees) {
-            if (emp.ID == request.MANAGER) {
+            if (emp.id == request.MANAGER) {
                employee = emp;
             }
          }

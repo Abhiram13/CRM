@@ -21,20 +21,21 @@ namespace Models {
    }
 
    public class Employee : IMongoObject {
-      public int ID { get; set; } = 0;
-      public string TITLE { get; set; } = "";
-      public string FIRSTNAME { get; set; } = "";
-      public string LASTNAME { get; set; } = "";
-      public string EMAIL { get; set; } = "";
-      public string PASSWORD { get; set; } = "";
-      public long MOBILE { get; set; } = 0;
-      public string GENDER { get; set; } = "";
-      public string DESIGNATION { get; set; } = "";
-      public string LOCATION { get; set; } = "";
-      public string BRANCH { get; set; } = "";
-      public string STATE { get; set; } = "";
-      public string REGION { get; set; } = "";
-      public string ROLE { get; set; } = "";
+      public int id { get; set; } = 0;
+      public string title { get; set; } = "";
+      public string firstname { get; set; } = "";
+      public string lastname { get; set; } = "";
+      public string email { get; set; } = "";
+      public string password { get; set; } = "";
+      public long mobile { get; set; } = 0;
+      public string gender { get; set; } = "";
+      public string designation { get; set; } = "";
+      public string location { get; set; } = "";
+      public string branch { get; set; } = "";
+      public string state { get; set; } = "";
+      public string region { get; set; } = "";
+      public string role { get; set; } = "";
+      public string salt { get; set; } = "";
    }
 
    public class Customer : IMongoObject {

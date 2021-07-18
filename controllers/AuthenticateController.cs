@@ -1,21 +1,20 @@
 using System;
-using MongoDB.Driver;
-using System.Collections.Generic;
 using CRM;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.Headers;
 using AuthenticationService;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Authentication {
-   [Route("")]   
+   [Route("")]
    public class AuthenticationController : Microsoft.AspNetCore.Mvc.Controller {
 
       [HttpGet]
       public ResponseBody<string> Home() {
-         Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");      
+         Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");
          return new ResponseBody<string> {
             body = "Hello World",
             statusCode = 200,
@@ -33,17 +32,33 @@ namespace Authentication {
             Secure = true,
          };
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-         Response.StatusCode = response.statusCode;         
+         Response.StatusCode = response.statusCode;
          Response.Cookies.Append("auth", response.body, options);
          return response.body;
       }
 
       [HttpGet]
       [Route("/demo")]
-      public void Demo() {
+      public string Demo() {
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
          Console.WriteLine(Request.Headers["Cookie"]);
-         //auth=MTIzNDU2XzEyMw%3D%3D
+         string password = "Abhiram";
+
+         // generate a 128-bit salt using a secure PRNG
+         byte[] salt = new byte[128 / 8];
+         using (var rng = RandomNumberGenerator.Create()) {
+            rng.GetBytes(salt);
+         }
+         Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
+
+         // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+         string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+             password: password,
+             salt: salt,
+             prf: KeyDerivationPrf.HMACSHA1,
+             iterationCount: 10000,
+             numBytesRequested: 256 / 8));
+         return $"Hashed: {hashed}";
       }
 
       // private LoginRequest request;
