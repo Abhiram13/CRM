@@ -38,6 +38,13 @@ namespace Authentication {
          return response.body;
       }
 
+      [HttpGet]
+      [Route("/demo")]
+      public void Demo() {
+         Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+         Console.WriteLine(Request.Headers.ContainsKey("Cookie"));
+      }
+
       // private LoginRequest request;
       // public Authentication(LoginRequest req) {
       //    request = req;
