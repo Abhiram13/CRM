@@ -27,8 +27,18 @@ namespace AuthenticationService {
 
          return new HashDetails() {
             password = hashed,
-            salt = Convert.ToBase64String(salt),
+            salt = Encoding.ASCII.GetString(salt),
          };
+      }
+
+      public static string compareHash(string salt, string password) {         
+         return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: password,
+            salt: Encoding.ASCII.GetBytes(salt),
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 10000,
+            numBytesRequested: 256 / 8)
+         );
       }
    }
 }

@@ -65,7 +65,7 @@ namespace CRM {
          Employee employee = new Employee();
 
          foreach (Employee emp in await Employees) {
-            if (emp.id == request.MANAGER) {
+            if (emp.empid == request.MANAGER) {
                employee = emp;
             }
          }

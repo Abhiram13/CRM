@@ -26,7 +26,7 @@ namespace Models {
    }
 
    public class Employee : IMongoObject {
-      public int id { get; set; } = 0;
+      public int empid { get; set; } = 0;
       public string title { get; set; } = "";
       public string firstname { get; set; } = "";
       public string lastname { get; set; } = "";

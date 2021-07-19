@@ -16,25 +16,40 @@ namespace AuthenticationService {
             request = req;
          }
 
+         private Employee employee() {
+            FilterDefinition<Employee> filter = this.builders.Eq("empid", request.id);
+            return this.collection.Find(filter).ToList()[0];
+         }
+
+         private bool hashPassword() {
+            Employee employee = this.employee();
+            string salt = employee.salt;
+            string dbPassword = employee.password;
+            string hashedPassword = HashPassword.compareHash(salt, request.password);
+            return hashedPassword == dbPassword;
+         }
+
          private bool isEmployee() {
-            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id);
-            List<Employee> list = this.collection.Find(filter).ToList();            
+            FilterDefinition<Employee> filter = this.builders.Eq("empid", request.id);
+            List<Employee> list = this.collection.Find(filter).ToList();
+            hashPassword();
             return this.collection.Find(filter).ToList().Count > 0;
          }
 
          private bool passwordCheck() {
-            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id) & this.builders.Eq("PASSWORD", request.password);
+            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id) & this.builders.Eq("password", request.password);
             List<Employee> list = this.collection.Find(filter).ToList();            
             return this.collection.Find(filter).ToList().Count > 0;
          }
 
          public ResponseBody<string> authenticate() {
             bool isEmployee = this.isEmployee();
-            bool passwordCheck = this.passwordCheck();
+            bool passwordCheck = this.hashPassword();
+            Employee employee = this.employee();
 
             ResponseBody<string> response = new ResponseBody<string>();
 
-            if (isEmployee == false) {
+            if (employee == null) {
                response.body = "Employee does not exist";
                response.statusCode = 404;
                return response;

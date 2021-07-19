@@ -7,7 +7,7 @@ namespace EmployeeManagement {
    public sealed partial class EmployeeController {
       public static async Task<Employee> FetchById(string id) {
          Employee[] listOfEmployees = await EmployeeController.FetchAllEmployees();
-         return Array.Find<Employee>(listOfEmployees, employee => employee.id == Int32.Parse(id));
+         return Array.Find<Employee>(listOfEmployees, employee => employee.empid == Int32.Parse(id));
       }
    }
 }
