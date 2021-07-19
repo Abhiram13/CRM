@@ -1,17 +1,14 @@
 using System;
 using Models;
 using CRM;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Database;
 
 namespace AuthenticationService {
    public partial class Authenticate {
       public class Login : DatabaseService<Employee> {
          private LoginRequest request;
+         private Employee emp;
          public Login(LoginRequest req) : base(Table.employee) {
             request = req;
          }
@@ -22,34 +19,17 @@ namespace AuthenticationService {
          }
 
          private bool hashPassword() {
-            Employee employee = this.employee();
-            string salt = employee.salt;
-            string dbPassword = employee.password;
-            string hashedPassword = HashPassword.compareHash(salt, request.password);
-            return hashedPassword == dbPassword;
-         }
-
-         private bool isEmployee() {
-            FilterDefinition<Employee> filter = this.builders.Eq("empid", request.id);
-            List<Employee> list = this.collection.Find(filter).ToList();
-            hashPassword();
-            return this.collection.Find(filter).ToList().Count > 0;
-         }
-
-         private bool passwordCheck() {
-            FilterDefinition<Employee> filter = this.builders.Eq("ID", request.id) & this.builders.Eq("password", request.password);
-            List<Employee> list = this.collection.Find(filter).ToList();            
-            return this.collection.Find(filter).ToList().Count > 0;
+            string hashedPassword = HashPassword.compareHash(emp.salt, request.password);
+            return hashedPassword == emp.password;
          }
 
          public ResponseBody<string> authenticate() {
-            bool isEmployee = this.isEmployee();
+            emp = this.employee();
             bool passwordCheck = this.hashPassword();
-            Employee employee = this.employee();
 
             ResponseBody<string> response = new ResponseBody<string>();
 
-            if (employee == null) {
+            if (emp == null) {
                response.body = "Employee does not exist";
                response.statusCode = 404;
                return response;
