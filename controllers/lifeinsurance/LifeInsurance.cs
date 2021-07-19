@@ -15,15 +15,15 @@ namespace TransactionManagement {
          this.transaction = JSONObject.Deserilise<LifeInsuranceBody>(context);
       }
 
-      public async Task<string> Add() {
-         LifeInsuranceBody trans = await this.transaction;
-         DocumentVerification<LifeInsuranceBody> details = new DocumentVerification<LifeInsuranceBody>() {
-            document = trans,
-            boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
-            table = Table.lifeInsurance,
-         };
+      // public async Task<string> Add() {
+      //    LifeInsuranceBody trans = await this.transaction;
+      //    DocumentVerification<LifeInsuranceBody> details = new DocumentVerification<LifeInsuranceBody>() {
+      //       document = trans,
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       table = Table.lifeInsurance,
+      //    };
 
-         return Add<LifeInsuranceBody>(details);
-      }
+      //    return Add<LifeInsuranceBody>(details);
+      // }
    }
 }

@@ -15,15 +15,15 @@ namespace TransactionManagement {
          this.transaction = JSONObject.Deserilise<FixedDepositBody>(context);
       }
 
-      public async Task<string> Add() {
-         FixedDepositBody trans = await this.transaction;
-         DocumentVerification<FixedDepositBody> details = new DocumentVerification<FixedDepositBody>() {
-            document = trans,
-            boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
-            table = Table.fixedDeposit,
-         };
+      // public async Task<string> Add() {
+      //    FixedDepositBody trans = await this.transaction;
+      //    DocumentVerification<FixedDepositBody> details = new DocumentVerification<FixedDepositBody>() {
+      //       document = trans,
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       table = Table.fixedDeposit,
+      //    };
 
-         return Add<FixedDepositBody>(details);
-      }
+      //    return Add<FixedDepositBody>(details);
+      // }
    }
 }

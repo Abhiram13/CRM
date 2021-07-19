@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using Authentication;
 
 namespace EmployeeManagement {
-   public sealed partial class EmployeeController : Controller {
-      public static async Task<Employee[]> FetchAllEmployees() {
-         return await FetchAll<Employee>(Table.employee);
-      }
-   }
+   // public sealed partial class EmployeeController : Controller {
+   //    public static async Task<Employee[]> FetchAllEmployees() {
+   //       return await FetchAll<Employee>(Table.employee);
+   //    }
+   // }
 }

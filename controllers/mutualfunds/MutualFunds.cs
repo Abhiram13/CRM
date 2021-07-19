@@ -15,15 +15,15 @@ namespace TransactionManagement {
          this.transaction = JSONObject.Deserilise<MutualFundsBody>(context);
       }
 
-      public async Task<string> Add() {
-         MutualFundsBody trans = await this.transaction;
-         DocumentVerification<MutualFundsBody> details = new DocumentVerification<MutualFundsBody>() {
-            document = trans,
-            boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
-            table = Table.mutualFunds,
-         };
+      // public async Task<string> Add() {
+      //    MutualFundsBody trans = await this.transaction;
+      //    DocumentVerification<MutualFundsBody> details = new DocumentVerification<MutualFundsBody>() {
+      //       document = trans,
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       table = Table.mutualFunds,
+      //    };
 
-         return Add<MutualFundsBody>(details);
-      }
+      //    return Add<MutualFundsBody>(details);
+      // }
    }
 }
