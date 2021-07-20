@@ -8,6 +8,7 @@ namespace EmployeeManagement {
       [HttpGet]
       [Route("fetchByCookie")]
       public Employee fetch() {
+         Response.Headers.Add("Access-Control-Allow-Credentials", "true");
          return EmployeeService.fetchByCookie(Request);
       }
    }

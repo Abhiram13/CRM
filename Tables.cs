@@ -8,5 +8,6 @@ namespace System {
       public const string lifeInsurance = "life_insurance";
       public const string generalInsurance = "general_insurance";
       public const string mutualFunds = "mutual_funds";
+      public const string states = "states";
    }
 }

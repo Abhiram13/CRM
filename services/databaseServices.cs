@@ -11,10 +11,12 @@ namespace Database {
    public class DatabaseService<T> {
       public IMongoCollection<T> collection;
       public FilterDefinitionBuilder<T> builders;
+      public ProjectionDefinitionBuilder<T> projection;      
 
       public DatabaseService(string collectionName) {
          collection = Mongo.database.GetCollection<T>(collectionName);
          builders = Builders<T>.Filter;
+         projection = Builders<T>.Projection;         
       }
    }
 }

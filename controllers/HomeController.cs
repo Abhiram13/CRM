@@ -1,0 +1,15 @@
+using Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace ApiManagement {
+   [Route("api")]
+   public class ApiController : Microsoft.AspNetCore.Mvc.Controller {
+
+      [HttpGet]
+      [Route("states")]
+      public string[] States() {
+         return ApiServices.fetchStates();
+      }
+   }
+}

@@ -10,7 +10,7 @@ namespace EmployeeManagement {
          string str = cookie.Split("=")[1];
          string replaced = str.Replace("%3D", "=");         
          int id = Convert.ToInt32(Text.Decode(replaced).Split("_")[0]);
-         return new EmployeeService().FetchById(id);
+         return EmployeeService.FetchById(id);
       }
    }
 }

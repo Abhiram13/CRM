@@ -25,6 +25,10 @@ namespace Models {
       public T document { get; set; }
    }
 
+   public class States : IMongoObject {
+      public string[] states { get; set; } = new string[] { };
+   }
+
    public class Employee : IMongoObject {
       public int empid { get; set; } = 0;
       public string title { get; set; } = "";
