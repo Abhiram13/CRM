@@ -11,5 +11,11 @@ using System.Text;
 namespace EmployeeManagement {
    [Route("employee")]
    public partial class EmployeeController : Microsoft.AspNetCore.Mvc.Controller {
+
+      [HttpGet]
+      [Route("")]
+      public void fetch() {
+         EmployeeService.fetchByCookie(Request);
+      }
    }
 }
