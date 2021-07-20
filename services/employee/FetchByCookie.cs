@@ -1,21 +1,16 @@
 using System;
 using CRM;
-using Models;
-using Microsoft.AspNetCore.Mvc;
-using AuthenticationService;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Text;
+using Models;
 
 namespace EmployeeManagement {
    public partial class EmployeeService {
-      public static void fetchByCookie(HttpRequest request) {
-         string cookie = request.Headers["Cookie"];
-         Console.WriteLine(cookie);
+      public static Employee fetchByCookie(HttpRequest request) {
+         string cookie = request.Headers["Cookie"];         
          string str = cookie.Split("=")[1];
-         string replaced = str.Replace("%3D", "=");
-         Console.WriteLine(Text.Decode(replaced));
+         string replaced = str.Replace("%3D", "=");         
+         int id = Convert.ToInt32(Text.Decode(replaced).Split("_")[0]);
+         return new EmployeeService().FetchById(id);
       }
    }
 }

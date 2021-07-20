@@ -1,13 +1,14 @@
-using System.Threading.Tasks;
 using Models;
-using CRM;
 using System;
+using Database;
+using MongoDB.Driver;
 
 namespace EmployeeManagement {
-   // public sealed partial class EmployeeController {
-   //    public static async Task<Employee> FetchById(string id) {
-   //       Employee[] listOfEmployees = await EmployeeController.FetchAllEmployees();
-   //       return Array.Find<Employee>(listOfEmployees, employee => employee.empid == Int32.Parse(id));
-   //    }
-   // }
+   public partial class EmployeeService {
+      public Employee FetchById(int id) {
+         DatabaseService<Employee> db = new DatabaseService<Employee>(Table.employee);
+         FilterDefinition<Employee> filter = db.builders.Eq("empid", id);
+         return db.collection.Find(filter).ToList()[0];
+      }
+   }
 }
