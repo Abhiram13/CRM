@@ -1,5 +1,6 @@
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EmployeeManagement {
    [Route("employee")]
@@ -10,6 +11,12 @@ namespace EmployeeManagement {
       public Employee fetch() {
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
          return EmployeeService.fetchByCookie(Request);
+      }
+
+      [HttpPost]
+      [Route("add")]
+      public async Task<ResponseBody<string>> Add() {
+         return await EmployeeService.Add(Request);
       }
    }
 }

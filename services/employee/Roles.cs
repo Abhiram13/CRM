@@ -1,7 +1,7 @@
 using CRM;
 
 namespace EmployeeManagement {
-   public sealed partial class EmployeeController {
+   public sealed partial class EmployeeService {
       public static string Roles() {
          string[] roles = new string[] {
             "Admin",

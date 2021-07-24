@@ -12,5 +12,11 @@ namespace ApiManagement {
          List<States> states = db.collection.Find(new BsonDocument()).ToList();
          return states[0].states;
       }
+
+      public static string[] fetchRoles() {
+         DatabaseService<Roles> db = new DatabaseService<Roles>(Table.roles);
+         List<Roles> roles = db.collection.Find(new BsonDocument()).ToList();
+         return roles[0].roles;
+      }
    }
 }

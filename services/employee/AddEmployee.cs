@@ -3,23 +3,46 @@ using Microsoft.AspNetCore.Http;
 using Models;
 using CRM;
 using System;
+using AuthenticationService;
+using Database;
 
 namespace EmployeeManagement {
-   // public sealed partial class EmployeeController : Controller {
-   //    private Task<Employee> employee;
+   public sealed partial class EmployeeService {
+      private static bool checkEmployee(int id) {         
+         Employee emp = EmployeeService.FetchById(id);
+         Console.WriteLine(emp?.firstname);
+         return emp == null;
+      }
 
-   //    public EmployeeController(HttpContext Context) {
-   //       this.employee = JSONObject.Deserilise<Employee>(Context);
-   //    }
+      public async static Task<ResponseBody<string>> Add(HttpRequest request) {
+         try {
+            Employee employee = await JSONN.httpContextDeseriliser<Employee>(request);
 
-   //    public async Task<string> Add() {
-   //       DocumentVerification<Employee> details = new DocumentVerification<Employee>() {
-   //          boolean = !(await EmployeeController.IsEmployeeExist(this.employee.Id)),
-   //          table = Table.employee,
-   //          document = await this.employee,
-   //       };
+            if (checkEmployee(employee.empid)) {
+               HashDetails hash = HashPassword.hash(employee.password);
+               employee.salt = hash.salt;
+               employee.password = hash.password;
+               DatabaseService<Employee> db = new DatabaseService<Employee>(Table.employee);
+               db.collection.InsertOne(employee);
 
-   //       return Add<Employee>(details);
-   //    }
-   // }
+               return new ResponseBody<string>() {
+                  body = "Employee added successfully",
+                  statusCode = 200
+               };
+            }
+
+            return new ResponseBody<string>() {
+               body = "Employee already existed",
+               statusCode = 302
+            };
+
+         } catch (Exception e) {
+            Console.WriteLine(e);
+            return new ResponseBody<string>() {
+               body = e.Message,
+               statusCode = 500
+            };
+         }      
+      }
+   }
 }

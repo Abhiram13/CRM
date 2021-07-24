@@ -11,5 +11,11 @@ namespace ApiManagement {
       public string[] States() {
          return ApiServices.fetchStates();
       }
+
+      [HttpGet]
+      [Route("roles")]
+      public string[] Roles() {
+         return ApiServices.fetchRoles();
+      }
    }
 }

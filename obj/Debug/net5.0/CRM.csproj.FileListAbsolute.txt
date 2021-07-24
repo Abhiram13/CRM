@@ -117,7 +117,6 @@
 /Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/win/native/libzstd.dll
 /Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/win/native/snappy32.dll
 /Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/win/native/snappy64.dll
-/Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.csprojAssemblyReference.cache
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.GeneratedMSBuildEditorConfig.editorconfig
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.AssemblyInfoInputs.cache
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.AssemblyInfo.cs
@@ -133,3 +132,4 @@
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/ref/CRM.dll
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.pdb
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.genruntimeconfig.cache
+/Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.csproj.AssemblyReference.cache

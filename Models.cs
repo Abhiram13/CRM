@@ -29,6 +29,10 @@ namespace Models {
       public string[] states { get; set; } = new string[] { };
    }
 
+   public class Roles : IMongoObject {
+      public string[] roles { get; set; } = new string[] { };
+   }
+
    public class Employee : IMongoObject {
       public int empid { get; set; } = 0;
       public string title { get; set; } = "";
@@ -37,12 +41,9 @@ namespace Models {
       public string email { get; set; } = "";
       public string password { get; set; } = "";
       public long mobile { get; set; } = 0;
-      public string gender { get; set; } = "";
-      public string designation { get; set; } = "";
       public string location { get; set; } = "";
       public string branch { get; set; } = "";
       public string state { get; set; } = "";
-      public string region { get; set; } = "";
       public string role { get; set; } = "";
       public string salt { get; set; } = "";
    }

@@ -6,6 +6,12 @@ using System.Text;
 
 namespace AuthenticationService {
    public static class HashPassword {
+
+      /// <summary>
+      /// Hashes given password and returns it's salt and password
+      /// </summary>
+      /// <param name="password">Password need to hashed</param>
+      /// <returns>Salt and hashed password</returns>
       public static HashDetails hash(string password) {
          byte[] salt = new byte[128 / 8];
          using (var rng = RandomNumberGenerator.Create()) {
@@ -26,6 +32,12 @@ namespace AuthenticationService {
          };
       }
 
+      /// <summary>
+      /// Hashes password with given/ already existed salt
+      /// </summary>
+      /// <param name="salt">Salt code from Database</param>
+      /// <param name="password">Password from user input</param>
+      /// <returns>Returns hashed password to compare with database password</returns>
       public static string compareHash(string salt, string password) {         
          return Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password,
