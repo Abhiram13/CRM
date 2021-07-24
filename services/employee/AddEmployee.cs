@@ -10,7 +10,6 @@ namespace EmployeeManagement {
    public sealed partial class EmployeeService {
       private static bool checkEmployee(int id) {         
          Employee emp = EmployeeService.FetchById(id);
-         Console.WriteLine(emp?.firstname);
          return emp == null;
       }
 
@@ -37,7 +36,6 @@ namespace EmployeeManagement {
             };
 
          } catch (Exception e) {
-            Console.WriteLine(e);
             return new ResponseBody<string>() {
                body = e.Message,
                statusCode = 500
