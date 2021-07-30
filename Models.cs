@@ -49,253 +49,219 @@ namespace Models {
    }
 
    public class Customer : IMongoObject {
-      public string TITLE { get; set; }
-      public string FIRSTNAME { get; set; }
-      public string LASTNAME { get; set; }
-      public long? MOBILE { get; set; }
-      public string EMAIL { get; set; }
-      public DateTime? BIRTHDATE { get; set; }
-      public string GENDER { get; set; }
-      public string PAN { get; set; }
-      public long? AADHAAR { get; set; }
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-      public string PRESENT_LINE_1 { get; set; }
-      public string PRESENT_LINE_2 { get; set; }
-      public string PRESENT_CITY { get; set; }
-      public string PRESENT_DISTRICT { get; set; }
-      public string PRESENT_STATE { get; set; }
-      public string PRESENT_COUNTRY { get; set; }
-      public long PRESENT_PINCODE { get; set; }
-      public bool IS_PERMANENT { get; set; } = true;
-      public string PERMANENT_LINE_1 { get; set; } = null;
-      public string PERMANENT_LINE_2 { get; set; } = null;
-      public string PERMANENT_CITY { get; set; } = null;
-      public string PERMANENT_DISTRICT { get; set; } = null;
-      public string PERMANENT_STATE { get; set; } = null;
-      public string PERMANENT_COUNTRY { get; set; } = null;
-      public long PERMANENT_PINCODE { get; set; } = 0;
+      public string title { get; set; }
+      public string firstname { get; set; }
+      public string lastname { get; set; }
+      public long? mobile { get; set; }
+      public string email { get; set; }
+      public DateTime? birthdate { get; set; }
+      public string gender { get; set; }
+      public string pan { get; set; }
+      public long? aadhaar { get; set; }
+      public string location { get; set; }
+      public string branch { get; set; }
+      public string line_1 { get; set; }
+      public string line_2 { get; set; }
+      public string city { get; set; }
+      public string district { get; set; }
+      public string state { get; set; }
+      public string country { get; set; }
+      public long pincode { get; set; }
    }
 
    public class BranchModel : IMongoObject {
-      public string LOCATION { get; set; }
-      public string BRANCH { get; set; }
-   }
-
-   public class DesignationModel : IMongoObject {
-      public string DESIGNATION { get; set; }
+      public string location { get; set; }
+      public string branch { get; set; }
    }
 
    public class ProductModel : IMongoObject {
-      public string PRODUCT { get; set; }
-      public string COMPANY { get; set; }
-      public string TYPE { get; set; }
+      public string product { get; set; }
+      public string company { get; set; }
+      public string type { get; set; }
    }
 
    namespace ProductReportsRequestBody {
-      public abstract class IMongoObject {
-         [BsonIgnoreIfNull]
-         public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
-         public int? __v { get; } = 1;
-      }
-
-      // BranchRequestBody
       public class BranchProduct : ZonalProduct {
-         public string BRANCH { get; set; }
+         public string branch { get; set; }
       }
 
-      //ZonalRequestBody
       public class ZonalProduct : RequestBody {
-         public string LOCATION { get; set; }
+         public string location { get; set; }
       }
 
-      //RequestBody
       public class RequestBody : IMongoObject {
-         public DateTime END_DATE { get; set; }
-         public DateTime START_DATE { get; set; }
+         public DateTime end_date { get; set; }
+         public DateTime start_date { get; set; }
       }
 
-      //RMRequestBody
-      public class RMProduct : RequestBody {
-         public long MANAGER { get; set; }
+      public class Rmproduct : RequestBody {
+         public long manager { get; set; }
       }
    }
 
    namespace RevenuesRequestBody {
-      public abstract class IMongoObject {
-         [BsonIgnoreIfNull]
-         public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
-         public int? __v { get; } = 1;
-      }
-
       public class FixedDepositRevenue : IMongoObject {
-         public string SCHEMA { get; set; }
-         public string COMPANY { get; set; }
-         public int TENOUR { get; set; }
-         public float REVENUE { get; set; }
+         public string schema { get; set; }
+         public string company { get; set; }
+         public int tenour { get; set; }
+         public float revenue { get; set; }
       }
 
       public class GeneralInsuranceRevenue : IMongoObject {
-         public string PRODUCT { get; set; }
-         public string COMPANY { get; set; }
-         public int REVENUE { get; set; }
+         public string product { get; set; }
+         public string company { get; set; }
+         public int revenue { get; set; }
       }
 
       public class LifeInsuranceRevenue : IMongoObject {
-         public string PRODUCT { get; set; }
-         public string COMPANY { get; set; }
-         public string PLAN { get; set; }
-         public string PREMIUM_PAYMENT_TERM { get; set; }
-         public int REVENUE { get; set; }
+         public string product { get; set; }
+         public string company { get; set; }
+         public string plan { get; set; }
+         public string payment_term { get; set; }
+         public int revenue { get; set; }
       }
 
       public class MutualFundsRevenue : IMongoObject {
-         public string AMC { get; set; }
-         public string FUNDS { get; set; }
-         public string PLAN { get; set; }
-         public string OPTION { get; set; }
-         public string SUB_OPTION { get; set; } = "";
-         public string MODE { get; set; }
-         public int REVENUE { get; set; }
+         public string amc { get; set; }
+         public string funds { get; set; }
+         public string plan { get; set; }
+         public string option { get; set; }
+         public string sub_option { get; set; } = "";
+         public string mode { get; set; }
+         public int revenue { get; set; }
       }
    }
 
    namespace TransactionsRequestBody {
-      public abstract class IMongoObject {
-         [BsonIgnoreIfNull]
-         public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
-         public int? __v { get; } = 1;
-      }
-
       public class FixedDepositBody : IMongoObject {
-         public string COMPANY { get; set; }
-         public string PRODUCT { get; set; }
-         public string SCHEMA { get; set; }
-         public int TENOUR { get; set; }
-         public long MOBILE { get; set; }
-         public long AADHAAR { get; set; }
-         public string ACCOUNT { get; set; }
-         public string BANK { get; set; }
-         public long AMOUNT { get; set; }
-         public long REVENUE { get; set; }
-         public DateTime ENTRY_DATE { get; set; }
-         public DateTime ISSUANCE_DATE { get; set; }
-         public int MANAGER { get; set; }
+         public string company { get; set; }
+         public string product { get; set; }
+         public string schema { get; set; }
+         public int tenour { get; set; }
+         public long mobile { get; set; }
+         public long aadhaar { get; set; }
+         public string account { get; set; }
+         public string bank { get; set; }
+         public long amount { get; set; }
+         public long revenue { get; set; }
+         public DateTime entry_date { get; set; }
+         public DateTime issuance_date { get; set; }
+         public int manager { get; set; }
       }
 
       public class GeneralInsuranceBody : IMongoObject {
-         public string COMPANY { get; set; }
-         public string PRODUCT { get; set; }
-         public long GROSS { get; set; }
-         public long NET { get; set; }
-         public string POLICY_NUMBER { get; set; }
-         public int POLICY_TENOUR { get; set; }
-         public string POLICY_TYPE { get; set; }
-         public DateTime POLICY_LOGIN_DATE { get; set; }
-         public string INSURANCE_TYPE { get; set; }
-         public string BANK { get; set; }
-         public int PAYMENT_TERM { get; set; }
-         public DateTime ENTRY_DATE { get; set; }
-         public long REVENUE { get; set; }
-         public long MOBILE { get; set; }
-         public long AADHAAR { get; set; }
-         public int MANAGER { get; set; }
+         public string company { get; set; }
+         public string product { get; set; }
+         public long gross { get; set; }
+         public long net { get; set; }
+         public string policy_number { get; set; }
+         public int policy_tenour { get; set; }
+         public string policy_type { get; set; }
+         public DateTime policy_login_date { get; set; }
+         public string insurance_type { get; set; }
+         public string bank { get; set; }
+         public int payment_term { get; set; }
+         public DateTime entry_date { get; set; }
+         public long revenue { get; set; }
+         public long mobile { get; set; }
+         public long aadhaar { get; set; }
+         public int manager { get; set; }
       }
 
       public class LifeInsuranceBody : IMongoObject {
-         public long MOBILE { get; set; }
-         public long AADHAAR { get; set; }
-         public string ACCOUNT { get; set; }
-         public string BANK { get; set; }
-         public string PLAN { get; set; }
-         public int TERM { get; set; }
-         public string COMPANY { get; set; }
-         public int PREMIUM_PAYMENT_TERM { get; set; }
-         public long GROSS { get; set; }
-         public long NET { get; set; }
-         public long REVENUE { get; set; }
-         public DateTime ENTRY_DATE { get; set; }
-         public int MANAGER { get; set; }
+         public long mobile { get; set; }
+         public long aadhaar { get; set; }
+         public string account { get; set; }
+         public string bank { get; set; }
+         public string plan { get; set; }
+         public int term { get; set; }
+         public string company { get; set; }
+         public int payment_term { get; set; }
+         public long gross { get; set; }
+         public long net { get; set; }
+         public long revenue { get; set; }
+         public DateTime entry_date { get; set; }
+         public int manager { get; set; }
       }
 
       public class MutualFundsBody : IMongoObject {
-         public string AMC { get; set; }
-         public string PRODUCT { get; set; }
-         public string FUND { get; set; }
-         public string PLAN { get; set; }
-         public string OPTION { get; set; }
-         public string SUB_OPTION { get; set; }
-         public string MODE { get; set; }
-         public string ACCOUNT { get; set; }
-         public long AMOUNT { get; set; }
-         public string BANK { get; set; }
-         public int PAYMENT_TERM { get; set; }
-         public DateTime ENTRY_DATE { get; set; }
-         public DateTime ISSUANCE_DATE { get; set; }
-         public long REVENUE { get; set; }
-         public long MOBILE { get; set; }
-         public long AADHAAR { get; set; }
-         public int MANAGER { get; set; }
+         public string amc { get; set; }
+         public string product { get; set; }
+         public string fund { get; set; }
+         public string plan { get; set; }
+         public string option { get; set; }
+         public string sub_option { get; set; }
+         public string mode { get; set; }
+         public string account { get; set; }
+         public long amount { get; set; }
+         public string bank { get; set; }
+         public int payment_term { get; set; }
+         public DateTime entry_date { get; set; }
+         public DateTime issuance_date { get; set; }
+         public long revenue { get; set; }
+         public long mobile { get; set; }
+         public long aadhaar { get; set; }
+         public int manager { get; set; }
       }
    }
 
    namespace ZonalReportsResponseBody {
       public class FixedDepositZ : TransactionsRequestBody.FixedDepositBody {
-         public string FIRSTNAME { get; set; }
-         public string LASTNAME { get; set; }
-         public string EMAIL { get; set; }
-         public DateTime BIRTHDATE { get; set; }
-         public string LOCATION { get; set; }
-         public string BRANCH { get; set; }
+         public string firstname { get; set; }
+         public string lastname { get; set; }
+         public string email { get; set; }
+         public DateTime birthdate { get; set; }
+         public string location { get; set; }
+         public string branch { get; set; }
       }
 
       public class GeneralInsuranceZ : TransactionsRequestBody.GeneralInsuranceBody {
-         public string FIRSTNAME { get; set; }
-         public string LASTNAME { get; set; }
-         public string EMAIL { get; set; }
-         public DateTime BIRTHDATE { get; set; }
-         public string LOCATION { get; set; }
-         public string BRANCH { get; set; }
+         public string firstname { get; set; }
+         public string lastname { get; set; }
+         public string email { get; set; }
+         public DateTime birthdate { get; set; }
+         public string location { get; set; }
+         public string branch { get; set; }
       }
 
       public class MutualFundsZ : TransactionsRequestBody.MutualFundsBody {
-         public string FIRSTNAME { get; set; }
-         public string LASTNAME { get; set; }
-         public string EMAIL { get; set; }
-         public DateTime BIRTHDATE { get; set; }
-         public string LOCATION { get; set; }
-         public string BRANCH { get; set; }
+         public string firstname { get; set; }
+         public string lastname { get; set; }
+         public string email { get; set; }
+         public DateTime birthdate { get; set; }
+         public string location { get; set; }
+         public string branch { get; set; }
       }
 
       public class LifeInsuranceZ : TransactionsRequestBody.LifeInsuranceBody {
-         public string FIRSTNAME { get; set; }
-         public string LASTNAME { get; set; }
-         public string EMAIL { get; set; }
-         public DateTime BIRTHDATE { get; set; }
-         public string LOCATION { get; set; }
-         public string BRANCH { get; set; }
+         public string firstname { get; set; }
+         public string lastname { get; set; }
+         public string email { get; set; }
+         public DateTime birthdate { get; set; }
+         public string location { get; set; }
+         public string branch { get; set; }
       }
    }
 
    namespace RevenueReport {
       namespace Zonal {
          public class ReportRequestBody : ProductReportsRequestBody.ZonalProduct {
-            public long MANAGER { get; set; }
+            public long manager { get; set; }
          }
       }
 
       namespace Reports {
          public class DataModel {
-            public long LIFE { get; set; }
-            public long GENERAL { get; set; }
-            public long MUTUAL { get; set; }
-            public long FIXED { get; set; }
-            public long TOTAL { get; set; }
+            public long life { get; set; }
+            public long general { get; set; }
+            public long mutual { get; set; }
+            public long fixedD { get; set; }
+            public long total { get; set; }
          }
 
          public class ReportModel {
-            public DateTime ENTRY_DATE { get; set; }
-            public DataModel DATA { get; set; }
+            public DateTime entry_date { get; set; }
+            public DataModel data { get; set; }
          }
 
          public class TotalModel {

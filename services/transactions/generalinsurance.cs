@@ -14,32 +14,32 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                GeneralInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
+               if (tMobile == mobile && customer.location == report.location) {
                   reports.Add(new GeneralInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     INSURANCE_TYPE = transaction.INSURANCE_TYPE,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,                     
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     insurance_type = transaction.insurance_type,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,                     
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     revenue = transaction.revenue,
                   });
                }
             }
@@ -54,32 +54,32 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                GeneralInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
+               if (tMobile == mobile && customer.location == report.location && customer.branch == report.branch) {
                   reports.Add(new GeneralInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     INSURANCE_TYPE = transaction.INSURANCE_TYPE,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     insurance_type = transaction.insurance_type,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     revenue = transaction.revenue,
                   });
                }
             }
@@ -88,38 +88,38 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<GeneralInsuranceBody[]> RMReport(Customer[] customers, RMProduct report) {
-         GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, RMProduct>(report, "general_insurance");
+      public async static Task<GeneralInsuranceBody[]> RMReport(Customer[] customers, Rmproduct report) {
+         GeneralInsuranceBody[] transactions = await new Filter().Transactions<GeneralInsuranceBody, Rmproduct>(report, "general_insurance");
          List<GeneralInsuranceZ> reports = new List<GeneralInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                GeneralInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (report.MANAGER == transaction.MANAGER) {
+               if (report.manager == transaction.manager) {
                   reports.Add(new GeneralInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     INSURANCE_TYPE = transaction.INSURANCE_TYPE,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     insurance_type = transaction.insurance_type,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     revenue = transaction.revenue,
                   });
                }
             }

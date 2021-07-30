@@ -34,7 +34,7 @@ namespace CRM {
 
    //    public static async Task<Customer> isCustomerExist(long? mobile, long? aadhaar) {
    //       Customer[] listOfCustomers = await Customer.fetchAllCustomers();
-   //       return Array.Find<Customer>(listOfCustomers, c => c.MOBILE == mobile && c.AADHAAR == aadhaar);
+   //       return Array.Find<Customer>(listOfCustomers, c => c.mobile == mobile && c.aadhaar == aadhaar);
    //    }
 
    //    public async Task<string> Add() {
@@ -42,7 +42,7 @@ namespace CRM {
    //       Customer customer = await this.customer;
 
    //       if (check == "OK") {
-   //          if (await Customer.isCustomerExist(customer.MOBILE, customer.AADHAAR) == null) {
+   //          if (await Customer.isCustomerExist(customer.mobile, customer.aadhaar) == null) {
    //             new Database<Customer>("customer").Insert(customer);
    //             return "Customer Successfully Added";
    //          }
@@ -55,7 +55,7 @@ namespace CRM {
    //    public async Task<string> search(HttpContext context) {
    //       Customer[] listOfCustomers = await Customer.fetchAllCustomers();
    //       CustomerSearchQuery query = await Deserilise<CustomerSearchQuery>(context);
-   //       Customer customer = Array.Find<Customer>(listOfCustomers, customer => customer.MOBILE == query.QUERY || customer.AADHAAR == query.QUERY);
+   //       Customer customer = Array.Find<Customer>(listOfCustomers, customer => customer.mobile == query.QUERY || customer.aadhaar == query.QUERY);
 
    //       if (customer == null) {
    //          return "Customer Not Found";

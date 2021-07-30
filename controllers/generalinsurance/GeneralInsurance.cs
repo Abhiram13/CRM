@@ -19,7 +19,7 @@ namespace TransactionManagement {
       //    GeneralInsuranceBody trans = await this.transaction;
       //    DocumentVerification<GeneralInsuranceBody> details = new DocumentVerification<GeneralInsuranceBody>() {
       //       document = trans,
-      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.mobile)) && !(await EmployeeController.IsEmployeeExist(trans.manager)),
       //       table = Table.generalInsurance,
       //    };
 

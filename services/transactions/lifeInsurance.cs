@@ -15,32 +15,32 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                LifeInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
+               if (tMobile == mobile && customer.location == report.location) {
                   reports.Add(new LifeInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     PLAN = transaction.PLAN,
-                     PREMIUM_PAYMENT_TERM = transaction.PREMIUM_PAYMENT_TERM,
-                     REVENUE = transaction.REVENUE,
-                     TERM = transaction.TERM,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     plan = transaction.plan,
+                     payment_term = transaction.payment_term,
+                     revenue = transaction.revenue,
+                     term = transaction.term,
                   });
                }
             }
@@ -55,32 +55,32 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                LifeInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
+               if (tMobile == mobile && customer.location == report.location && customer.branch == report.branch) {
                   reports.Add(new LifeInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     PLAN = transaction.PLAN,
-                     PREMIUM_PAYMENT_TERM = transaction.PREMIUM_PAYMENT_TERM,
-                     REVENUE = transaction.REVENUE,
-                     TERM = transaction.TERM,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     plan = transaction.plan,
+                     payment_term = transaction.payment_term,
+                     revenue = transaction.revenue,
+                     term = transaction.term,
                   });
                }
             }
@@ -89,39 +89,39 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<LifeInsuranceBody[]> RMReport(Customer[] customers, RMProduct report) {
-         LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, RMProduct>(report, "life_insurance");
+      public async static Task<LifeInsuranceBody[]> RMReport(Customer[] customers, Rmproduct report) {
+         LifeInsuranceBody[] transactions = await new Filter().Transactions<LifeInsuranceBody, Rmproduct>(report, "life_insurance");
          List<LifeInsuranceZ> reports = new List<LifeInsuranceZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                LifeInsuranceBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (report.MANAGER == transaction.MANAGER) {
+               if (report.manager == transaction.manager) {
                   reports.Add(new LifeInsuranceZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     COMPANY = transaction.COMPANY,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     GROSS = transaction.GROSS,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     NET = transaction.NET,
-                     PLAN = transaction.PLAN,
-                     PREMIUM_PAYMENT_TERM = transaction.PREMIUM_PAYMENT_TERM,
-                     REVENUE = transaction.REVENUE,
-                     TERM = transaction.TERM,
-                     MANAGER = transaction.MANAGER,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     company = transaction.company,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     gross = transaction.gross,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     net = transaction.net,
+                     plan = transaction.plan,
+                     payment_term = transaction.payment_term,
+                     revenue = transaction.revenue,
+                     term = transaction.term,
+                     manager = transaction.manager,
                   });
                }
             }
@@ -146,7 +146,7 @@ namespace CRM {
 
       // private async Task<bool> isCustomerExist() {
       //    LifeInsuranceBody transaction = await lifeInsurance;
-      //    return Customer.isCustomerExist(transaction.MOBILE, transaction.AADHAAR) == null;
+      //    return Customer.isCustomerExist(transaction.mobile, transaction.aadhaar) == null;
       // }
    }
 }

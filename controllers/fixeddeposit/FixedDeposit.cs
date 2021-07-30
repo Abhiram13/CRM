@@ -19,7 +19,7 @@ namespace TransactionManagement {
       //    FixedDepositBody trans = await this.transaction;
       //    DocumentVerification<FixedDepositBody> details = new DocumentVerification<FixedDepositBody>() {
       //       document = trans,
-      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.mobile)) && !(await EmployeeController.IsEmployeeExist(trans.manager)),
       //       table = Table.fixedDeposit,
       //    };
 

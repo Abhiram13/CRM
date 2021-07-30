@@ -65,7 +65,7 @@ namespace CRM {
          Employee employee = new Employee();
 
          foreach (Employee emp in await Employees) {
-            if (emp.empid == request.MANAGER) {
+            if (emp.empid == request.manager) {
                employee = emp;
             }
          }
@@ -86,26 +86,26 @@ namespace CRM {
          MutualFundsBody[] mutualTransactions = await dateFilteredTransactions<MutualFundsBody>("mutual_funds");
 
          foreach (LifeInsuranceBody life in lifeTransactions) {
-            if (entryDates.Contains(life.ENTRY_DATE) == false) {
-               entryDates.Add(life.ENTRY_DATE);
+            if (entryDates.Contains(life.entry_date) == false) {
+               entryDates.Add(life.entry_date);
             }
          }
 
          foreach (GeneralInsuranceBody general in generalTransactions) {
-            if (entryDates.Contains(general.ENTRY_DATE) == false) {
-               entryDates.Add(general.ENTRY_DATE);
+            if (entryDates.Contains(general.entry_date) == false) {
+               entryDates.Add(general.entry_date);
             }
          }
 
          foreach (FixedDepositBody fixedDeposit in fixedTransactions) {
-            if (entryDates.Contains(fixedDeposit.ENTRY_DATE) == false) {
-               entryDates.Add(fixedDeposit.ENTRY_DATE);
+            if (entryDates.Contains(fixedDeposit.entry_date) == false) {
+               entryDates.Add(fixedDeposit.entry_date);
             }
          }
 
          foreach (MutualFundsBody mutual in mutualTransactions) {
-            if (entryDates.Contains(mutual.ENTRY_DATE) == false) {
-               entryDates.Add(mutual.ENTRY_DATE);
+            if (entryDates.Contains(mutual.entry_date) == false) {
+               entryDates.Add(mutual.entry_date);
             }
          }
 
@@ -116,8 +116,8 @@ namespace CRM {
          long revenue = 0;
 
          for (int i = 0; i < transactions.Length; i++) {
-            if ((DateTime)typeof(TransactionType).GetProperty("ENTRY_DATE").GetValue(transactions[i]) == date) {
-               revenue += (long)typeof(TransactionType).GetProperty("REVENUE").GetValue(transactions[i]);
+            if ((DateTime)typeof(TransactionType).GetProperty("entry_date").GetValue(transactions[i]) == date) {
+               revenue += (long)typeof(TransactionType).GetProperty("revenue").GetValue(transactions[i]);
             }
          }
 
@@ -129,19 +129,19 @@ namespace CRM {
          long life = 0, general = 0, fixedD = 0, mutual = 0, total = 0;
 
          for (int i = 0; i < revenues.Length; i++) {
-            life += revenues[i].DATA.LIFE;
-            general += revenues[i].DATA.GENERAL;
-            fixedD += revenues[i].DATA.FIXED;
-            mutual += revenues[i].DATA.MUTUAL;
-            total += revenues[i].DATA.TOTAL;
+            life += revenues[i].data.life;
+            general += revenues[i].data.general;
+            fixedD += revenues[i].data.fixedD;
+            mutual += revenues[i].data.mutual;
+            total += revenues[i].data.total;
          }
 
          return new DataModel() {
-            FIXED = fixedD,
-            GENERAL = general,
-            LIFE = life,
-            MUTUAL = mutual,
-            TOTAL = total
+            fixedD = fixedD,
+            general = general,
+            life = life,
+            mutual = mutual,
+            total = total
          };
       }
 
@@ -156,13 +156,13 @@ namespace CRM {
             long MUTUAL_REVENUE = revenues<MutualFundsBody>(dates[i], await dateFilteredTransactions<MutualFundsBody>("mutual_funds"));
 
             list.Add(new ReportModel() {
-               ENTRY_DATE = dates[i],
-               DATA = new DataModel() {
-                  LIFE = LIFE_REVENUE,
-                  GENERAL = GENERAL_REVENUE,
-                  MUTUAL = MUTUAL_REVENUE,
-                  FIXED = FIXED_REVENUE,
-                  TOTAL = LIFE_REVENUE + GENERAL_REVENUE + MUTUAL_REVENUE + FIXED_REVENUE
+               entry_date = dates[i],
+               data = new DataModel() {
+                  life = LIFE_REVENUE,
+                  general = GENERAL_REVENUE,
+                  mutual = MUTUAL_REVENUE,
+                  fixedD = FIXED_REVENUE,
+                  total = LIFE_REVENUE + GENERAL_REVENUE + MUTUAL_REVENUE + FIXED_REVENUE
                },
             });
          }

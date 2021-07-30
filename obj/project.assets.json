@@ -5312,11 +5312,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/abhiramnagadi/Documents/CRM.NET/CRM.csproj",
+      "projectUniqueName": "/Users/abhiramnagadi/Documents/CRM.net/CRM.csproj",
       "projectName": "CRM",
-      "projectPath": "/Users/abhiramnagadi/Documents/CRM.NET/CRM.csproj",
+      "projectPath": "/Users/abhiramnagadi/Documents/CRM.net/CRM.csproj",
       "packagesPath": "/Users/abhiramnagadi/.nuget/packages/",
-      "outputPath": "/Users/abhiramnagadi/Documents/CRM.NET/obj/",
+      "outputPath": "/Users/abhiramnagadi/Documents/CRM.net/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/abhiramnagadi/.nuget/NuGet/NuGet.Config"

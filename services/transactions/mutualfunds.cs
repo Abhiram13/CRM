@@ -14,36 +14,36 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                MutualFundsBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION) {
+               if (tMobile == mobile && customer.location == report.location) {
                   reports.Add(new MutualFundsZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     AMC = transaction.AMC,
-                     FUND = transaction.FUND,
-                     AMOUNT = transaction.AMOUNT,
-                     MODE = transaction.MODE,
-                     OPTION = transaction.OPTION,
-                     PLAN = transaction.PLAN,
-                     SUB_OPTION = transaction.SUB_OPTION,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     amc = transaction.amc,
+                     fund = transaction.fund,
+                     amount = transaction.amount,
+                     mode = transaction.mode,
+                     option = transaction.option,
+                     plan = transaction.plan,
+                     sub_option = transaction.sub_option,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     revenue = transaction.revenue,
                   });
                }
             }
@@ -58,36 +58,36 @@ namespace CRM {
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                MutualFundsBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (tMobile == MOBILE && customer.LOCATION == report.LOCATION && customer.BRANCH == report.BRANCH) {
+               if (tMobile == mobile && customer.location == report.location && customer.branch == report.branch) {
                   reports.Add(new MutualFundsZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     AMC = transaction.AMC,
-                     FUND = transaction.FUND,
-                     AMOUNT = transaction.AMOUNT,
-                     MODE = transaction.MODE,
-                     OPTION = transaction.OPTION,
-                     PLAN = transaction.PLAN,
-                     SUB_OPTION = transaction.SUB_OPTION,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     amc = transaction.amc,
+                     fund = transaction.fund,
+                     amount = transaction.amount,
+                     mode = transaction.mode,
+                     option = transaction.option,
+                     plan = transaction.plan,
+                     sub_option = transaction.sub_option,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     revenue = transaction.revenue,
                   });
                }
             }
@@ -96,42 +96,42 @@ namespace CRM {
          return reports.ToArray();
       }
 
-      public async static Task<MutualFundsBody[]> RMReport(Customer[] customers, RMProduct report) {
-         MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, RMProduct>(report, "mutual_funds");
+      public async static Task<MutualFundsBody[]> RMReport(Customer[] customers, Rmproduct report) {
+         MutualFundsBody[] transactions = await new Filter().Transactions<MutualFundsBody, Rmproduct>(report, "mutual_funds");
          List<MutualFundsZ> reports = new List<MutualFundsZ>();
 
          for (int cIndex = 0; cIndex < customers.Length; cIndex++) {
             Customer customer = customers[cIndex];
-            long? MOBILE = customer.MOBILE;
+            long? mobile = customer.mobile;
 
             for (int tIndex = 0; tIndex < transactions.Length; tIndex++) {
                MutualFundsBody transaction = transactions[tIndex];
-               long tMobile = transaction.MOBILE;
+               long tMobile = transaction.mobile;
 
-               if (report.MANAGER == transaction.MANAGER) {
+               if (report.manager == transaction.manager) {
                   reports.Add(new MutualFundsZ() {
-                     AADHAAR = (long)customer.AADHAAR,
-                     ACCOUNT = transaction.ACCOUNT,
-                     AMC = transaction.AMC,
-                     FUND = transaction.FUND,
-                     AMOUNT = transaction.AMOUNT,
-                     MODE = transaction.MODE,
-                     OPTION = transaction.OPTION,
-                     PLAN = transaction.PLAN,
-                     SUB_OPTION = transaction.SUB_OPTION,
-                     MANAGER = transaction.MANAGER,
-                     PAYMENT_TERM = transaction.PAYMENT_TERM,
-                     PRODUCT = transaction.PRODUCT,
-                     BANK = transaction.BANK,
-                     BIRTHDATE = (DateTime)customer.BIRTHDATE,
-                     BRANCH = customer.BRANCH,
-                     EMAIL = customer.EMAIL,
-                     ENTRY_DATE = transaction.ENTRY_DATE,
-                     FIRSTNAME = customer.FIRSTNAME,
-                     LASTNAME = customer.LASTNAME,
-                     LOCATION = customer.LOCATION,
-                     MOBILE = (long)customer.MOBILE,
-                     REVENUE = transaction.REVENUE,
+                     aadhaar = (long)customer.aadhaar,
+                     account = transaction.account,
+                     amc = transaction.amc,
+                     fund = transaction.fund,
+                     amount = transaction.amount,
+                     mode = transaction.mode,
+                     option = transaction.option,
+                     plan = transaction.plan,
+                     sub_option = transaction.sub_option,
+                     manager = transaction.manager,
+                     payment_term = transaction.payment_term,
+                     product = transaction.product,
+                     bank = transaction.bank,
+                     birthdate = (DateTime)customer.birthdate,
+                     branch = customer.branch,
+                     email = customer.email,
+                     entry_date = transaction.entry_date,
+                     firstname = customer.firstname,
+                     lastname = customer.lastname,
+                     location = customer.location,
+                     mobile = (long)customer.mobile,
+                     revenue = transaction.revenue,
                   });
                }
             }

@@ -19,7 +19,7 @@ namespace CRM {
          List<T> transactionsList = new List<T>();
 
          for (int i = 0; i < transactions.Length; i++) {
-            DateTime entryDate = (DateTime)typeof(T).GetProperty("ENTRY_DATE").GetValue(transactions[i]);
+            DateTime entryDate = (DateTime)typeof(T).GetProperty("entry_date").GetValue(transactions[i]);
             DateTime startDate = DateTime.Parse(typeof(P).GetProperty("START_DATE").GetValue(productReport).ToString());
             DateTime endDate = DateTime.Parse(typeof(P).GetProperty("END_DATE").GetValue(productReport).ToString());
 

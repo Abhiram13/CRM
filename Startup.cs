@@ -254,7 +254,7 @@ namespace CRM {
 
          //    endpoints.MapPost("/lifeinsurancermreports/fetch", async (HttpContext context) => {
          //       await context.Response.WriteAsync(
-         //          await new FetchReports<LifeInsuranceBody, RMProduct>(context, "life_insurance").fetch(
+         //          await new FetchReports<LifeInsuranceBody, Rmproduct>(context, "life_insurance").fetch(
          //             LifeInsurance.RMReport
          //          )
          //       );
@@ -262,7 +262,7 @@ namespace CRM {
 
          //    endpoints.MapPost("/generalinsurancermreports/fetch", async (HttpContext context) => {
          //       await context.Response.WriteAsync(
-         //          await new FetchReports<GeneralInsuranceBody, RMProduct>(context, "general_insurance").fetch(
+         //          await new FetchReports<GeneralInsuranceBody, Rmproduct>(context, "general_insurance").fetch(
          //             GeneralInsurance.RMReport
          //          )
          //       );
@@ -270,7 +270,7 @@ namespace CRM {
 
          //    endpoints.MapPost("/mutualfundsrmreports/fetch", async (HttpContext context) => {
          //       await context.Response.WriteAsync(
-         //          await new FetchReports<MutualFundsBody, RMProduct>(context, "mutual_funds").fetch(
+         //          await new FetchReports<MutualFundsBody, Rmproduct>(context, "mutual_funds").fetch(
          //             MutualFunds.RMReport
          //          )
          //       );
@@ -278,7 +278,7 @@ namespace CRM {
 
          //    endpoints.MapPost("/fixeddepositrmreports/fetch", async (HttpContext context) => {
          //       await context.Response.WriteAsync(
-         //          await new FetchReports<FixedDepositBody, RMProduct>(context, "fixed_deposit").fetch(
+         //          await new FetchReports<FixedDepositBody, Rmproduct>(context, "fixed_deposit").fetch(
          //             FixedDeposit.RMReport
          //          )
          //       );

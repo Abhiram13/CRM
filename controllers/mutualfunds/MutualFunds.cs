@@ -19,7 +19,7 @@ namespace TransactionManagement {
       //    MutualFundsBody trans = await this.transaction;
       //    DocumentVerification<MutualFundsBody> details = new DocumentVerification<MutualFundsBody>() {
       //       document = trans,
-      //       boolean = !(await CustomerController.IsCustomerExist(trans.MOBILE)) && !(await EmployeeController.IsEmployeeExist(trans.MANAGER)),
+      //       boolean = !(await CustomerController.IsCustomerExist(trans.mobile)) && !(await EmployeeController.IsEmployeeExist(trans.manager)),
       //       table = Table.mutualFunds,
       //    };
 

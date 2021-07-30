@@ -21,7 +21,7 @@ namespace CRM {
          ProductModel product = await this.product;
 
          foreach (ProductModel prod in products) {
-            if (prod.COMPANY.ToString() == product.COMPANY.ToString() && prod.PRODUCT.ToString() == product.PRODUCT.ToString()) {
+            if (prod.company.ToString() == product.company.ToString() && prod.product.ToString() == product.product.ToString()) {
                return true;
             }
          }

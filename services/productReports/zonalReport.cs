@@ -9,7 +9,7 @@ namespace CRM {
          List<TransactionType> ty = new List<TransactionType>();
 
          for (int i = 0; i < transactions.Length; i++) {
-            DateTime entryDate = (DateTime)typeof(TransactionType).GetProperty("ENTRY_DATE").GetValue(transactions[i]);
+            DateTime entryDate = (DateTime)typeof(TransactionType).GetProperty("entry_date").GetValue(transactions[i]);
             DateTime startDate = DateTime.Parse(typeof(ProductType).GetProperty("START_DATE").GetValue(report).ToString());
             DateTime endDate = DateTime.Parse(typeof(ProductType).GetProperty("END_DATE").GetValue(report).ToString());
 

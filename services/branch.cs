@@ -28,8 +28,8 @@ namespace CRM {
          BranchModel currentBranch = await this.branch;
 
          for (int i = 0; i < listOfBranches.Length; i++) {
-            bool checkLocation = listOfBranches[i].LOCATION.ToString() == currentBranch.LOCATION.ToString();
-            bool checkBranch = listOfBranches[i].BRANCH.ToString() == currentBranch.BRANCH.ToString();
+            bool checkLocation = listOfBranches[i].location.ToString() == currentBranch.location.ToString();
+            bool checkBranch = listOfBranches[i].branch.ToString() == currentBranch.branch.ToString();
             if (checkBranch && checkLocation) return true;
          }
 

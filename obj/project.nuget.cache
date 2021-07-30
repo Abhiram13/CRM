@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "pk0gJDrmhs7UgH3kEi4IUneLPB943TNSF4C9EoMaquzhLjZPtS56QRzRXqpbqUjkEGC48kVq8TfG1XBc+BSiXg==",
   "success": true,
-  "projectFilePath": "/Users/abhiramnagadi/Documents/CRM.NET/CRM.csproj",
+  "projectFilePath": "/Users/abhiramnagadi/Documents/CRM.net/CRM.csproj",
   "expectedPackageFiles": [
     "/Users/abhiramnagadi/.nuget/packages/dnsclient/1.3.1/dnsclient.1.3.1.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/5.0.0/microsoft.aspnetcore.authentication.jwtbearer.5.0.0.nupkg.sha512",
