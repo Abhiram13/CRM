@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Models {
    public abstract class IMongoObject {
       [BsonIgnoreIfNull]
-      public MongoDB.Bson.ObjectId _id { get; set; } = new ObjectId();
+      public ObjectId _id { get; set; } = new ObjectId();
       public int? __v { get; } = 1;
    }
 
@@ -46,6 +46,19 @@ namespace Models {
       public string state { get; set; } = "";
       public string role { get; set; } = "";
       public string salt { get; set; } = "";
+   }
+
+   public struct EmployeeResponseBody {
+      public int empid { get; set; }
+      public string title { get; set; }
+      public string firstname { get; set; }
+      public string lastname { get; set; }
+      public string email { get; set; }
+      public long mobile { get; set; }
+      public string location { get; set; }
+      public string branch { get; set; }
+      public string state { get; set; }
+      public string role { get; set; }
    }
 
    public class Customer : IMongoObject {

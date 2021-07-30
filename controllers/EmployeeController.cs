@@ -1,7 +1,9 @@
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System;
+using MongoDB.Bson;
 
 namespace EmployeeManagement {
    [Route("employee")]
@@ -18,6 +20,12 @@ namespace EmployeeManagement {
       [Route("add")]
       public async Task<ResponseBody<string>> Add() {
          return await EmployeeService.Add(Request);
+      }
+
+      [HttpGet]
+      [Route("all")]
+      public List<EmployeeResponseBody> FetchAll() {
+         return EmployeeService.FetchAllEmployees(Request);
       }
    }
 }

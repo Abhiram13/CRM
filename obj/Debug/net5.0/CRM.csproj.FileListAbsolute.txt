@@ -133,3 +133,7 @@
 /Users/abhiramnagadi/Documents/CRM.net/obj/Debug/net5.0/CRM.pdb
 /Users/abhiramnagadi/Documents/CRM.net/obj/Debug/net5.0/CRM.genruntimeconfig.cache
 /Users/abhiramnagadi/Documents/CRM.net/obj/Debug/net5.0/CRM.csproj.AssemblyReference.cache
+/Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/linux/native/libmongocrypt.so
+/Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/osx/native/libmongocrypt.dylib
+/Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/runtimes/win/native/mongocrypt.dll
+/Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/MongoDB.Driver.Legacy.dll

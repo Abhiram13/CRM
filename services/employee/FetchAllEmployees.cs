@@ -3,12 +3,34 @@ using Models;
 using CRM;
 using System;
 using System.Collections.Generic;
-using Authentication;
+using Microsoft.AspNetCore.Http;
+using Database;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace EmployeeManagement {
-   // public sealed partial class EmployeeController : Controller {
-   //    public static async Task<Employee[]> FetchAllEmployees() {
-   //       return await FetchAll<Employee>(Table.employee);
-   //    }
-   // }
+   public partial class EmployeeService {
+      public static List<EmployeeResponseBody> FetchAllEmployees(HttpRequest request) {
+         DatabaseService<Employee> db = new DatabaseService<Employee>(Table.employee);         
+         List<Employee> employeesList = db.collection.Find<Employee>(new BsonDocument()).ToList();
+         List<EmployeeResponseBody> response = new List<EmployeeResponseBody>();
+
+         foreach (Employee employee in employeesList) {
+            response.Add(new EmployeeResponseBody() { 
+               branch = employee.branch,
+               email = employee.email,
+               empid = employee.empid,
+               firstname = employee.firstname,
+               lastname = employee.lastname,
+               location = employee.location,
+               mobile = employee.mobile,
+               role = employee.role,
+               state = employee.state,
+               title = employee.title,            
+            });
+         }
+
+         return response;
+      }
+   }
 }
