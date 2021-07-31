@@ -10,5 +10,6 @@ namespace System {
       public const string mutualFunds = "mutual_funds";
       public const string states = "states";
       public const string roles = "roles";
+      public const string location = "location";
    }
 }

@@ -18,5 +18,17 @@ namespace ApiManagement {
          List<Roles> roles = db.collection.Find(new BsonDocument()).ToList();
          return roles[0].roles;
       }
+
+      public static string[] fetchLocations() {
+         DatabaseService<LocationModel> db = new DatabaseService<LocationModel>(Table.location);
+         List<LocationModel> locations = db.collection.Find(new BsonDocument()).ToList();
+         List<string> list = new List<string>();
+
+         foreach (LocationModel location in locations) {
+            list.Add(location.location);
+         }
+
+         return list.ToArray();
+      }
    }
 }

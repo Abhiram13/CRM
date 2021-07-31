@@ -93,6 +93,10 @@ namespace Models {
       public string type { get; set; }
    }
 
+   public class LocationModel : IMongoObject {
+      public string location { get; set; }
+   }
+
    namespace ProductReportsRequestBody {
       public class BranchProduct : ZonalProduct {
          public string branch { get; set; }
