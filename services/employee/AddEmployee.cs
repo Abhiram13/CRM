@@ -8,11 +8,6 @@ using Database;
 
 namespace EmployeeManagement {
    public sealed partial class EmployeeService {
-      private static bool checkEmployee(int id) {         
-         Employee emp = EmployeeService.FetchById(id);
-         return emp == null;
-      }
-
       public async static Task<ResponseBody<string>> Add(HttpRequest request) {
          try {
             Employee employee = await JSONN.httpContextDeseriliser<Employee>(request);
