@@ -12,7 +12,7 @@ namespace EmployeeManagement {
          try {
             Employee employee = await JSONN.httpContextDeseriliser<Employee>(request);
 
-            if (checkEmployee(employee.empid)) {
+            if (isEmployeeExist(employee.empid)) {
                HashDetails hash = HashPassword.hash(employee.password);
                employee.salt = hash.salt;
                employee.password = hash.password;
