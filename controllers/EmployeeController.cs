@@ -18,8 +18,9 @@ namespace EmployeeManagement {
 
       [HttpPost]
       [Route("add")]
-      public async Task<ResponseBody<string>> Add() {
-         return await EmployeeService.Add(Request);
+      public void Add() {
+         // return await EmployeeService.Add(Request);
+         EmployeeService.Insert(Request);
       }
 
       [HttpGet]
