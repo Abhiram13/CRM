@@ -4,7 +4,7 @@ using Models;
 using CRM;
 using System;
 using AuthenticationService;
-using Database;
+using DatabaseManagement;
 
 namespace EmployeeManagement {
    public sealed partial class EmployeeService {
@@ -16,7 +16,7 @@ namespace EmployeeManagement {
                HashDetails hash = HashPassword.hash(employee.password);
                employee.salt = hash.salt;
                employee.password = hash.password;
-               DatabaseService<Employee> db = new DatabaseService<Employee>(Table.employee);
+               Database<Employee> db = new Database<Employee>(Table.employee);
                db.collection.InsertOne(employee);
 
                return new ResponseBody<string>() {

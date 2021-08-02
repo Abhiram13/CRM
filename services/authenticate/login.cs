@@ -2,11 +2,11 @@ using System;
 using Models;
 using CRM;
 using MongoDB.Driver;
-using Database;
+using DatabaseManagement;
 
 namespace AuthenticationService {
    public partial class Authenticate {
-      public class Login : DatabaseService<Employee> {
+      public class Login : Database<Employee> {
          private LoginRequest request;
          private Employee emp;
          public Login(LoginRequest req) : base(Table.employee) {

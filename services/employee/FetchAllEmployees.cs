@@ -4,14 +4,14 @@ using CRM;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Database;
+using DatabaseManagement;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
 namespace EmployeeManagement {
    public partial class EmployeeService {
       public static List<EmployeeResponseBody> FetchAllEmployees(HttpRequest request) {
-         DatabaseService<Employee> db = new DatabaseService<Employee>(Table.employee);         
+         Database<Employee> db = new Database<Employee>(Table.employee);         
          List<Employee> employeesList = db.collection.Find<Employee>(new BsonDocument()).ToList();
          List<EmployeeResponseBody> response = new List<EmployeeResponseBody>();
 
