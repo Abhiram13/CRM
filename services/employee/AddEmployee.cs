@@ -8,6 +8,18 @@ using AuthenticationService;
 using DatabaseManagement;
 
 namespace EmployeeManagement {
+   public partial class EmployeeServ : Services<Employee> {
+      public EmployeeServ(HttpRequest request) : base(request, Table.employee) {}
+
+      public void Insert() {
+         FilterDefinition<Employee> filter = document.builders.Eq("empid", requestBody.empid);
+         HashDetails hash = HashPassword.hash(requestBody.password);
+         requestBody.salt = hash.salt;
+         requestBody.password = hash.password;         
+         document.Insert(requestBody, filter);
+      }
+   }
+
    public sealed partial class EmployeeService {
 
       public async static void Insert(HttpRequest request) {
