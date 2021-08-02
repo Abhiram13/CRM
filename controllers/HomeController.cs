@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ApiManagement {
    [Route("api")]
-   public class ApiController : Microsoft.AspNetCore.Mvc.Controller {
+   public class ApiController : Controller {
 
       [HttpGet]
       [Route("states")]

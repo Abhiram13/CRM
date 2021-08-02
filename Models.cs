@@ -82,7 +82,7 @@ namespace Models {
       public long pincode { get; set; }
    }
 
-   public class BranchModel : IMongoObject {
+   public class Branch : IMongoObject {
       public string location { get; set; }
       public string branch { get; set; }
    }

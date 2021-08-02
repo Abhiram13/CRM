@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Authentication {
    [Route("")]
-   public class AuthenticationController : Microsoft.AspNetCore.Mvc.Controller {
+   public class AuthenticationController : Controller {
 
       [HttpGet]
       public ResponseBody<string> Home() {

@@ -13,8 +13,6 @@ using Models.TransactionsRequestBody;
 using Models.ZonalReportsResponseBody;
 using Models.RevenuesRequestBody;
 using EmployeeManagement;
-using CustomerManagement;
-using TransactionManagement;
 using System.Collections.Generic;
 
 namespace CRM {

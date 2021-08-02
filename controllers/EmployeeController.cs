@@ -7,7 +7,7 @@ using MongoDB.Bson;
 
 namespace EmployeeManagement {
    [Route("employee")]
-   public partial class EmployeeController : Microsoft.AspNetCore.Mvc.Controller {
+   public partial class EmployeeController : Controller {
 
       [HttpGet]
       [Route("fetchByCookie")]
