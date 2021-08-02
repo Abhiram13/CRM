@@ -19,4 +19,16 @@ namespace DatabaseManagement {
          projection = Builders<T>.Projection;         
       }
    }
+
+   public class Document<T> {
+      private IMongoCollection<T> collection;
+
+      public Document(string collectionName) {
+         collection = Mongo.database.GetCollection<T>(collectionName);
+      }
+
+      public void Insert(T document) {
+         collection.InsertOne(document);
+      }
+   }
 }

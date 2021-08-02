@@ -24,7 +24,7 @@ namespace Authentication {
       [HttpPost]
       [Route("login")]
       public async Task<string> Login() {
-         LoginRequest request = await JSONN.httpContextDeseriliser<LoginRequest>(Request);
+         LoginRequest request = await JSON.httpContextDeseriliser<LoginRequest>(Request);
          ResponseBody<string> response = new Authenticate.Login(request).authenticate();
          CookieOptions options = new CookieOptions() {
             SameSite = SameSiteMode.None,

@@ -10,7 +10,7 @@ namespace EmployeeManagement {
    public sealed partial class EmployeeService {
       public async static Task<ResponseBody<string>> Add(HttpRequest request) {
          try {
-            Employee employee = await JSONN.httpContextDeseriliser<Employee>(request);
+            Employee employee = await JSON.httpContextDeseriliser<Employee>(request);
 
             if (isEmployeeExist(employee.empid)) {
                HashDetails hash = HashPassword.hash(employee.password);

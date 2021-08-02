@@ -11,5 +11,6 @@ namespace System {
       public const string states = "states";
       public const string roles = "roles";
       public const string location = "location";
+      public const string branch = "branch";
    }
 }
