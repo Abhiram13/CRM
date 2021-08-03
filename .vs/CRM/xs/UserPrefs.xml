@@ -1,11 +1,23 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{F59BC143-27FA-4E2D-A0DB-BC770DF5EF7C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="methods/revenueReport.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="services/employee/AddEmployee.cs">
     <Files>
-      <File FileName="Startup.cs" Line="258" Column="1" IsPinned="True" />
-      <File FileName="methods/revenueReport.cs" Line="12" Column="38" />
-      <File FileName="methods/productReports/zonalReport.cs" />
+      <File FileName="Startup.cs" Line="260" Column="1" IsPinned="True" />
+      <File FileName="services/employee/AddEmployee.cs" Line="13" Column="1" />
     </Files>
     <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CRM" expanded="True">
+            <Node name="CRM" expanded="True">
+              <Node name="services" expanded="True">
+                <Node name="employee" expanded="True">
+                  <Node name="AddEmployee.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="CRM" expanded="True" selected="True" />

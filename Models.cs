@@ -6,7 +6,7 @@ namespace Models {
    public abstract class IMongoObject {
       [BsonIgnoreIfNull]
       public ObjectId _id { get; set; } = new ObjectId();
-      public int? __v { get; } = 1;
+      public byte? __v { get; } = 1;
    }
 
    public struct CustomerDetails {
@@ -120,14 +120,14 @@ namespace Models {
       public class FixedDepositRevenue : IMongoObject {
          public string schema { get; set; }
          public string company { get; set; }
-         public int tenour { get; set; }
+         public byte tenour { get; set; }
          public float revenue { get; set; }
       }
 
       public class GeneralInsuranceRevenue : IMongoObject {
          public string product { get; set; }
          public string company { get; set; }
-         public int revenue { get; set; }
+         public float revenue { get; set; }
       }
 
       public class LifeInsuranceRevenue : IMongoObject {
@@ -135,7 +135,7 @@ namespace Models {
          public string company { get; set; }
          public string plan { get; set; }
          public string payment_term { get; set; }
-         public int revenue { get; set; }
+         public float revenue { get; set; }
       }
 
       public class MutualFundsRevenue : IMongoObject {
@@ -145,7 +145,7 @@ namespace Models {
          public string option { get; set; }
          public string sub_option { get; set; } = "";
          public string mode { get; set; }
-         public int revenue { get; set; }
+         public float revenue { get; set; }
       }
    }
 

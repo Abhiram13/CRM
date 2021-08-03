@@ -16,7 +16,7 @@ namespace EmployeeManagement {
          HashDetails hash = HashPassword.hash(requestBody.password);
          requestBody.salt = hash.salt;
          requestBody.password = hash.password;         
-         document.Insert(requestBody, filter);
+         short statusCode = document.Insert(requestBody, filter);
       }
    }
 

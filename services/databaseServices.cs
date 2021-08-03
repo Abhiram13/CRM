@@ -36,17 +36,18 @@ namespace DatabaseManagement {
          return document == null;
       }
 
-      public void Insert(T document) {
+      public short Insert(T document) {
          collection.InsertOne(document);
+         return 200;
       }
 
-      public void Insert(T document, FilterDefinition<T> filter) {
+      public short Insert(T document, FilterDefinition<T> filter) {
          if (isDocumentExist(filter)) {
             collection.InsertOne(document);
-            Console.WriteLine("Document inserted");
+            return 200;
          }
 
-         Console.WriteLine("Document already Exists");
+         return 302;
       }
 
       public List<T> FetchAll() {

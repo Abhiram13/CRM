@@ -20,5 +20,9 @@ namespace CRM {
          requestBody = JSON.httpContextDeseriliser<T>(request).Result;
          document = new Document<T>(table);
       }
+
+      public void Send<M>(int statusCode, M message) {
+         
+      }
    }
 }
