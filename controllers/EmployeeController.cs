@@ -19,9 +19,8 @@ namespace EmployeeManagement {
       [HttpPost]
       [Route("add")]
       public void Add() {
-         // return await EmployeeService.Add(Request);
-         // EmployeeService.Insert(Request);
-         new EmployeeServ(Request).Insert();
+         short code = new EmployeeServ(Request).Insert();
+         Response.StatusCode = code;
       }
 
       [HttpGet]

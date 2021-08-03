@@ -11,12 +11,12 @@ namespace EmployeeManagement {
    public partial class EmployeeServ : Services<Employee> {
       public EmployeeServ(HttpRequest request) : base(request, Table.employee) {}
 
-      public void Insert() {
+      public short Insert() {
          FilterDefinition<Employee> filter = document.builders.Eq("empid", requestBody.empid);
          HashDetails hash = HashPassword.hash(requestBody.password);
          requestBody.salt = hash.salt;
-         requestBody.password = hash.password;         
-         short statusCode = document.Insert(requestBody, filter);
+         requestBody.password = hash.password;
+         return document.Insert(requestBody, filter);
       }
    }
 

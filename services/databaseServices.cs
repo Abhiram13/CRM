@@ -42,12 +42,17 @@ namespace DatabaseManagement {
       }
 
       public short Insert(T document, FilterDefinition<T> filter) {
-         if (isDocumentExist(filter)) {
-            collection.InsertOne(document);
-            return 200;
-         }
+         try {
+            if (isDocumentExist(filter)) {
+               collection.InsertOne(document);
+               return 200;
+            }
 
-         return 302;
+            return 302;
+         } catch (MongoException error) {
+            Console.WriteLine(error);
+            return 500;
+         }
       }
 
       public List<T> FetchAll() {
