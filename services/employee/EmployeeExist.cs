@@ -1,10 +1,14 @@
 using Models;
+using CRM;
+using MongoDB.Driver;
 
-namespace EmployeeManagement {
-   public sealed partial class EmployeeService {
-      public static bool isEmployeeExist(int employeeId) {
-         Employee emp = EmployeeService.FetchById(employeeId);
-         return emp == null;
+namespace Services {
+   namespace EmployeeManagement {
+      public sealed partial class EmployeeService : Services<Employee> {
+         public bool isEmployeeExist(int employeeId) {
+            FilterDefinition<Employee> filter = document.builders.Eq("empid", employeeId);
+            return document.isDocumentExist(filter);
+         }
       }
    }
 }

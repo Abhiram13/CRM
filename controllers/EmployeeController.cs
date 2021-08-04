@@ -5,28 +5,30 @@ using System.Collections.Generic;
 using System;
 using MongoDB.Bson;
 
-namespace EmployeeManagement {
-   [Route("employee")]
-   public partial class EmployeeController : Controller {
+namespace Controllers {
+   namespace EmployeeManagement {
+      [Route("employee")]
+      public partial class EmployeeController : Controller {
 
-      [HttpGet]
-      [Route("fetchByCookie")]
-      public Employee fetch() {
-         Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-         return EmployeeService.fetchByCookie(Request);
-      }
+         [HttpGet]
+         [Route("fetchByCookie")]
+         public Employee fetch() {
+            Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+            return EmployeeService.fetchByCookie(Request);
+         }
 
-      [HttpPost]
-      [Route("add")]
-      public void Add() {
-         short code = new EmployeeService(Request).Insert();
-         Response.StatusCode = code;
-      }
+         [HttpPost]
+         [Route("add")]
+         public void Add() {
+            short code = new EmployeeService(Request).Insert();
+            Response.StatusCode = code;
+         }
 
-      [HttpGet]
-      [Route("all")]
-      public List<EmployeeResponseBody> FetchAll() {
-         return EmployeeService.FetchAllEmployees(Request);
+         [HttpGet]
+         [Route("all")]
+         public List<EmployeeResponseBody> FetchAll() {
+            return EmployeeService.FetchAllEmployees(Request);
+         }
       }
    }
 }

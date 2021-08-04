@@ -4,8 +4,7 @@ using Models;
 using CRM;
 using System;
 using MongoDB.Driver;
-using AuthenticationService;
-using DatabaseManagement;
+using Services.DatabaseManagement;
 
 namespace CRM {
    public abstract class Services<T> {
