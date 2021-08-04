@@ -19,7 +19,7 @@ namespace EmployeeManagement {
       [HttpPost]
       [Route("add")]
       public void Add() {
-         short code = new EmployeeServ(Request).Insert();
+         short code = new EmployeeService(Request).Insert();
          Response.StatusCode = code;
       }
 
