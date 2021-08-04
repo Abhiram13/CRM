@@ -3,11 +3,12 @@ using Models;
 using CRM;
 using MongoDB.Driver;
 using DatabaseManagement;
+using System.Collections.Generic;
 
 namespace AuthenticationService {
    public partial class Authenticate {
       public class Login : Database<Employee> {
-         private LoginRequest request;
+         private LoginRequest request;         
          private Employee emp;
          public Login(LoginRequest req) : base(Table.employee) {
             request = req;
@@ -15,7 +16,8 @@ namespace AuthenticationService {
 
          private Employee employee() {
             FilterDefinition<Employee> filter = this.builders.Eq("empid", request.id);
-            return this.collection.Find(filter).ToList()[0];
+            List<Employee> list = this.collection.Find(filter).ToList();
+            return list.Count > 0 ? list[0] : null;
          }
 
          private bool hashPassword() {
@@ -24,16 +26,16 @@ namespace AuthenticationService {
          }
 
          public ResponseBody<string> authenticate() {
-            emp = this.employee();
-            bool passwordCheck = this.hashPassword();
-
             ResponseBody<string> response = new ResponseBody<string>();
+            emp = this.employee();
 
             if (emp == null) {
-               response.body = "Employee does not exist";
+               response.body = "Employee does not exist";               
                response.statusCode = 404;
                return response;
             }
+
+            bool passwordCheck = this.hashPassword();            
 
             if (passwordCheck == false) {
                response.body = "password is incorrect";

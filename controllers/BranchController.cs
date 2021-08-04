@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace BranchManagement {
-   [Route("api/branch")]
+   [Route("branch")]
    public class BranchController : Controller {
       [HttpPost]
       [Route("add")]
-      public void Add() {}
+      public ObjectResult Add() {
+         return StatusCode(300, new ResponseBody<string>() { body = "asdasdh" });
+      }
    }
 }

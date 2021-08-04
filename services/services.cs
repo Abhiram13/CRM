@@ -8,7 +8,7 @@ using AuthenticationService;
 using DatabaseManagement;
 
 namespace CRM {
-   public class Services<T> {
+   public abstract class Services<T> {
       public T requestBody;
       public Document<T> document;
 

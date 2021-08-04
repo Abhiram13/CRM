@@ -32,42 +32,10 @@ namespace Authentication {
             Secure = true,
          };
          Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+         Response.Headers.Add("Content-Type", "text/plain");
          Response.StatusCode = response.statusCode;
          Response.Cookies.Append("auth", response.body, options);
          return response.body;
-      }
-
-      [HttpGet]
-      [Route("/demo")]
-      public string Demo() {
-         Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-         Console.WriteLine(Request.Headers["Cookie"]);
-         string password = "123";
-
-         // generate a 128-bit salt using a secure PRNG
-         // byte[] salt = new byte[128 / 8];
-         // using (var rng = RandomNumberGenerator.Create()) {
-         //    rng.GetBytes(salt);
-         // }
-
-         // Console.WriteLine($"Password: {password}");
-         byte[] b = Encoding.ASCII.GetBytes("S2dQVkVZdXVOSnpPUEZrTWczT2NVdz09");
-         string s = Encoding.ASCII.GetString(b);
-         Console.WriteLine($"Salt: {s}");
-         Console.WriteLine(password);
-
-         // Password: 123
-         // Salt: l/1c/u2D/dgXzmK/WeGThw==
-         // Hashed: j+vNGaoGEBrIsKnBdLEYmvNUeuxTdH5B0VVEJhNctx0=
-
-         string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password,
-            salt: b,
-            prf: KeyDerivationPrf.HMACSHA1,
-            iterationCount: 10000,
-            numBytesRequested: 256 / 8));
-         Console.WriteLine($"Hashed: {hashed}");
-         return $"Hashed: {hashed}";
       }
    }
 }

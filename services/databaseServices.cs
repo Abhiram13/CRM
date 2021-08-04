@@ -31,7 +31,7 @@ namespace DatabaseManagement {
          builders = Builders<T>.Filter;
       }
 
-      private bool isDocumentExist(FilterDefinition<T> filter) {
+      public bool isDocumentExist(FilterDefinition<T> filter) {
          T document = FetchOne(filter);
          return document == null;
       }
@@ -41,6 +41,12 @@ namespace DatabaseManagement {
          return 200;
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="document"></param>
+      /// <param name="filter"></param>
+      /// <returns></returns>
       public short Insert(T document, FilterDefinition<T> filter) {
          try {
             if (isDocumentExist(filter)) {

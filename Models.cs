@@ -294,7 +294,7 @@ namespace Models {
    }
 
    public struct ResponseBody<T> {
-      public int statusCode { get; set; }
+      public short statusCode { get; set; }
       public T body { get; set; }
    }
 }
