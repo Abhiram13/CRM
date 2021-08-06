@@ -3,26 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Controllers {
-   namespace ApiManagement {
+   namespace Api {
       [Route("api")]
       public class ApiController : Controller {
 
          [HttpGet]
          [Route("states")]
          public string[] States() {
-            return ApiServices.fetchStates();
+            return Services.ApiManagement.Api.fetchStates();
          }
 
          [HttpGet]
          [Route("roles")]
          public string[] Roles() {
-            return ApiServices.fetchRoles();
+            return Services.ApiManagement.Api.fetchRoles();
          }
 
          [HttpGet]
          [Route("locations")]
          public string[] Locations() {
-            return ApiServices.fetchLocations();
+            return Services.ApiManagement.Api.fetchLocations();
          }
       }
    }

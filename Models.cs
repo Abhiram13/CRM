@@ -25,11 +25,11 @@ namespace Models {
       public T document { get; set; }
    }
 
-   public class States : IMongoObject {
+   public class StatesModels : IMongoObject {
       public string[] states { get; set; } = new string[] { };
    }
 
-   public class Roles : IMongoObject {
+   public class RolesModels : IMongoObject {
       public string[] roles { get; set; } = new string[] { };
    }
 

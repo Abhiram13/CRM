@@ -1,17 +1,18 @@
 using Models;
 using System;
-using DatabaseManagement;
+using Services.DatabaseManagement;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Collections.Generic;
+using CRM;
 
 namespace Services {
    namespace ApiManagement {
-      public sealed partial class Api {
+      public sealed class Locations : Document<LocationModel> {         
+         private Locations() : base(Table.location) {}
          public static string[] fetchLocations() {
-            Database<LocationModel> db = new Database<LocationModel>(Table.location);
-            List<LocationModel> locations = db.collection.Find(new BsonDocument()).ToList();
-            List<string> list = new List<string>();
+				List<LocationModel> locations = new Locations().FetchAll();
+				List<string> list = new List<string>();
 
             foreach (LocationModel location in locations) {
                list.Add(location.location);

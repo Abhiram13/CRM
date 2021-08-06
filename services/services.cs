@@ -15,6 +15,10 @@ namespace CRM {
 			requestBody = JSON.httpContextDeseriliser<T>(request).Result;
 		}
 
+      public Services(string table) {
+			document = new Document<T>(table);
+      }
+
 		public Services(HttpRequest request, string table) {
 			requestBody = JSON.httpContextDeseriliser<T>(request).Result;
 			document = new Document<T>(table);
