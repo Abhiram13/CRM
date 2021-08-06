@@ -25,11 +25,11 @@ namespace Controllers {
             Response.StatusCode = code;
          }
 
-         [HttpGet]
-         [Route("all")]
-         public List<EmployeeResponseBody> FetchAll() {
-            return EmployeeService.FetchAllEmployees(Request);
-         }
+         // [HttpGet]
+         // [Route("all")]
+         // public List<EmployeeResponseBody> FetchAll() {
+         //    return EmployeeService.FetchAllEmployees(Request);
+         // }
       }
    }
 }

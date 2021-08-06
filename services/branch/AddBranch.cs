@@ -4,7 +4,7 @@ using Models;
 using CRM;
 using System;
 using MongoDB.Driver;
-using DatabaseManagement;
+using Services.DatabaseManagement;
 
 namespace BranchManagement {
    public sealed partial class BranchServices : Services<Branch> {

@@ -9,9 +9,10 @@ using CRM;
 namespace Services {
    namespace EmployeeManagement {
       public partial class EmployeeService : Services<Employee> {
-         public Employee FetchById(int id) {
-            FilterDefinition<Employee> filter = document.builders.Eq("empid", id);
-            return document.FetchOne(filter);
+         public static Employee FetchById(int id) {
+				Document<Employee> doc = new Document<Employee>(Table.employee);
+				FilterDefinition<Employee> filter = doc.builders.Eq("empid", id);
+            return doc.FetchOne(filter);
          }
       }
    }
