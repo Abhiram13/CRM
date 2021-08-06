@@ -23,7 +23,7 @@ namespace Services {
          }
 
          private bool IsPasswordValid() {
-            return Hash.Compare(emp.salt, requestBody.password, emp.password);        
+            return Hash.Compare(emp.salt, requestBody.password, emp.password);
          }
 
          public ResponseBody<string> Authenticate() {
