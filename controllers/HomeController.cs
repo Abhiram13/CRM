@@ -24,6 +24,7 @@ namespace Controllers {
 
          [HttpGet]
          [Route("roles")]
+         [ResponseHeaders]
          public string[] Roles() {
             return Services.ApiManagement.Roles.fetchRoles();
          }
