@@ -8,21 +8,14 @@ using Services.EmployeeManagement;
 
 namespace System {
    public class InvalidCookieException : Exception {
-		public override string Message { get { return "Provided Cookies are invalid"; } }
+		public override string Message { get { return "Please provide valid cookies"; } }
 	}
 
    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
    public class ResponseHeadersAttribute : ActionFilterAttribute {
 		public override void OnActionExecuting(ActionExecutingContext context) {
-			HttpResponse response = context.HttpContext.Response;
-			Employee employee = EmployeeService.fetchByCookie(context.HttpContext.Request);
-			Console.WriteLine(employee.empid);
+			HttpResponse response = context.HttpContext.Response;						
 			response.Headers.Add("Access-Control-Allow-Credentials", "true");			
-			// UnauthorizedObjectResult result = new UnauthorizedObjectResult("asdgasdasgd") {
-			// 	StatusCode = 200,
-			// };
-
-			// context.Result = result;
 			base.OnActionExecuting(context);
 		}
 	}
@@ -32,6 +25,21 @@ namespace System {
 		private string[] roles;
       public RoleAuthoriseAttribute(string[] Roles) {
 			roles = Roles;
+		}
+
+		public override void OnActionExecuting(ActionExecutingContext context) {
+			Employee employee = EmployeeService.fetchByCookie(context.HttpContext.Request);
+         
+         // Finds logged in employee role in the array of roles
+         // if no role matches, then employee is not authorised
+			bool isRoleExist = Array.Find<string>(roles, role => role == employee.role) == null;
+			if (isRoleExist == false) {
+				UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are Unauthorised to access this Route") {
+					StatusCode = 401,
+				};
+				context.Result = result;
+			}
+			base.OnActionExecuting(context);
 		}
 	}
 }
