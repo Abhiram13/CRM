@@ -25,6 +25,7 @@ namespace Controllers {
          [HttpGet]
          [Route("roles")]
          [ResponseHeaders]
+         [RoleAuthorise(new string[] { RoleType.Admin, RoleType.BranchManager })]
          public string[] Roles() {
             return Services.ApiManagement.Roles.fetchRoles();
          }

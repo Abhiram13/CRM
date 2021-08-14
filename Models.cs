@@ -48,17 +48,20 @@ namespace Models {
       public string salt { get; set; } = "";
    }
 
-   public struct EmployeeResponseBody {
-      public int empid { get; set; }
-      public string title { get; set; }
-      public string firstname { get; set; }
-      public string lastname { get; set; }
-      public string email { get; set; }
-      public long mobile { get; set; }
-      public string location { get; set; }
-      public string branch { get; set; }
-      public string state { get; set; }
-      public string role { get; set; }
+   public class EmployeeResponseBody {
+		private Employee Emp;
+		public EmployeeResponseBody(Employee emp) {
+			Emp = emp;
+		}
+      public int empid { get { return Emp.empid; } }
+      public string title { get { return Emp.title; } }
+      public string fullname { get { return $"{Emp.firstname} ${Emp.lastname}"; } }
+      public string email { get { return Emp.email; } }
+      public long mobile { get { return Emp.mobile; } }
+      public string location { get { return Emp.location; } }
+      public string branch { get { return Emp.branch; } }
+      public string state { get { return Emp.state; } }
+      public string role { get { return Emp.role; } }
    }
 
    public class Customer : IMongoObject {

@@ -14,18 +14,7 @@ namespace Services {
             List<EmployeeResponseBody> response = new List<EmployeeResponseBody>();
 
             foreach (Employee employee in employeesList) {
-               response.Add(new EmployeeResponseBody() {
-                  branch = employee.branch,
-                  email = employee.email,
-                  empid = employee.empid,
-                  firstname = employee.firstname,
-                  lastname = employee.lastname,
-                  location = employee.location,
-                  mobile = employee.mobile,
-                  role = employee.role,
-                  state = employee.state,
-                  title = employee.title,
-               });
+               response.Add(new EmployeeResponseBody(employee));
             }
 
             return response;

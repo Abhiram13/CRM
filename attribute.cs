@@ -28,12 +28,12 @@ namespace System {
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext context) {
-			Employee employee = EmployeeService.fetchByCookie(context.HttpContext.Request);
-         
-         // Finds logged in employee role in the array of roles
-         // if no role matches, then employee is not authorised
-			bool isRoleExist = Array.Find<string>(roles, role => role == employee.role) == null;
-			if (isRoleExist == false) {
+			Employee loggedInEmployee = EmployeeService.fetchByCookie(context.HttpContext.Request);
+
+			// Finds logged in employee role in the array of roles
+			// if no role matches, then employee is not authorised
+			string isRoleExist = Array.Find<string>(roles, role => role == loggedInEmployee.role);
+			if (isRoleExist == null) {
 				UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are Unauthorised to access this Route") {
 					StatusCode = 401,
 				};
