@@ -14,6 +14,12 @@ namespace Controllers {
          public short Add() {
 				return new BranchServices(Request).Insert();
 			}
+
+			[HttpGet]
+			[Route("all")]
+			public List<Branch> All() {
+				return new BranchServices(Table.branch).FetchAll();
+			}
       }
    }
 }

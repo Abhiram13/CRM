@@ -5,8 +5,8 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Models {
    public abstract class IMongoObject {
       [BsonIgnoreIfNull]
-      public ObjectId _id { get; set; } = new ObjectId();
-      public byte? __v { get; } = 1;
+      private ObjectId _id { get; set; } = new ObjectId();
+      private byte? __v { get; } = 1;
    }
 
    public struct CustomerDetails {
