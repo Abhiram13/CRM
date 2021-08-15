@@ -13,7 +13,7 @@ namespace Controllers {
  
          [HttpGet]
          [Route("fetchByCookie")]
-         public Employee fetch() {
+         public EmployeeResponseBody fetch() {
             Response.Headers.Add("Access-Control-Allow-Credentials", "true");
             return EmployeeService.fetchByCookie(Request);
          }

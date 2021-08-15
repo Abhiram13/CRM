@@ -7,6 +7,7 @@ using System;
 namespace Controllers {
    namespace Api {
       [Route("api")]
+		[ResponseHeaders]
       public class ApiController : Controller {
 
          // [HttpGet]
@@ -16,15 +17,13 @@ namespace Controllers {
 			// }
 
          [HttpGet]
-         [Route("states")]
-         [ResponseHeaders]
+         [Route("states")]         
          public string[] States() {
             return Services.ApiManagement.States.fetchStates();
          }
 
          [HttpGet]
          [Route("roles")]
-         [ResponseHeaders]
          [RoleAuthorise(new string[] { RoleType.Admin, RoleType.BranchManager })]
          public string[] Roles() {
             return Services.ApiManagement.Roles.fetchRoles();

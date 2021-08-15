@@ -14,8 +14,8 @@ namespace System {
    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
    public class ResponseHeadersAttribute : ActionFilterAttribute {
 		public override void OnActionExecuting(ActionExecutingContext context) {
-			HttpResponse response = context.HttpContext.Response;						
-			response.Headers.Add("Access-Control-Allow-Credentials", "true");			
+			HttpResponse response = context.HttpContext.Response;
+			response.Headers.Add("Access-Control-Allow-Credentials", "true");
 			base.OnActionExecuting(context);
 		}
 	}
@@ -28,7 +28,7 @@ namespace System {
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext context) {
-			Employee loggedInEmployee = EmployeeService.fetchByCookie(context.HttpContext.Request);
+			EmployeeResponseBody loggedInEmployee = EmployeeService.fetchByCookie(context.HttpContext.Request);
 
 			// Finds logged in employee role in the array of roles
 			// if no role matches, then employee is not authorised

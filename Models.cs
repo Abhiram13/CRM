@@ -55,7 +55,7 @@ namespace Models {
 		}
       public int empid { get { return Emp.empid; } }
       public string title { get { return Emp.title; } }
-      public string fullname { get { return $"{Emp.firstname} ${Emp.lastname}"; } }
+      public string fullname { get { return $"{Emp.firstname} {Emp.lastname}"; } }
       public string email { get { return Emp.email; } }
       public long mobile { get { return Emp.mobile; } }
       public string location { get { return Emp.location; } }
