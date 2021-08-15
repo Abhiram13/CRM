@@ -1,16 +1,19 @@
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
+using Services.BranchManagement;
 
 namespace Controllers {
    namespace BranchManagement {
       [Route("branch")]
+      [RoleAuthorise]
       public class BranchController : Controller {
          [HttpPost]
          [Route("add")]
-         public ObjectResult Add() {
-            return StatusCode(300, new ResponseBody<string>() { body = "asdasdh" });
-         }
+         public short Add() {
+				return new BranchServices(Request).Insert();
+			}
       }
    }
 }

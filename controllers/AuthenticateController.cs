@@ -11,11 +11,12 @@ using Services.Authentication;
 namespace Controllers {
    namespace Authentication {
       [Route("")]
+      [ResponseHeaders]
       public class AuthenticationController : Controller {
 
          [HttpGet]
          public ResponseBody<string> Home() {
-            Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");
+            // Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");
             return new ResponseBody<string> {
                body = "Hello World",
                statusCode = 200,
@@ -31,8 +32,8 @@ namespace Controllers {
                Domain = "localhost",
                Secure = true,
             };
-            Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-            Response.Headers.Add("Content-Type", "text/plain");
+            // Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+            // Response.Headers.Add("Content-Type", "text/plain");
             Response.StatusCode = response.statusCode;
             Response.Cookies.Append("auth", response.body, options);
             return response.body;

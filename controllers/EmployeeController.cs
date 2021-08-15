@@ -9,12 +9,12 @@ using Services.EmployeeManagement;
 namespace Controllers {
    namespace EmployeeManagement {
       [Route("employee")]
+      [ResponseHeaders]
       public partial class EmployeeController : Controller {
  
          [HttpGet]
          [Route("fetchByCookie")]
          public EmployeeResponseBody fetch() {
-            Response.Headers.Add("Access-Control-Allow-Credentials", "true");
             return EmployeeService.fetchByCookie(Request);
          }
 

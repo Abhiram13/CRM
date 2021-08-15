@@ -23,21 +23,29 @@ namespace System {
 
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
    public class RoleAuthoriseAttribute : ActionFilterAttribute {
-		private string[] roles;
-      public RoleAuthoriseAttribute() {}
+		private string[] roles = new string[] { };
+		public RoleAuthoriseAttribute() {}
       public RoleAuthoriseAttribute(string[] Roles) {
 			roles = Roles;
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext context) {
          try {
+				//Fetch logged employee details by providing cookie through HttpRequest
 				EmployeeResponseBody loggedInEmployee = EmployeeService.fetchByCookie(context.HttpContext.Request);
 
-				// Finds logged in employee role in the array of roles
-				// if no role matches, then employee is not authorised
+				//check if employee role exists in given roles array
 				string isRoleExist = Array.Find<string>(roles, role => role == loggedInEmployee.role);
-				if (isRoleExist == null || loggedInEmployee == null) {
-					UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are Unauthorised to access this Route") {
+
+				//should specific roles be authorised or all roles are authorised?
+				string role = roles.Length > 0 ? isRoleExist : "all";
+
+				// Is employee exist? returns false, if not found
+				bool employeeExist = loggedInEmployee != null;
+
+				// if employee do not exist, or role do not match
+				if (employeeExist == false || role == null) {
+					UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are unauthorised to access this route") {
 						StatusCode = 401,
 					};
 					context.Result = result;

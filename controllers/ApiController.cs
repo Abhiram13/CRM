@@ -9,13 +9,6 @@ namespace Controllers {
       [Route("api")]
 		[ResponseHeaders]
       public class ApiController : Controller {
-
-         // [HttpGet]
-         // [Route("")]
-         // public void test() {
-			// 	Crypto.hash();
-			// }
-
          [HttpGet]
          [Route("states")]         
          public string[] States() {
@@ -24,7 +17,7 @@ namespace Controllers {
 
          [HttpGet]
          [Route("roles")]
-         [RoleAuthorise(new string[] { RoleType.Admin, RoleType.BranchManager })]
+         // [RoleAuthorise(new string[] { RoleType.Admin, RoleType.BranchManager })]
          public string[] Roles() {
             return Services.ApiManagement.Roles.fetchRoles();
          }
