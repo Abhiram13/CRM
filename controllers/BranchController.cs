@@ -8,6 +8,7 @@ namespace Controllers {
    namespace BranchManagement {
       [Route("branch")]
       [RoleAuthorise]
+      [ResponseHeaders]
       public class BranchController : Controller {
          [HttpPost]
          [Route("add")]
