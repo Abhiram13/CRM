@@ -90,6 +90,15 @@ namespace Models {
       public string branch { get; set; }
    }
 
+   public class BranchResponse {
+      public BranchResponse(Branch b) {
+			branch = b.branch;
+		}
+
+		public string location { get; set; }
+		public string branch { get; private set; }
+   }
+
    public class ProductModel : IMongoObject {
       public string product { get; set; }
       public string company { get; set; }
