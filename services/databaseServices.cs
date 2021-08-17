@@ -20,10 +20,16 @@ namespace DataBase {
 
    #nullable enable
 	public class Document<DocumentType> {		
-		private DocumentType? requestObject { get; set; }		
-		public Document(HttpRequest request) {
-			requestObject = Http.Decode<DocumentType>(request);
+		private DocumentType? _requestObject { get; set; }
+      private IMongoCollection<DocumentType> _collection { get; set; }
+		public Document(HttpRequest request, string collectionName) {
+			_requestObject = Http.Decode<DocumentType>(request);
+			_collection = Mongo.database.GetCollection<DocumentType>(collectionName);
 		}
+
+      public Document(string collectionName) {
+         _collection = Mongo.database.GetCollection<DocumentType>(collectionName);
+      }
 	}
 }
 
