@@ -31,6 +31,18 @@ namespace DataBase {
       public Document(string collectionName) {
          _collection = Mongo.database.GetCollection<DocumentType>(collectionName);
       }
+
+      public List<DocumentType> FetchOne(FilterDefinition<DocumentType> filter) {
+			return _collection.Find(filter).ToList();
+      }
+
+      private bool _isDocumentExist(FilterDefinition<DocumentType> filter) {
+			return FetchOne(filter).Count > 0 ? true : false;
+		}
+
+      public void Insert(DocumentType document) {
+			_collection.InsertOne(document);
+		}
 	}
 }
 
