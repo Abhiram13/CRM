@@ -90,12 +90,13 @@ namespace Models {
       public string branch { get; set; }
    }
 
-   public class BranchResponse {
-      public BranchResponse(Branch b) {
+   public struct BranchResponseModel {
+      public BranchResponseModel(Branch b) {
 			branch = b.branch;
+			location = b.location;
 		}
 
-		public string location { get; set; }
+		public string location { get; private set; }
 		public string branch { get; private set; }
    }
 

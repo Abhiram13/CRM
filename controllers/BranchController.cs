@@ -20,7 +20,7 @@ namespace Controllers {
 
 			[HttpGet]
 			[Route("all")]
-			public List<Branch> All() {
+			public List<BranchResponseModel> All() {
 				return new BranchServices(Table.branch).FetchAll();
 			}
       }
