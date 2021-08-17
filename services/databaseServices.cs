@@ -18,10 +18,11 @@ namespace DataBase {
 		}
 	}
 
-	public class Document<DocumentType> {
-		private DocumentType document;
+   #nullable enable
+	public class Document<DocumentType> {		
+		private DocumentType? requestObject { get; set; }		
 		public Document(HttpRequest request) {
-			document = Http.Decode<DocumentType>(request);
+			requestObject = Http.Decode<DocumentType>(request);
 		}
 	}
 }
@@ -38,7 +39,7 @@ namespace Services {
 			}
 
 			public bool isDocumentExist(FilterDefinition<T> filter) {
-				T document = FetchOne(filter);
+				T? document = FetchOne(filter);
 				return document == null;
 			}
 
@@ -65,7 +66,7 @@ namespace Services {
 				return collection.Find(new BsonDocument()).ToList();
 			}
 
-			public T FetchOne(FilterDefinition<T> filter) {
+			public T? FetchOne(FilterDefinition<T> filter) {
 				List<T> doc = collection.Find(filter).ToList();
 				return doc.Count > 0 ? doc[0] : default(T);
 			}
