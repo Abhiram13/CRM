@@ -85,8 +85,7 @@ namespace Models {
       public long pincode { get; set; }
    }
 
-   public class Branch : IMongoObject {
-      public string location { get; set; }
+   public class Branch : LocationModel {
       public string branch { get; set; }
    }
 

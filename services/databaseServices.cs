@@ -4,6 +4,27 @@ using MongoDB.Bson;
 using CRM;
 using Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+
+namespace DataBase {
+	public static class Http {
+		/// <summary>
+		/// Returns document object from decoding http request
+		/// </summary>
+		/// <typeparam name="DocumentType">Type of document that need to be decoded</typeparam>
+		/// <param name="request">Http Request</param>
+		public static DocumentType Decode<DocumentType>(HttpRequest request) {
+			return JSON.httpContextDeseriliser<DocumentType>(request).Result;
+		}
+	}
+
+	public class Document<DocumentType> {
+		private DocumentType document;
+		public Document(HttpRequest request) {
+			document = Http.Decode<DocumentType>(request);
+		}
+	}
+}
 
 namespace Services {
 	namespace DatabaseManagement {
