@@ -19,9 +19,10 @@ namespace DataBase {
 	}
 
    #nullable enable
-	public class Document<DocumentType> {		
+	public class Document<DocumentType> {
 		private DocumentType? _requestObject { get; set; }
       private IMongoCollection<DocumentType> _collection { get; set; }
+		public FilterDefinitionBuilder<DocumentType> Builder { get { return Builders<DocumentType>.Filter; } }
 		public Document(HttpRequest request, string collectionName) {
 			_requestObject = Http.Decode<DocumentType>(request);
 			_collection = Mongo.database.GetCollection<DocumentType>(collectionName);
