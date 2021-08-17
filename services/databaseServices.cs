@@ -18,6 +18,19 @@ namespace DataBase {
 		}
 	}
 
+   public enum Status {
+		OK = 200,
+		Inserted = 201,
+		NoContent = 204,
+      DocumentFound = 302,
+      NotModified = 304,          
+      BadRequest = 400,
+      Unauthorised = 401,
+      Forbidden = 403,
+      NotFound = 404,
+      ServerError = 500,
+   }
+
    #nullable enable
 	public class Document<DocumentType> {
 		private DocumentType? _requestObject { get; set; }
@@ -29,7 +42,7 @@ namespace DataBase {
 		}
 
       public Document(string collectionName) {
-         _collection = Mongo.database.GetCollection<DocumentType>(collectionName);
+         _collection = Mongo.database.GetCollection<DocumentType>(collectionName);         
       }
 
       public List<DocumentType> FetchOne(FilterDefinition<DocumentType> filter) {
@@ -40,8 +53,10 @@ namespace DataBase {
 			return FetchOne(filter).Count > 0 ? true : false;
 		}
 
-      public void Insert(DocumentType document) {
-			_collection.InsertOne(document);
+      public void Insert(DocumentType document, FilterDefinition<DocumentType> filter) {
+         if (!_isDocumentExist(filter)) {
+				_collection.InsertOne(document);
+         }			
 		}
 	}
 }
