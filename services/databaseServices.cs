@@ -7,37 +7,13 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace DataBase {
-	public static class Http {
-		/// <summary>
-		/// Returns document object from decoding http request
-		/// </summary>
-		/// <typeparam name="DocumentType">Type of document that need to be decoded</typeparam>
-		/// <param name="request">Http Request</param>
-		public static DocumentType Decode<DocumentType>(HttpRequest request) {
-			return JSON.httpContextDeseriliser<DocumentType>(request).Result;
-		}
-	}
-
-   public sealed class Status {
-		public const int OK = 200;
-		public const int Inserted = 201;
-		public const int NoContent = 204;
-      public const int DocumentFound = 302;
-		public const int NotModified = 304;         
-      public const int BadRequest = 400;
-      public const int Unauthorised = 401;
-      public const int Forbidden = 403;
-      public const int NotFound = 404;
-      public const int ServerError = 500;
-   }
-
    #nullable enable
 	public class Document<DocumentType> {
 		private DocumentType? _requestObject { get; set; }
       private IMongoCollection<DocumentType> _collection { get; set; }
 		public FilterDefinitionBuilder<DocumentType> Builder { get { return Builders<DocumentType>.Filter; } }
 		public Document(HttpRequest request, string collectionName) {
-			_requestObject = Http.Decode<DocumentType>(request);
+			_requestObject = RequestBody.Decode<DocumentType>(request);
 			_collection = Mongo.database.GetCollection<DocumentType>(collectionName);
 		}
 
@@ -53,13 +29,15 @@ namespace DataBase {
 			return FetchOne(filter).Count > 0 ? true : false;
 		}
 
-      public int Insert(DocumentType document, FilterDefinition<DocumentType> filter) {
-         if (!_isDocumentExist(filter)) {
-				_collection.InsertOne(document);
-				return Status.Inserted;
+      public int Insert(FilterDefinition<DocumentType> filter) {
+         if (_requestObject == null) {
+				return StatusCode.BadRequest;
+			} else if (!_isDocumentExist(filter)) {
+				_collection.InsertOne(_requestObject);
+				return StatusCode.Inserted;
 			}
 
-			return Status.DocumentFound;
+			return StatusCode.DocumentFound;
 		}
 	}
 }

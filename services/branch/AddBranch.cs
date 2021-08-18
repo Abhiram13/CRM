@@ -5,6 +5,7 @@ using CRM;
 using System;
 using MongoDB.Driver;
 using Services.DatabaseManagement;
+using DataBase;
 
 namespace Services {
 	namespace BranchManagement {
@@ -17,5 +18,11 @@ namespace Services {
 				return document.Insert(requestBody, branchFilter);
 			}
 		}
+
+      // public sealed class BranchSer : DataBase.Document<Branch> {
+      //    public BranchSer() : base() {
+
+      //    }
+      // }
 	}
 }

@@ -9,20 +9,32 @@ namespace Models {
       public byte? __v { get; } = 1;
    }
 
-   public struct CustomerDetails {
-      public long mobile { get; set; }
-      public long aadhaar { get; set; }
-   }
+   public class ResponseModel<T> {
+      public ResponseModel(int status, T data) {
+			Status = status;
+			Response = data;
+		}
+      public int Status { get; private set; }
+		public T Response { get; private set; }
+	}
+
+	public class ResponseModel {
+      public ResponseModel(int status, string data) {
+			Status = status;
+			Response = data;
+		}
+
+		public ResponseModel(int status) {
+			Status = status;
+			Response = StatusMessage.Send(Status);
+		}
+		public int Status { get; private set; }
+		public string Response { get; private set; }
+	}
 
    public struct HashDetails {
       public string salt { get; set; }
       public string password { get; set; }
-   }
-
-   public struct DocumentVerification<T> {
-      public bool boolean { get; set; }
-      public string table { get; set; }
-      public T document { get; set; }
    }
 
    public class StatesModels : IMongoObject {
@@ -85,7 +97,7 @@ namespace Models {
       public long pincode { get; set; }
    }
 
-   public class Branch : LocationModel {
+   public class Branch : Location {
       public string branch { get; set; }
    }
 
@@ -99,205 +111,8 @@ namespace Models {
 		public string branch { get; private set; }
    }
 
-   public class ProductModel : IMongoObject {
-      public string product { get; set; }
-      public string company { get; set; }
-      public string type { get; set; }
-   }
-
-   public class LocationModel : IMongoObject {
+   public class Location : IMongoObject {
       public string location { get; set; }
-   }
-
-   namespace ProductReportsRequestBody {
-      public class BranchProduct : ZonalProduct {
-         public string branch { get; set; }
-      }
-
-      public class ZonalProduct : RequestBody {
-         public string location { get; set; }
-      }
-
-      public class RequestBody : IMongoObject {
-         public DateTime end_date { get; set; }
-         public DateTime start_date { get; set; }
-      }
-
-      public class Rmproduct : RequestBody {
-         public long manager { get; set; }
-      }
-   }
-
-   namespace RevenuesRequestBody {
-      public class FixedDepositRevenue : IMongoObject {
-         public string schema { get; set; }
-         public string company { get; set; }
-         public byte tenour { get; set; }
-         public float revenue { get; set; }
-      }
-
-      public class GeneralInsuranceRevenue : IMongoObject {
-         public string product { get; set; }
-         public string company { get; set; }
-         public float revenue { get; set; }
-      }
-
-      public class LifeInsuranceRevenue : IMongoObject {
-         public string product { get; set; }
-         public string company { get; set; }
-         public string plan { get; set; }
-         public string payment_term { get; set; }
-         public float revenue { get; set; }
-      }
-
-      public class MutualFundsRevenue : IMongoObject {
-         public string amc { get; set; }
-         public string funds { get; set; }
-         public string plan { get; set; }
-         public string option { get; set; }
-         public string sub_option { get; set; } = "";
-         public string mode { get; set; }
-         public float revenue { get; set; }
-      }
-   }
-
-   namespace TransactionsRequestBody {
-      public class FixedDepositBody : IMongoObject {
-         public string company { get; set; }
-         public string product { get; set; }
-         public string schema { get; set; }
-         public int tenour { get; set; }
-         public long mobile { get; set; }
-         public long aadhaar { get; set; }
-         public string account { get; set; }
-         public string bank { get; set; }
-         public long amount { get; set; }
-         public long revenue { get; set; }
-         public DateTime entry_date { get; set; }
-         public DateTime issuance_date { get; set; }
-         public int manager { get; set; }
-      }
-
-      public class GeneralInsuranceBody : IMongoObject {
-         public string company { get; set; }
-         public string product { get; set; }
-         public long gross { get; set; }
-         public long net { get; set; }
-         public string policy_number { get; set; }
-         public int policy_tenour { get; set; }
-         public string policy_type { get; set; }
-         public DateTime policy_login_date { get; set; }
-         public string insurance_type { get; set; }
-         public string bank { get; set; }
-         public int payment_term { get; set; }
-         public DateTime entry_date { get; set; }
-         public long revenue { get; set; }
-         public long mobile { get; set; }
-         public long aadhaar { get; set; }
-         public int manager { get; set; }
-      }
-
-      public class LifeInsuranceBody : IMongoObject {
-         public long mobile { get; set; }
-         public long aadhaar { get; set; }
-         public string account { get; set; }
-         public string bank { get; set; }
-         public string plan { get; set; }
-         public int term { get; set; }
-         public string company { get; set; }
-         public int payment_term { get; set; }
-         public long gross { get; set; }
-         public long net { get; set; }
-         public long revenue { get; set; }
-         public DateTime entry_date { get; set; }
-         public int manager { get; set; }
-      }
-
-      public class MutualFundsBody : IMongoObject {
-         public string amc { get; set; }
-         public string product { get; set; }
-         public string fund { get; set; }
-         public string plan { get; set; }
-         public string option { get; set; }
-         public string sub_option { get; set; }
-         public string mode { get; set; }
-         public string account { get; set; }
-         public long amount { get; set; }
-         public string bank { get; set; }
-         public int payment_term { get; set; }
-         public DateTime entry_date { get; set; }
-         public DateTime issuance_date { get; set; }
-         public long revenue { get; set; }
-         public long mobile { get; set; }
-         public long aadhaar { get; set; }
-         public int manager { get; set; }
-      }
-   }
-
-   namespace ZonalReportsResponseBody {
-      public class FixedDepositZ : TransactionsRequestBody.FixedDepositBody {
-         public string firstname { get; set; }
-         public string lastname { get; set; }
-         public string email { get; set; }
-         public DateTime birthdate { get; set; }
-         public string location { get; set; }
-         public string branch { get; set; }
-      }
-
-      public class GeneralInsuranceZ : TransactionsRequestBody.GeneralInsuranceBody {
-         public string firstname { get; set; }
-         public string lastname { get; set; }
-         public string email { get; set; }
-         public DateTime birthdate { get; set; }
-         public string location { get; set; }
-         public string branch { get; set; }
-      }
-
-      public class MutualFundsZ : TransactionsRequestBody.MutualFundsBody {
-         public string firstname { get; set; }
-         public string lastname { get; set; }
-         public string email { get; set; }
-         public DateTime birthdate { get; set; }
-         public string location { get; set; }
-         public string branch { get; set; }
-      }
-
-      public class LifeInsuranceZ : TransactionsRequestBody.LifeInsuranceBody {
-         public string firstname { get; set; }
-         public string lastname { get; set; }
-         public string email { get; set; }
-         public DateTime birthdate { get; set; }
-         public string location { get; set; }
-         public string branch { get; set; }
-      }
-   }
-
-   namespace RevenueReport {
-      namespace Zonal {
-         public class ReportRequestBody : ProductReportsRequestBody.ZonalProduct {
-            public long manager { get; set; }
-         }
-      }
-
-      namespace Reports {
-         public class DataModel {
-            public long life { get; set; }
-            public long general { get; set; }
-            public long mutual { get; set; }
-            public long fixedD { get; set; }
-            public long total { get; set; }
-         }
-
-         public class ReportModel {
-            public DateTime entry_date { get; set; }
-            public DataModel data { get; set; }
-         }
-
-         public class TotalModel {
-            public ReportModel[] revenue { get; set; }
-            public DataModel total { get; set; }
-         }
-      } 
    }
 
    public struct LoginRequest {

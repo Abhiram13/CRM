@@ -18,17 +18,17 @@ using CRM;
 
 namespace Services {
    namespace ApiManagement {
-      public sealed class Locations : Document<LocationModel> {         
+      public sealed class Locations : Document<Location> {         
          private Locations() : base(Table.location) {}
          public void Insert() {
             // new Locations().builders.Eq("location", )
          }
 
          public static string[] fetchLocations() {
-				List<LocationModel> locations = new Locations().FetchAll();
+				List<Location> locations = new Locations().FetchAll();
 				List<string> list = new List<string>();
 
-            foreach (LocationModel location in locations) {
+            foreach (Location location in locations) {
                list.Add(location.location);
             }
 
