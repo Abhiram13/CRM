@@ -35,11 +35,12 @@ namespace Controllers {
 				return new EmployeeService(document).Insert();
 			}
 
-         // [HttpGet]
-         // [Route("all")]
-         // public List<EmployeeResponseBody> FetchAll() {
-         //    return EmployeeService.FetchAllEmployees(Request);
-         // }
+         [HttpGet]
+         [Route("all")]
+         public List<EmployeeResponseBody> FetchAll() {
+				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {Collection = Table.employee};
+				return new EmployeeService(document).FetchAll();
+			}
       }
    }
 }
