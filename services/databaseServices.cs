@@ -29,15 +29,15 @@ namespace DataBase {
 			return FetchOne(filter).Count > 0 ? true : false;
 		}
 
-      public int Insert(FilterDefinition<DocumentType> filter) {
+      public ResponseModel Insert(FilterDefinition<DocumentType> filter) {
          if (_requestObject == null) {
-				return StatusCode.BadRequest;
+				return new ResponseModel(StatusCode.BadRequest);
 			} else if (!_isDocumentExist(filter)) {
 				_collection.InsertOne(_requestObject);
-				return StatusCode.Inserted;
+				return new ResponseModel(StatusCode.Inserted);
 			}
 
-			return StatusCode.DocumentFound;
+			return new ResponseModel(StatusCode.DocumentFound);
 		}
 	}
 }

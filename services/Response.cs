@@ -7,12 +7,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace System {
-	interface IResponse<DataType> {
-		ResponseModel Send(int status);
-		ResponseModel Send(int status, string message);
-		ResponseModel<DataType> Send(int status, DataType data);
-	}
-
    /// <summary>
    /// Default status message for HttpResponse
    /// </summary>
@@ -63,8 +57,4 @@ namespace System {
 		public const int NotFound = 404;
 		public const int ServerError = 500;
 	}
-
-   public sealed class ResponseDefinition<DataType> : IResponse<DataType> {
-      
-   }
 }
