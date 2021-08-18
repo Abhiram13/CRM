@@ -3,13 +3,10 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Collections.Generic;
 using DataBase;
+using System;
 
 namespace Services {
 	namespace BranchManagement {
-      interface IFetchAll<T> {
-			List<T> FetchAll();
-		}
-
       public class BranchService : DatabaseOperations<Branch>, IFetchAll<BranchResponseModel> {
          public BranchService(DocumentStructure<Branch> document) : base(document) { } 
 

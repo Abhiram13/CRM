@@ -8,12 +8,12 @@ using CRM;
 
 namespace Services {
    namespace EmployeeManagement {
-      public partial class EmployeeService : Services<Employee> {
-         public static Employee FetchById(int id) {
-				Document<Employee> doc = new Document<Employee>(Table.employee);
-				FilterDefinition<Employee> filter = doc.builders.Eq("empid", id);
-            return doc.FetchOne(filter);
-         }
-      }
+      // public partial class EmployeeService : Services<Employee> {
+      //    public static Employee FetchById(int id) {
+		// 		Document<Employee> doc = new Document<Employee>(Table.employee);
+		// 		FilterDefinition<Employee> filter = doc.builders.Eq("empid", id);
+      //       return doc.FetchOne(filter);
+      //    }
+      // }
    }
 }
