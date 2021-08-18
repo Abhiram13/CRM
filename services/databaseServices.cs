@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace DataBase {
    #nullable enable
-	public class Document<DocumentType> {
+	public class Docu<DocumentType> {
 		private DocumentType? _requestObject { get; set; }
       private IMongoCollection<DocumentType> _collection { get; set; }
 		public FilterDefinitionBuilder<DocumentType> Builder { get { return Builders<DocumentType>.Filter; } }
-		public Document(HttpRequest request, string collectionName) {
+		public Docu(HttpRequest request, string collectionName) {
 			_requestObject = RequestBody.Decode<DocumentType>(request);
 			_collection = Mongo.database.GetCollection<DocumentType>(collectionName);
 		}
 
-      public Document(string collectionName) {
+      public Docu(string collectionName) {
          _collection = Mongo.database.GetCollection<DocumentType>(collectionName);         
       }
 
@@ -30,7 +30,7 @@ namespace DataBase {
 		}
 
       public ResponseModel Insert(FilterDefinition<DocumentType> filter) {
-         if (_requestObject == null) {
+			if (_requestObject == null) {
 				return new ResponseModel(StatusCode.BadRequest);
 			} else if (!_isDocumentExist(filter)) {
 				_collection.InsertOne(_requestObject);

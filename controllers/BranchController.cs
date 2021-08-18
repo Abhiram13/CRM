@@ -14,8 +14,9 @@ namespace Controllers {
       public class BranchController : Controller {
          [HttpPost]
          [Route("add")]
-         public short Add() {
-				return new BranchServices(Request).Insert();
+         public ResponseModel Add() {
+				// return new BranchServices(Request).Insert();
+				return BranchSer.Insert(Request);
 			}
 
 			[HttpGet]

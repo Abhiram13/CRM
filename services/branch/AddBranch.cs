@@ -19,10 +19,14 @@ namespace Services {
 			}
 		}
 
-      // public sealed class BranchSer : DataBase.Document<Branch> {
-      //    public BranchSer() : base() {
-
-      //    }
-      // }
+      public sealed class BranchSer {
+         public static ResponseModel Insert(HttpRequest request) {
+				Branch branch = new Branch();
+				Console.WriteLine(branch.branch);
+				Docu<Branch> document = new Docu<Branch>(request, Table.branch);			
+				FilterDefinition<Branch> branchFilter = document.Builder.Eq("branch", branch.branch) & document.Builder.Eq("location", branch.location);
+				return document.Insert(branchFilter);
+			}
+      }
 	}
 }
