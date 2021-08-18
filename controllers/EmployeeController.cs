@@ -13,13 +13,6 @@ namespace Controllers {
       [Route("employee")]
       [ResponseHeaders]
       public partial class EmployeeController : Controller {
- 
-         // [HttpGet]
-         // [Route("fetchByCookie")]
-         // public EmployeeResponseBody fetch() {
-         //    return EmployeeService.fetchByCookie(Request);
-         // }
-
          [HttpPost]
          [Route("add")]
          public ResponseModel Add() {
@@ -50,6 +43,12 @@ namespace Controllers {
                filter = Builders<Employee>.Filter.Eq("empid", id),
             };
 				return new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
+			}
+
+			[HttpGet]
+			[Route("fetchByCookie")]
+			public EmployeeResponseBody fetch() {
+				return CookieFetch.FetchByCookie(Request);
 			}
       }
    }
