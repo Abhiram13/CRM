@@ -18,17 +18,17 @@ namespace DataBase {
 		}
 	}
 
-   public enum Status {
-		OK = 200,
-		Inserted = 201,
-		NoContent = 204,
-      DocumentFound = 302,
-      NotModified = 304,          
-      BadRequest = 400,
-      Unauthorised = 401,
-      Forbidden = 403,
-      NotFound = 404,
-      ServerError = 500,
+   public sealed class Status {
+		public const int OK = 200;
+		public const int Inserted = 201;
+		public const int NoContent = 204;
+      public const int DocumentFound = 302;
+		public const int NotModified = 304;         
+      public const int BadRequest = 400;
+      public const int Unauthorised = 401;
+      public const int Forbidden = 403;
+      public const int NotFound = 404;
+      public const int ServerError = 500;
    }
 
    #nullable enable
@@ -53,10 +53,13 @@ namespace DataBase {
 			return FetchOne(filter).Count > 0 ? true : false;
 		}
 
-      public void Insert(DocumentType document, FilterDefinition<DocumentType> filter) {
+      public int Insert(DocumentType document, FilterDefinition<DocumentType> filter) {
          if (!_isDocumentExist(filter)) {
 				_collection.InsertOne(document);
-         }			
+				return Status.Inserted;
+			}
+
+			return Status.DocumentFound;
 		}
 	}
 }
