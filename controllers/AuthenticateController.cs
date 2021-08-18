@@ -1,11 +1,7 @@
 using System;
-using CRM;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Text;
 using Services.Authentication;
 
 namespace Controllers {
@@ -15,16 +11,12 @@ namespace Controllers {
       public class AuthenticationController : Controller {
 
          [HttpGet]
-         public ResponseBody<string> Home() {
-            // Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000/");
-            return new ResponseBody<string> {
-               body = "Hello World",
-               statusCode = 200,
-            };
-         }
+         public ResponseModel Home() {
+				return new ResponseModel(System.StatusCode.Inserted, "");
+			}
 
          [HttpPost]
-         [Route("login")]
+         [Route("Login")]
          public string login() {
             ResponseBody<string> response = new Login(Request).Authenticate();
             CookieOptions options = new CookieOptions() {

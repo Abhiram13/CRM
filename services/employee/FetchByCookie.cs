@@ -8,20 +8,8 @@ using MongoDB.Driver;
 
 namespace Services {
    namespace EmployeeManagement {
-      public class CookieFetch {
-         // public static EmployeeResponseBody fetchByCookie(HttpRequest request) {
-         //    string cookie = request.Headers["Cookie"];
-			// 	if (cookie == "" || cookie == null) throw new InvalidCookieException();
-			// 	else {
-			// 		string str = cookie.Split("=")[1];
-			// 		string replaced = str.Replace("%3D", "=");
-			// 		int id = Convert.ToInt32(Text.Decode(replaced).Split("_")[0]);
-         //       Employee emp = EmployeeService.FetchById(id);
-
-			// 		return new EmployeeResponseBody(emp);
-			// 	}				
-         // }
-         public static EmployeeResponseBody FetchByCookie(HttpRequest request) {
+      public class CookieManagement {
+         public static EmployeeResponseBody Fetch(HttpRequest request) {
 				string cookie = request.Headers["Cookie"];
 				if (cookie == "" || cookie == null) throw new InvalidCookieException();
 				else {

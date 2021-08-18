@@ -8,12 +8,12 @@ using Services.BranchManagement;
 
 namespace Controllers {
    namespace BranchManagement {
-      [Route("branch")]
+      [Route("Branch")]
       [RoleAuthorise]
       [ResponseHeaders]
       public class BranchController : Controller {
          [HttpPost]
-         [Route("add")]
+         [Route("Add")]
 			public ResponseModel Add() {
 				Branch branch = RequestBody.Decode<Branch>(Request);
 				DocumentStructure<Branch> obj = new DocumentStructure<Branch>() {
@@ -25,7 +25,7 @@ namespace Controllers {
 			}
 
 			[HttpGet]
-			[Route("all")]
+			[Route("All")]
 			public List<BranchResponseModel> All() {
             DocumentStructure<Branch> document = new DocumentStructure<Branch>() { Collection = Table.branch };
 				return new BranchService(document).FetchAll();

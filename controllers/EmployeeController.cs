@@ -10,11 +10,11 @@ using Services.EmployeeManagement;
 
 namespace Controllers {
    namespace EmployeeManagement {
-      [Route("employee")]
+      [Route("Employee")]
       [ResponseHeaders]
       public partial class EmployeeController : Controller {
          [HttpPost]
-         [Route("add")]
+         [Route("Add")]
          public ResponseModel Add() {
 				Employee employee = RequestBody.Decode<Employee>(Request);
 				HashDetails hash = Hash.GenerateHashedPassword(employee.password);
@@ -29,14 +29,14 @@ namespace Controllers {
 			}
 
          [HttpGet]
-         [Route("all")]
+         [Route("All")]
          public List<EmployeeResponseBody> FetchAll() {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {Collection = Table.employee};
 				return new EmployeeService(document).FetchAll();
 			}
 
 			[HttpGet]
-			[Route("fetch/{id}")]
+			[Route("Fetch/{id}")]
 			public EmployeeResponseBody FetchOne(int id) {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() { 
                Collection = Table.employee,
@@ -46,9 +46,9 @@ namespace Controllers {
 			}
 
 			[HttpGet]
-			[Route("fetchByCookie")]
-			public EmployeeResponseBody fetch() {
-				return CookieFetch.FetchByCookie(Request);
+			[Route("FetchByCookie")]
+			public EmployeeResponseBody FetchByCookie() {
+				return CookieManagement.Fetch(Request);
 			}
       }
    }

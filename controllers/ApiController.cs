@@ -6,24 +6,24 @@ using System;
 
 namespace Controllers {
    namespace Api {
-      [Route("api")]
+      [Route("Api")]
 		[ResponseHeaders]
       public class ApiController : Controller {
          [HttpGet]
-         [Route("states")]         
+         [Route("States")]         
          public string[] States() {
             return Services.ApiManagement.States.fetchStates();
          }
 
          [HttpGet]
-         [Route("roles")]
+         [Route("Roles")]
          // [RoleAuthorise(new string[] { RoleType.Admin, RoleType.BranchManager })]
          public string[] Roles() {
             return Services.ApiManagement.Roles.fetchRoles();
          }
 
          [HttpGet]
-         [Route("locations")]
+         [Route("Locations")]
          public string[] Locations() {
             return Services.ApiManagement.Locations.fetchLocations();
          }
