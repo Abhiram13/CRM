@@ -41,6 +41,16 @@ namespace Controllers {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {Collection = Table.employee};
 				return new EmployeeService(document).FetchAll();
 			}
+
+			[HttpGet]
+			[Route("fetch/{id}")]
+			public EmployeeResponseBody FetchOne(int id) {
+				DocumentStructure<Employee> document = new DocumentStructure<Employee>() { 
+               Collection = Table.employee,
+               filter = Builders<Employee>.Filter.Eq("empid", id),
+            };
+				return new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
+			}
       }
    }
 }
