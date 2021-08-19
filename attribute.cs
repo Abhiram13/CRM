@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Models;
 using Services.EmployeeManagement;
+using Controllers.EmployeeManagement;
 
 namespace System {
    public class InvalidCookieException : Exception {
@@ -30,33 +31,33 @@ namespace System {
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext context) {
-         // try {
-			// 	//Fetch logged employee details by providing cookie through HttpRequest
-			// 	EmployeeResponseBody loggedInEmployee = EmployeeService.fetchByCookie(context.HttpContext.Request);
+         try {
+				//Fetch logged employee details by providing cookie through HttpRequest
+				EmployeeResponseBody loggedInEmployee = CookieManagement.Fetch(context.HttpContext.Request);
 
-			// 	//check if employee role exists in given roles array
-			// 	string isRoleExist = Array.Find<string>(roles, role => role == loggedInEmployee.role);
+				//check if employee role exists in given roles array
+				string isRoleExist = Array.Find<string>(roles, role => role == loggedInEmployee.role);
 
-			// 	//should specific roles be authorised or all roles are authorised?
-			// 	string role = roles.Length > 0 ? isRoleExist : "all";
+				//should specific roles be authorised or all roles are authorised?
+				string role = roles.Length > 0 ? isRoleExist : "all";
 
-			// 	// Is employee exist? returns false, if not found
-			// 	bool employeeExist = loggedInEmployee != null;
+				// Is employee exist? returns false, if not found
+				bool employeeExist = loggedInEmployee != null;
 
-			// 	// if employee do not exist, or role do not match
-			// 	if (employeeExist == false || role == null) {
-			// 		UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are unauthorised to access this route") {
-			// 			StatusCode = 401,
-			// 		};
-			// 		context.Result = result;
-			// 	}
-			// 	base.OnActionExecuting(context);
-         // } catch (InvalidCookieException error) {
-			// 	UnauthorizedObjectResult result = new UnauthorizedObjectResult(error.Message) {
-			// 		StatusCode = 401,
-			// 	};
-			// 	context.Result = result;
-         // }
+				// if employee do not exist, or role do not match
+				if (employeeExist == false || role == null) {
+					UnauthorizedObjectResult result = new UnauthorizedObjectResult("You are unauthorised to access this route") {
+						StatusCode = 401,
+					};
+					context.Result = result;
+				}
+				base.OnActionExecuting(context);
+         } catch (InvalidCookieException error) {
+				UnauthorizedObjectResult result = new UnauthorizedObjectResult(error.Message) {
+					StatusCode = 401,
+				};
+				context.Result = result;
+         }
 		}
 	}
 }
