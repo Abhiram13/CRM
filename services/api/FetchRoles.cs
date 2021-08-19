@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace Services {
    namespace ApiManagement {
-      public sealed class Roles : Document<RolesModels> {
-			private Roles() : base(Table.roles) {}
-			public static string[] fetchRoles() {
-				List<RolesModels> roles = new Roles().FetchAll();
-				return roles[0].roles;
-         }
-      }
+      // public sealed class Roles : Document<RolesModels> {
+		// 	private Roles() : base(Table.roles) {}
+		// 	public static string[] fetchRoles() {
+		// 		List<RolesModels> roles = new Roles().FetchAll();
+		// 		return roles[0].roles;
+      //    }
+      // }
    }
 }

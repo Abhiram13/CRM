@@ -18,22 +18,22 @@ using CRM;
 
 namespace Services {
    namespace ApiManagement {
-      public sealed class Locations : Document<Location> {         
-         private Locations() : base(Table.location) {}
-         public void Insert() {
-            // new Locations().builders.Eq("location", )
-         }
+      // public sealed class Locations : Document<Location> {         
+      //    private Locations() : base(Table.location) {}
+      //    public void Insert() {
+      //       // new Locations().builders.Eq("location", )
+      //    }
 
-         public static string[] fetchLocations() {
-				List<Location> locations = new Locations().FetchAll();
-				List<string> list = new List<string>();
+      //    public static string[] fetchLocations() {
+		// 		List<Location> locations = new Locations().FetchAll();
+		// 		List<string> list = new List<string>();
 
-            foreach (Location location in locations) {
-               list.Add(location.location);
-            }
+      //       foreach (Location location in locations) {
+      //          list.Add(location.location);
+      //       }
 
-            return list.ToArray();
-         }
-      }
+      //       return list.ToArray();
+      //    }
+      // }
    }
 }

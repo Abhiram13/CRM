@@ -10,6 +10,7 @@ namespace Controllers {
    namespace EmployeeManagement {
       [Route("Employee")]
       [ResponseHeaders]
+      [RoleAuthorise]
       public partial class EmployeeController : Controller {
          [HttpPost]
          [Route("Add")]
