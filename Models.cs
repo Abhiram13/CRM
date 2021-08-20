@@ -117,7 +117,7 @@ namespace Models {
 	}
 
 	public struct LoginRequest {
-		public int id { get; set; }
+		public int empid { get; set; }
 		public string password { get; set; }
 	}
 

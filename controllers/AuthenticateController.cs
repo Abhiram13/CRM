@@ -3,11 +3,13 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Services.Authentication;
+using DataBase;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Controllers {
    namespace Authentication {
       [Route("")]
-      [ResponseHeaders]
       public class AuthenticationController : Controller {
 
          [HttpGet]
@@ -17,19 +19,24 @@ namespace Controllers {
 
          [HttpPost]
          [Route("Login")]
-         public string login() {
-            ResponseBody<string> response = new Login(Request).Authenticate();
-            CookieOptions options = new CookieOptions() {
-               SameSite = SameSiteMode.None,
-               Domain = "localhost",
-               Secure = true,
-            };
-            // Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-            // Response.Headers.Add("Content-Type", "text/plain");
-            Response.StatusCode = response.statusCode;
-            Response.Cookies.Append("auth", response.body, options);
-            return response.body;
-         }
+         public ResponseModel login() {
+				LoginRequest login = RequestBody.Decode<LoginRequest>(Request);
+				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
+					Collection = Table.employee,
+					filter = Builders<Employee>.Filter.Eq("empid", login.empid),
+				};
+				ResponseModel response = new Login(document, login).Authenticate();
+				CookieOptions options = new CookieOptions() {
+				   SameSite = SameSiteMode.None,
+				   Domain = "localhost",
+				   Secure = true,
+				};
+				Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+				Response.Cookies.Append("auth", response.Response, options);
+				// return response.body;				
+
+				return response;
+			}
       }
    }
 }
