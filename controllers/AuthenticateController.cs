@@ -32,8 +32,7 @@ namespace Controllers {
 				   Secure = true,
 				};
 				Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-				Response.Cookies.Append("auth", response.Response, options);
-				// return response.body;				
+				Response.Cookies.Append("auth", response.Response, options);		
 
 				return response;
 			}
