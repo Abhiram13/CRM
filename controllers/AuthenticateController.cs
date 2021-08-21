@@ -3,8 +3,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Services.Authentication;
-using DataBase;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Controllers {

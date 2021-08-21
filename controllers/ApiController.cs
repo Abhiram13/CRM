@@ -11,7 +11,7 @@ namespace Controllers {
       [RoleAuthorise]
       public class ApiController : Controller {
          [HttpGet]
-         [Route("States")]         
+         [Route("States")]
          public ResponseModel<List<string>> States() {
 				DocumentStructure<StatesModels> document = new DocumentStructure<StatesModels>() { Collection = Table.states };
 				return new ResponseModel<List<string>>(System.StatusCode.OK, new States(document).FetchAll());

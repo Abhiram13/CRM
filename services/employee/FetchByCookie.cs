@@ -3,8 +3,6 @@ using CRM;
 using Microsoft.AspNetCore.Http;
 using Models;
 using Controllers.EmployeeManagement;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Services {
    namespace EmployeeManagement {
