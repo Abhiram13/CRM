@@ -29,25 +29,26 @@ namespace Controllers {
 
          [HttpGet]
          [Route("All")]
-         public List<EmployeeResponseBody> FetchAll() {
+         public ResponseModel<List<EmployeeResponseBody>> FetchAll() {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {Collection = Table.employee};
-				return new EmployeeService(document).FetchAll();
+				return new ResponseModel<List<EmployeeResponseBody>>(System.StatusCode.OK, new EmployeeService(document).FetchAll());
 			}
 
 			[HttpGet]
 			[Route("Fetch/{id}")]
-			public EmployeeResponseBody FetchOne(int id) {
+			public ResponseModel<EmployeeResponseBody> FetchOne(int id) {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() { 
                Collection = Table.employee,
                filter = Builders<Employee>.Filter.Eq("empid", id),
             };
-				return new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
+				EmployeeResponseBody response = new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
+				return new ResponseModel<EmployeeResponseBody>(System.StatusCode.OK, response);
 			}
 
 			[HttpGet]
 			[Route("FetchByCookie")]
-			public EmployeeResponseBody FetchByCookie() {
-				return CookieManagement.Fetch(Request);
+			public ResponseModel<EmployeeResponseBody> FetchByCookie() {			
+				return new ResponseModel<EmployeeResponseBody>(System.StatusCode.OK, CookieManagement.Fetch(Request));
 			}
       }
    }
