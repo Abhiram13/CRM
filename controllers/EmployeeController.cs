@@ -51,8 +51,8 @@ namespace Controllers {
 			public ResponseModel<Employee> FetchOneY(int id) {
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
 					Collection = Table.employee,
-					filter = Builders<Employee>.Filter.Eq("empid", id),
-               project = Builders<Employee>.Projection.Exclude(emp => emp.firstname),               
+					filter = Builders<Employee>.Filter.Eq(emp => emp.empid, id),
+               // project = Builders<Employee>.Projection.Exclude(emp => emp.firstname),            
 				};
 				Employee response = new EmployeeService(document).Test()[0];
 				return new ResponseModel<Employee>(System.StatusCode.OK, response);

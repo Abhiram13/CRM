@@ -8,8 +8,8 @@ using MongoDB.Driver.Linq;
 namespace DataBase {
    #nullable enable
    public abstract class DatabaseOperations<DataType> {
-		private DocumentStructure<DataType>? _document;
-		public IMongoCollection<DataType>? _collection;
+		private DocumentStructure<DataType>? _document { get; set; }
+		public IMongoCollection<DataType>? _collection { get; private set; }
 		public DatabaseOperations(DocumentStructure<DataType> document) {
 			_document = document;
          _collection = Mongo.database.GetCollection<DataType>(document.Collection);
@@ -18,7 +18,6 @@ namespace DataBase {
       public DatabaseOperations() {}
 
       public List<DataType> Test() {
-			// ProjectionDefinition<DataType> x = Builders<DataType>.Projection.Exclude(emp => emp["firstname"]);
 			List<DataType> list = _collection.Find(_document.filter).Project<DataType>(_document.project).ToList();
 			return list;
 		}
