@@ -25,10 +25,19 @@ namespace Controllers {
 
 			[HttpGet]
 			[Route("All")]
-			public List<BranchResponseModel> All() {
+			public ResponseModel<List<BranchResponseModel>> All() {
             DocumentStructure<Branch> document = new DocumentStructure<Branch>() { Collection = Table.branch };
-				return new BranchService(document).FetchAll();
+            List<BranchResponseModel> branches = new BranchService(document).FetchAll();
+				return new ResponseModel<List<BranchResponseModel>>(System.StatusCode.OK, branches);
 			}
+
+			// [HttpPut]
+			// [Route("Update")]
+			// public ResponseModel<List<BranchResponseModel>> All() {
+			// 	DocumentStructure<Branch> document = new DocumentStructure<Branch>() { Collection = Table.branch };
+			// 	List<BranchResponseModel> branches = new BranchService(document).FetchAll();
+			// 	return new ResponseModel<List<BranchResponseModel>>(System.StatusCode.OK, branches);
+			// }
       }
    }
 }

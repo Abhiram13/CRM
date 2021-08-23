@@ -12,6 +12,7 @@ namespace Controllers {
       [ResponseHeaders]
       [RoleAuthorise]
       public partial class EmployeeController : Controller {
+
          [HttpPost]
          [Route("Add")]
          public ResponseModel Add() {
@@ -43,6 +44,18 @@ namespace Controllers {
             };
 				EmployeeResponseBody response = new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
 				return new ResponseModel<EmployeeResponseBody>(System.StatusCode.OK, response);
+			}
+
+			[HttpGet]
+			[Route("FetchY/{id}")]
+			public ResponseModel<Employee> FetchOneY(int id) {
+				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
+					Collection = Table.employee,
+					filter = Builders<Employee>.Filter.Eq("empid", id),
+               project = Builders<Employee>.Projection.Exclude(emp => emp.firstname),               
+				};
+				Employee response = new EmployeeService(document).Test()[0];
+				return new ResponseModel<Employee>(System.StatusCode.OK, response);
 			}
 
 			[HttpGet]

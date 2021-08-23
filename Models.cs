@@ -48,8 +48,8 @@ namespace Models {
 
 	public class Employee : IMongoObject {
 		public int empid { get; set; } = 0;
-		public string title { get; set; } = "";
-		public string firstname { get; set; } = "";
+		public string title { get; set; } = "";      
+		public string firstname { get; set; }
 		public string lastname { get; set; } = "";
 		public string email { get; set; } = "";
 		public string password { get; set; } = "";
@@ -131,5 +131,7 @@ namespace Models {
 		public string? Collection { get; set; }
 		public BodyType? RequestBody { get; set; }
 		public FilterDefinition<BodyType>? filter { get; set; }
+      public UpdateDefinition<BodyType>? update { get; set; }
+      public ProjectionDefinition<BodyType>? project { get; set; }
 	}
 }
