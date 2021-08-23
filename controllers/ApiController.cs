@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using Services.ApiManagement;
+using MongoDB.Driver;
 
 namespace Controllers {
    namespace Api {
@@ -30,6 +31,19 @@ namespace Controllers {
 				DocumentStructure<Location> document = new DocumentStructure<Location>() { Collection = Table.location };
 				return new ResponseModel<List<string>>(System.StatusCode.OK, new Locations(document).FetchAll());
          }
+
+         [HttpPost]
+         [Route("Locations/Add")]
+         public ResponseModel AddLocations() {
+				Location body = RequestBody.Decode<Location>(Request);
+				DocumentStructure<Location> document = new DocumentStructure<Location>() {
+               Collection = Table.location,
+               RequestBody = body,
+               filter = Builders<Location>.Filter.Eq("location", body.location),
+				};
+
+				return new Locations(document).Insert();
+			}
       }
    }
 }
