@@ -18,7 +18,7 @@ namespace DataBase {
       public DatabaseOperations() {}
 
       public List<DataType> Test() {
-			List<DataType> list = _collection.Find(_document.filter).Project<DataType>(_document.project).ToList();
+			List<DataType> list = _collection.Find(_document?.filter).Project<DataType>(_document?.project).ToList();
 			return list;
 		}
 
