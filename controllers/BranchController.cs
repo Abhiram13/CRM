@@ -53,6 +53,14 @@ namespace Controllers {
 				collection.InsertOne(document);
 				return System.StatusCode.OK;
 			}
+
+			[HttpGet]
+			[Route("Filter")]
+			public List<BsonDocument> FilterFetch() {
+				IMongoCollection<BsonDocument> collection = Mongo.database.GetCollection<BsonDocument>(Table.branch);
+				// ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Exclude("location");
+				return collection.Find(Builders<BsonDocument>.Filter.Empty).ToList();
+			}
       }
    }
 }
