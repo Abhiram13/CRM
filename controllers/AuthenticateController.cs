@@ -27,7 +27,7 @@ namespace Controllers {
 				CookieOptions options = new CookieOptions() {
 				   SameSite = SameSiteMode.None,
 				   Domain = "localhost",
-				   Secure = true,
+				   Secure = true,               
 				};
 				Response.Headers.Add("Access-Control-Allow-Credentials", "true");
 				Response.Cookies.Append("auth", response.Response, options);		
