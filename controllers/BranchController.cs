@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using MongoDB.Driver;
 using Services.BranchManagement;
+using CRM;
+using MongoDB.Bson;
 
 namespace Controllers {
    namespace BranchManagement {
@@ -38,6 +40,19 @@ namespace Controllers {
 			// 	List<BranchResponseModel> branches = new BranchService(document).FetchAll();
 			// 	return new ResponseModel<List<BranchResponseModel>>(System.StatusCode.OK, branches);
 			// }
+
+         [HttpPost]
+         [Route("Test")]
+         public int Create() {
+				IMongoCollection<BsonDocument> collection = Mongo.database.GetCollection<BsonDocument>(Table.branch);
+				BsonDocument document = new BsonDocument {
+               { "location", "Delhi" },
+               { "branch", "South Part" },
+            };
+
+				collection.InsertOne(document);
+				return System.StatusCode.OK;
+			}
       }
    }
 }
