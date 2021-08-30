@@ -11,7 +11,7 @@ namespace Services {
 			private Employee employee { get; set; }
 			public Login(DocumentStructure<Employee> document, LoginRequest login) : base(document) {
 				_login = login;
-				employee = FetchOne()[0];
+				employee = FetchOne().Count > 0 ? FetchOne()[0] : null;
 			}
 
 			private bool IsPasswordValid() {

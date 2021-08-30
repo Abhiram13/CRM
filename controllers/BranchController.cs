@@ -10,8 +10,8 @@ using MongoDB.Bson;
 namespace Controllers {
    namespace BranchManagement {
       [Route("Branch")]
-      [RoleAuthorise]
-      [ResponseHeaders]
+      // [RoleAuthorise]
+      // [ResponseHeaders]
       public class BranchController : Controller {
          [HttpPost]
          [Route("Add")]
@@ -56,10 +56,11 @@ namespace Controllers {
 
 			[HttpGet]
 			[Route("Filter")]
-			public List<BsonDocument> FilterFetch() {
-				IMongoCollection<BsonDocument> collection = Mongo.database.GetCollection<BsonDocument>(Table.branch);
-				// ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Exclude("location");
-				return collection.Find(Builders<BsonDocument>.Filter.Empty).ToList();
+			public List<Branch> FilterFetch() {
+				IMongoCollection<Branch> collection = Mongo.database.GetCollection<Branch>(Table.branch);
+				List<Branch> list = collection.Find(Builders<Branch>.Filter.Empty).ToList();            
+				ObjectId id = list[0]._id;
+				return list;
 			}
       }
    }
