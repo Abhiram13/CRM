@@ -51,5 +51,18 @@ namespace DataBase {
 
 			return new ResponseModel(StatusCode.BadRequest);
 		}
+
+      public ResponseModel DeleteOne() {
+			if (_collection != null && _document != null) {
+				DeleteResult delete = _collection.DeleteOne(_document.filter);            
+				if (delete.DeletedCount > 0) {
+					return new ResponseModel(StatusCode.OK, "Document successfully deleted");
+				}
+
+				return new ResponseModel(StatusCode.NotModified);
+			}
+
+			return new ResponseModel(StatusCode.BadRequest);
+      }
    }
 }

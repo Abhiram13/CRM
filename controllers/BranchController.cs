@@ -49,6 +49,22 @@ namespace Controllers {
 					return new ResponseModel(System.StatusCode.BadRequest, error.Message);
 				}
 			}
+
+         [HttpDelete]
+         [Route("Delete")]
+         public ResponseModel Delete() {
+				try {
+					Branch branch = RequestBody.Decode<Branch>(Request);
+					DocumentStructure<Branch> document = new DocumentStructure<Branch>() {
+						Collection = Table.branch,
+						filter = Builders<Branch>.Filter.Eq("location", branch.location) & Builders<Branch>.Filter.Eq("branch", branch.branch),
+					};
+
+					return new BranchService<Branch>(document).DeleteOne();
+				} catch (Exception error) {
+					return new ResponseModel(System.StatusCode.BadRequest, error.Message);
+				}
+         }
       }
    }
 }
