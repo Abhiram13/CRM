@@ -36,14 +36,18 @@ namespace Controllers {
 			[HttpPut]
 			[Route("Update")]
 			public ResponseModel Update() {
-				NewBranch branch = RequestBody.Decode<NewBranch>(Request);
-				DocumentStructure<NewBranch> document = new DocumentStructure<NewBranch>() { 
-               Collection = Table.branch,
-               filter = Builders<NewBranch>.Filter.Eq("location", branch.location) & Builders<NewBranch>.Filter.Eq("branch", branch.branch),
-               update = Builders<NewBranch>.Update.Set("branch", branch.newBranch),               
-            };
+            try {
+					NewBranch branch = RequestBody.Decode<NewBranch>(Request);
+					DocumentStructure<NewBranch> document = new DocumentStructure<NewBranch>() {
+						Collection = Table.branch,
+						filter = Builders<NewBranch>.Filter.Eq("location", branch.location) & Builders<NewBranch>.Filter.Eq("branch", branch.branch),
+						update = Builders<NewBranch>.Update.Set("branch", branch.newBranch),
+					};
 
-				return new BranchService<NewBranch>(document).UpdateOne();
+					return new BranchService<NewBranch>(document).UpdateOne();
+            } catch (Exception error) {
+					return new ResponseModel(System.StatusCode.BadRequest, error.Message);
+				}
 			}
       }
    }
