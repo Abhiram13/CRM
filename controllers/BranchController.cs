@@ -10,8 +10,8 @@ using MongoDB.Bson;
 namespace Controllers {
    namespace BranchManagement {
       [Route("Branch")]
-      // [RoleAuthorise]
-      // [ResponseHeaders]
+      [RoleAuthorise]
+      [ResponseHeaders]
       public class BranchController : Controller {
          [HttpPost]
          [Route("Add")]
@@ -33,34 +33,17 @@ namespace Controllers {
 				return new ResponseModel<List<BranchResponseModel>>(System.StatusCode.OK, branches);
 			}
 
-			// [HttpPut]
-			// [Route("Update")]
-			// public ResponseModel<List<BranchResponseModel>> All() {
-			// 	DocumentStructure<Branch> document = new DocumentStructure<Branch>() { Collection = Table.branch };
-			// 	List<BranchResponseModel> branches = new BranchService(document).FetchAll();
-			// 	return new ResponseModel<List<BranchResponseModel>>(System.StatusCode.OK, branches);
-			// }
-
-         [HttpPost]
-         [Route("Test")]
-         public int Create() {
-				IMongoCollection<BsonDocument> collection = Mongo.database.GetCollection<BsonDocument>(Table.branch);
-				BsonDocument document = new BsonDocument {
-               { "location", "Delhi" },
-               { "branch", "South Part" },
+			[HttpPut]
+			[Route("Update")]
+			public ResponseModel Update() {
+				NewBranch branch = RequestBody.Decode<NewBranch>(Request);
+				DocumentStructure<NewBranch> document = new DocumentStructure<NewBranch>() { 
+               Collection = Table.branch,
+               filter = Builders<NewBranch>.Filter.Eq("location", branch.location) & Builders<NewBranch>.Filter.Eq("branch", branch.branch),
+               update = Builders<NewBranch>.Update.Set("branch", branch.newBranch),               
             };
 
-				collection.InsertOne(document);
-				return System.StatusCode.OK;
-			}
-
-			[HttpGet]
-			[Route("Filter")]
-			public List<Branch> FilterFetch() {
-				IMongoCollection<Branch> collection = Mongo.database.GetCollection<Branch>(Table.branch);
-				List<Branch> list = collection.Find(Builders<Branch>.Filter.Empty).ToList();            
-				ObjectId id = list[0]._id;
-				return list;
+				return new BranchService<NewBranch>(document).UpdateOne();
 			}
       }
    }

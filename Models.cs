@@ -102,6 +102,10 @@ namespace Models {
 		public string branch { get; set; }
 	}
 
+   public class NewBranch : Branch {
+      public string newBranch { get; set; }
+   }
+
    public struct BranchResponseModel {
 		public BranchResponseModel(Branch b) {
 			branch = b.branch;

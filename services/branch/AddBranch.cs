@@ -7,10 +7,14 @@ using System;
 
 namespace Services {
 	namespace BranchManagement {
-      public class BranchService : DatabaseOperations<Branch>, IFetchAll<BranchResponseModel> {
-         public BranchService(DocumentStructure<Branch> document) : base(document) { } 
+      public class BranchService<T> : DatabaseOperations<T> {
+         public BranchService(DocumentStructure<T> document) : base(document) { }          
+		}
 
-         public List<BranchResponseModel> FetchAll() {
+      public class BranchService : BranchService<Branch>, IFetchAll<BranchResponseModel> {
+			public BranchService(DocumentStructure<Branch> document) : base(document) { }
+
+			public List<BranchResponseModel> FetchAll() {
 				List<Branch> list = _collection.Find(new BsonDocument()).ToList();
 				List<BranchResponseModel> listOfBranches = new List<BranchResponseModel>();
 				foreach (Branch branch in list) {

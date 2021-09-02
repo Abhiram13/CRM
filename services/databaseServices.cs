@@ -41,8 +41,7 @@ namespace DataBase {
 
       public ResponseModel UpdateOne() { 
          if (_collection != null && _document != null) {
-				UpdateResult result = _collection.UpdateOne(_document.filter, _document.update);     
-            // _collection.AsQueryable().Where()
+				UpdateResult result = _collection.UpdateOne(_document.filter, _document.update); 
             if (result.MatchedCount > 0) {
 					return new ResponseModel(StatusCode.OK);
 				}
