@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using Services.ApiManagement;
 using MongoDB.Driver;
+using CRM;
 
 namespace Controllers {
    namespace Api {
@@ -36,11 +37,12 @@ namespace Controllers {
          [Route("Locations/Add")]
          public ResponseModel AddLocations() {
 				Location body = RequestBody.Decode<Location>(Request);
+				body.Token = Text.Serialize<Location>(body);
 				DocumentStructure<Location> document = new DocumentStructure<Location>() {
                Collection = Table.location,
                RequestBody = body,
                filter = Builders<Location>.Filter.Eq("location", body.location),
-				};
+				};            
 
 				return new Locations(document).Insert();
 			}

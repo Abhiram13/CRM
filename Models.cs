@@ -10,8 +10,8 @@ namespace Models {
 		public byte? __v { get; } = 1;
 	}
 
-   public class CurrentTime : MongoObject {
-      public string current { get { return Date.Currentdate(); } }
+   public class Unique : MongoObject {
+      public string Token { get; set; }
    }
 
 	public class ResponseModel<T> {
@@ -120,7 +120,10 @@ namespace Models {
 		public string branch { get; private set; }
 	}
 
-	public class Location : MongoObject {
+	// public class Location : MongoObject {
+	// 	public string location { get; set; }
+	// }
+	public class Location : Unique {
 		public string location { get; set; }
 	}
 
