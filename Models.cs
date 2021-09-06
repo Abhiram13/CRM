@@ -11,7 +11,7 @@ namespace Models {
 	}
 
    public class Unique : MongoObject {
-      public string Token { get; set; }
+      public string token { get; set; }
    }
 
 	public class ResponseModel<T> {
@@ -50,7 +50,7 @@ namespace Models {
 		public string[] roles { get; set; } = new string[] { };
 	}
 
-	public class Employee : MongoObject {
+	public class Employee : Unique {
 		public int empid { get; set; }
 		public string title { get; set; }
 		public string firstname { get; set; }
@@ -79,6 +79,7 @@ namespace Models {
 		public string branch { get { return Emp.branch; } }
 		public string state { get { return Emp.state; } }
 		public string role { get { return Emp.role; } }
+      public string token { get { return Emp.token; } }
 	}
 
 	public class Customer : MongoObject {
@@ -120,9 +121,6 @@ namespace Models {
 		public string branch { get; private set; }
 	}
 
-	// public class Location : MongoObject {
-	// 	public string location { get; set; }
-	// }
 	public class Location : Unique {
 		public string location { get; set; }
 	}

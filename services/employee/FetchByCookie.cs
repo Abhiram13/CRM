@@ -13,8 +13,9 @@ namespace Services {
 				else {
 					string str = cookie.Split("=")[1];
 					string replaced = str.Replace("%3D", "=");
-					int id = Convert.ToInt32(Text.Decode(replaced).Split("_")[0]);
-					return new EmployeeController().FetchOne(id).Response;
+					string x = Text.Decode(replaced);
+					Console.WriteLine(x);
+					return new EmployeeController().FetchOne(123).Response;
 				}
 			}
       }

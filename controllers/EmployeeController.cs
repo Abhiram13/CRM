@@ -5,6 +5,7 @@ using System;
 using Services.Security;
 using MongoDB.Driver;
 using Services.EmployeeManagement;
+using CRM;
 
 namespace Controllers {
    namespace EmployeeManagement {
@@ -15,10 +16,11 @@ namespace Controllers {
          [HttpPost]
          [Route("Add")]
          public ResponseModel Add() {
-				Employee employee = RequestBody.Decode<Employee>(Request);
+				Employee employee = RequestBody.Decode<Employee>(Request);				
 				HashDetails hash = Hash.GenerateHashedPassword(employee.password);
 				employee.salt = hash.salt;
 				employee.password = hash.password;
+				employee.token = Text.Serialize<Employee>(employee);
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
 					Collection = Table.employee,
 					RequestBody = employee,
@@ -41,7 +43,9 @@ namespace Controllers {
                Collection = Table.employee,
                filter = Builders<Employee>.Filter.Eq("empid", id),
             };
-				EmployeeResponseBody response = new EmployeeResponseBody(new EmployeeService(document).FetchOne()[0]);
+				List<Employee> list = new EmployeeService(document).FetchOne();
+				Employee employee = list.Count > 0 ? list[0] : new Employee();
+				EmployeeResponseBody response = new EmployeeResponseBody(employee);
 				return new ResponseModel<EmployeeResponseBody>(System.StatusCode.OK, response);
 			}
 

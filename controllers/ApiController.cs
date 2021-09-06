@@ -37,7 +37,7 @@ namespace Controllers {
          [Route("Locations/Add")]
          public ResponseModel AddLocations() {
 				Location body = RequestBody.Decode<Location>(Request);
-				body.Token = Text.Serialize<Location>(body);
+				body.token = Text.Serialize<Location>(body);
 				DocumentStructure<Location> document = new DocumentStructure<Location>() {
                Collection = Table.location,
                RequestBody = body,
