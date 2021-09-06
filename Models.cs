@@ -4,11 +4,15 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 namespace Models {
-	public abstract class IMongoObject {
+	public abstract class MongoObject {
 		[BsonIgnoreIfNull]
 		public ObjectId _id { get; set; } = new ObjectId();
 		public byte? __v { get; } = 1;
 	}
+
+   public class CurrentTime : MongoObject {
+      public string current { get { return Date.Currentdate(); } }
+   }
 
 	public class ResponseModel<T> {
 		public ResponseModel(int status, T data) {
@@ -38,27 +42,27 @@ namespace Models {
 		public string password { get; set; }
 	}
 
-	public class StatesModels : IMongoObject {
+	public class StatesModels : MongoObject {
 		public string[] states { get; set; } = new string[] { };
 	}
 
-	public class RolesModels : IMongoObject {
+	public class RolesModels : MongoObject {
 		public string[] roles { get; set; } = new string[] { };
 	}
 
-	public class Employee : IMongoObject {
-		public int empid { get; set; } = 0;
-		public string title { get; set; } = "";      
+	public class Employee : MongoObject {
+		public int empid { get; set; }
+		public string title { get; set; }
 		public string firstname { get; set; }
-		public string lastname { get; set; } = "";
-		public string email { get; set; } = "";
-		public string password { get; set; } = "";
-		public long mobile { get; set; } = 0;
-		public string location { get; set; } = "";
-		public string branch { get; set; } = "";
-		public string state { get; set; } = "";
-		public string role { get; set; } = "";
-		public string salt { get; set; } = "";
+		public string lastname { get; set; }
+		public string email { get; set; }
+		public string password { get; set; }
+		public long mobile { get; set; }
+		public string location { get; set; }
+		public string branch { get; set; }
+		public string state { get; set; }
+		public string role { get; set; }
+		public string salt { get; set; }
 	}
 
 	public class EmployeeResponseBody {
@@ -77,7 +81,7 @@ namespace Models {
 		public string role { get { return Emp.role; } }
 	}
 
-	public class Customer : IMongoObject {
+	public class Customer : MongoObject {
 		public string title { get; set; }
 		public string firstname { get; set; }
 		public string lastname { get; set; }
@@ -116,7 +120,7 @@ namespace Models {
 		public string branch { get; private set; }
 	}
 
-	public class Location : IMongoObject {
+	public class Location : MongoObject {
 		public string location { get; set; }
 	}
 

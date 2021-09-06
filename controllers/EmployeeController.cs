@@ -50,6 +50,21 @@ namespace Controllers {
 			public ResponseModel<EmployeeResponseBody> FetchByCookie() {
 				return new ResponseModel<EmployeeResponseBody>(System.StatusCode.OK, CookieManagement.Fetch(Request));
 			}
+
+         // [HttpPut]
+         // [Route("Update")]
+         // public void Update() {
+			// 	Employee employee = RequestBody.Decode<Employee>(Request);
+			// 	UpdateDefinition<Employee> update;
+
+			// 	foreach(var key in employee.GetType().GetProperties()) {
+			// 		var k = key.Name;
+			// 		var v = key.GetValue(employee);
+			// 		if (v != null || k != "_id" || k != "__v") {
+			// 			update = Builders<Employee>.Update.Set(k, (string)v);
+			// 		}
+			// 	}
+			// }
       }
    }
 }
