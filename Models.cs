@@ -56,13 +56,13 @@ namespace Models {
 		public string firstname { get; set; }
 		public string lastname { get; set; }
 		public string email { get; set; }
-		public string password { get; set; }
+		public string password { get; set; } = "";
 		public long mobile { get; set; }
 		public string location { get; set; }
 		public string branch { get; set; }
 		public string state { get; set; }
 		public string role { get; set; }
-		public string salt { get; set; }
+		public string salt { get; set; } = "";
 	}
 
 	public class EmployeeResponseBody {

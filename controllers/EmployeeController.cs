@@ -17,8 +17,7 @@ namespace Controllers {
          [Route("Add")]
          public ResponseModel Add() {
 				Employee employee = RequestBody.Decode<Employee>(Request);	
-				HashDetails hash = Hash.GenerateHashedPassword(employee.password);
-				Console.WriteLine(hash.salt);
+				HashDetails hash = Hash.GenerateHashedPassword(employee.password);				
 				employee.salt = hash.salt;
 				employee.password = hash.password;
 				employee.token = Text.Tokenize<int, long>(employee.empid, employee.mobile);

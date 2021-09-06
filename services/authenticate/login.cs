@@ -14,8 +14,7 @@ namespace Services {
 				employee = FetchOne().Count > 0 ? FetchOne()[0] : null;
 			}
 
-			private bool IsPasswordValid() {
-				Console.WriteLine(employee.salt);
+			private bool IsPasswordValid() {            
 				return Hash.Compare(employee.salt, _login.password, employee.password);
 			}
 
