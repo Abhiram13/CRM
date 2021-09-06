@@ -10,8 +10,20 @@ namespace CRM {
 			return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
 		}
 
-		public static string Serialize<ObjectType>(ObjectType obj) {
-			string objJson = JSON.Serializer<ObjectType>(obj);
+		public static string Tokenize() {
+			string dateJson = Date.Currentdate();
+			return Text.Encode(dateJson);
+		}
+
+		public static string Tokenize<T>(T obj) {
+			string objJson = JSON.Serializer<T>(obj);
+			string dateJson = Date.Currentdate();
+			return Text.Encode(objJson + dateJson);
+		}
+
+		public static string Tokenize<T, U>(T obj, U ob) {
+			string objJson = JSON.Serializer<T>(obj);
+			string obJson = JSON.Serializer<U>(ob);
 			string dateJson = Date.Currentdate();
 			return Text.Encode(objJson + dateJson);
 		}

@@ -16,11 +16,12 @@ namespace Controllers {
          [HttpPost]
          [Route("Add")]
          public ResponseModel Add() {
-				Employee employee = RequestBody.Decode<Employee>(Request);				
+				Employee employee = RequestBody.Decode<Employee>(Request);	
 				HashDetails hash = Hash.GenerateHashedPassword(employee.password);
+				Console.WriteLine(hash.salt);
 				employee.salt = hash.salt;
 				employee.password = hash.password;
-				employee.token = Text.Serialize<Employee>(employee);
+				employee.token = Text.Tokenize<int, long>(employee.empid, employee.mobile);
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
 					Collection = Table.employee,
 					RequestBody = employee,

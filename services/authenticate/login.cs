@@ -15,6 +15,7 @@ namespace Services {
 			}
 
 			private bool IsPasswordValid() {
+				Console.WriteLine(employee.salt);
 				return Hash.Compare(employee.salt, _login.password, employee.password);
 			}
 
