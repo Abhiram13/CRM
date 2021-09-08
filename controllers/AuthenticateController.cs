@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Services.Authentication;
 using MongoDB.Driver;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Controllers {
    namespace Authentication {
@@ -11,7 +13,7 @@ namespace Controllers {
       public class AuthenticationController : Controller {
 
          [HttpGet]
-         public ResponseModel Home() {
+         public ResponseModel Home() {				
 				return new ResponseModel(System.StatusCode.Inserted, "");
 			}
 
