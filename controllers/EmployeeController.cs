@@ -20,7 +20,7 @@ namespace Controllers {
 				HashDetails hash = Hash.GenerateHashedPassword(employee.password);				
 				employee.salt = hash.salt;
 				employee.password = hash.password;
-				employee.token = Text.Tokenize<int, long>(employee.empid, employee.mobile);
+				// employee.token = Text.Tokenize<int, long>(employee.empid, employee.mobile);
 				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
 					Collection = Table.employee,
 					RequestBody = employee,

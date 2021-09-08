@@ -3,18 +3,19 @@ using Models;
 using CRM;
 using Services.Security;
 using DataBase;
+using System.Collections.Generic;
 
 namespace Services {
 	namespace Authentication {
 		public class Login : DatabaseOperations<Employee> {
 			private LoginRequest _login { get; set; }
-			private Employee employee { get; set; }
+			private Employee employee { get; set; }         
 			public Login(DocumentStructure<Employee> document, LoginRequest login) : base(document) {
 				_login = login;
 				employee = FetchOne().Count > 0 ? FetchOne()[0] : null;
 			}
 
-			private bool IsPasswordValid() {            
+			private bool IsPasswordValid() {
 				return Hash.Compare(employee.salt, _login.password, employee.password);
 			}
 

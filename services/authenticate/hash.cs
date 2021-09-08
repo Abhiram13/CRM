@@ -8,7 +8,8 @@ namespace Services {
 	namespace Security {
 		public static class Hash {
 			private static string ConvertPassword(byte[] salt, string password) {
-				return Convert.ToBase64String(KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA256, 100000, 256 / 8));
+				byte[] keyBinary = KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA256, 100000, 256 / 8);
+				return Convert.ToBase64String(keyBinary);
 			}
 
 			public static HashDetails GenerateHashedPassword(string password) {
