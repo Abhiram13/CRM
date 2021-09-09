@@ -20,6 +20,16 @@ namespace Services {
 
 				return listOfEmployees;
 			}
+
+         #nullable enable
+			public static Employee? GetByToken(string token) {
+				DocumentStructure<Employee> document = new DocumentStructure<Employee>() {
+					Collection = Table.employee,
+					filter = Builders<Employee>.Filter.Eq("token", token),
+				};
+				List<Employee> list = new EmployeeService(document).FetchOne();
+				return list.Count > 0 ? list[0] : null;
+			}
 		}
 	}
 }

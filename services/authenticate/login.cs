@@ -27,7 +27,8 @@ namespace Services {
 					return new ResponseModel(StatusCode.Forbidden);
 				}
 
-				return new ResponseModel(StatusCode.OK, Text.Encode($"{_login.empid.ToString()}_{_login.password.ToString()}"));
+				// return new ResponseModel(StatusCode.OK, Text.Encode($"{_login.empid.ToString()}_{_login.password.ToString()}"));
+				return new ResponseModel(StatusCode.OK, employee.token);
 			}
 		}
 	}
