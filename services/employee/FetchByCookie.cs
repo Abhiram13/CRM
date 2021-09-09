@@ -9,7 +9,7 @@ namespace Services {
       public class CookieManagement {
          #nullable enable
          public static EmployeeResponseBody Fetch(HttpRequest request) {
-				string cookie = request.Headers["Cookie"];
+				string cookie = request.Headers["Cookie"];            
 				if (cookie == "" || cookie == null) throw new InvalidCookieException();
 				Employee? employee = EmployeeService.GetByToken(cookie);
             if (employee == null) throw new InvalidCookieException();
