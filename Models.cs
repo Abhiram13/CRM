@@ -129,11 +129,6 @@ namespace Models {
 		public string password { get; set; }
 	}
 
-	public struct ResponseBody<T> {
-		public short statusCode { get; set; }
-		public T body { get; set; }
-	}
-
    #nullable enable
 	public class DocumentStructure<BodyType> {
 		public string? Collection { get; set; }

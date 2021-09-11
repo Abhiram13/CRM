@@ -15,11 +15,6 @@ namespace DataBase {
          _collection = Mongo.database.GetCollection<DataType>(document.Collection);
 		}
 
-      public List<DataType> Test() {
-			List<DataType> list = _collection.Find(_document?.filter).Project<DataType>(_document?.project).ToList();
-			return list;
-		}
-
       public List<DataType> FetchOne() {
          return _collection.Find(_document?.filter).ToList();
       }
