@@ -1,0 +1,19 @@
+{
+  "FilePath": "/Users/abhiramnagadi/Documents/CRM.NET/CRM.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-3.0",
+    "LanguageVersion": "5.0",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-3.0"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 1000
+  },
+  "RootNamespace": "CRM",
+  "Documents": [],
+  "SerializationFormat": "0.2"
+}
