@@ -12,7 +12,6 @@ jobs:
 
       steps:
          - uses: actions/checkout@v2
-            with:
             dotnet-version: '5.0.x'
          - run: dotnet build
          - name: Setup .NET Core SDK            
