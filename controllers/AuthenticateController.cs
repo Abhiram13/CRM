@@ -49,7 +49,7 @@ namespace Controllers {
 				_logger = logger;
 			}
 
-			[HttpGet("")]
+			[HttpGet("ws")]
 			public async Task Get() {
 				Console.WriteLine(HttpContext.WebSockets.IsWebSocketRequest);
 				if (HttpContext.WebSockets.IsWebSocketRequest) {
