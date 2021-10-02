@@ -42,7 +42,8 @@ namespace CRM {
          app.UseHttpsRedirection();
          app.UseRouting();
          app.UseCors();
-         app.UseAuthorization();
+			app.UseWebSockets();
+			app.UseAuthorization();
          app.UseEndpoints(endpoints => {
             endpoints.MapControllers();
          });

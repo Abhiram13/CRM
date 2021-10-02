@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lbEF46ox5cw1tCo+SS2GjZm5lZTgNjLCA/ooc78ybBMY3Ci+cJliVDtp5O3JC8jUu0zUHVjtwHr5fPMN0RbgUA==",
+  "dgSpecHash": "aT1kJ2XvbVH3mJ2mAx1INTq4vYPsWiK+dEq6MDsJIgSXtWWdi9BUGTUBzRBMKpk00B8B62yiUfFIwZxXrcfbYg==",
   "success": true,
   "projectFilePath": "/Users/abhiramnagadi/Documents/CRM.NET/CRM.csproj",
   "expectedPackageFiles": [
     "/Users/abhiramnagadi/.nuget/packages/dnsclient/1.4.0/dnsclient.1.4.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/microsoft.aspnet.signalr/2.4.2/microsoft.aspnet.signalr.2.4.2.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/microsoft.aspnet.signalr.core/2.4.2/microsoft.aspnet.signalr.core.2.4.2.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/5.0.0/microsoft.aspnetcore.authentication.jwtbearer.5.0.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/5.0.0/microsoft.aspnetcore.authentication.openidconnect.5.0.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
@@ -15,7 +17,9 @@
     "/Users/abhiramnagadi/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.7.1/microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.identitymodel.tokens/6.7.1/microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.netcore.platforms/2.1.2/microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/microsoft.win32.primitives/4.3.0/microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/mongocsharpdriver/2.13.0/mongocsharpdriver.2.13.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/mongodb.bson/2.13.0/mongodb.bson.2.13.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/mongodb.driver/2.13.0/mongodb.driver.2.13.0.nupkg.sha512",
@@ -27,10 +31,30 @@
     "/Users/abhiramnagadi/.nuget/packages/swashbuckle.aspnetcore.swaggergen/5.6.3/swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/swashbuckle.aspnetcore.swaggerui/5.6.3/swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.globalization/4.3.0/system.globalization.4.3.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/system.identitymodel.tokens.jwt/6.7.1/system.identitymodel.tokens.jwt.6.7.1.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.io/4.3.0/system.io.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.net.websockets/4.3.0/system.net.websockets.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.reflection.primitives/4.3.0/system.reflection.primitives.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.resources.resourcemanager/4.3.0/system.resources.resourcemanager.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.runtime/4.3.0/system.runtime.4.3.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "/Users/abhiramnagadi/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512",
-    "/Users/abhiramnagadi/.nuget/packages/system.text.encoding.codepages/4.5.1/system.text.encoding.codepages.4.5.1.nupkg.sha512"
+    "/Users/abhiramnagadi/.nuget/packages/system.text.encoding/4.3.0/system.text.encoding.4.3.0.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.text.encoding.codepages/4.5.1/system.text.encoding.codepages.4.5.1.nupkg.sha512",
+    "/Users/abhiramnagadi/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.SignalR.Core 2.4.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.SignalR.Core",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }
