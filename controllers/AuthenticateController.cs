@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Text;
 using System.Threading;
+using System.Net.Http;
 
 namespace Controllers {
    namespace Authentication {
@@ -16,7 +17,7 @@ namespace Controllers {
       public class AuthenticationController : Controller {
 
          [HttpGet]
-         public ResponseModel Home() {				
+         public ResponseModel Home() {
 				return new ResponseModel(System.StatusCode.Inserted, "");
 			}
 
@@ -39,6 +40,27 @@ namespace Controllers {
 
 				return response;
 			}
+
+         [HttpGet]
+         [Route("soc")]
+			public async Task Sockets() {
+				if (HttpContext.WebSockets.IsWebSocketRequest) {
+					using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+					await Echo(HttpContext, webSocket);
+				} else {
+					HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+				}
+         }
+
+			private async Task Echo(HttpContext context, WebSocket webSocket) {
+				var buffer = new byte[1024 * 4];
+				WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+				while (!result.CloseStatus.HasValue) {
+					await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
+					result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+				}
+				await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+			}
       }
 		
 		[Route("sock")]
@@ -52,7 +74,7 @@ namespace Controllers {
 			[HttpGet("ws")]
 			public async Task Get() {
 				Console.WriteLine(HttpContext.WebSockets.IsWebSocketRequest);
-				if (HttpContext.WebSockets.IsWebSocketRequest) {
+				if (HttpContext.WebSockets.IsWebSocketRequest) {					
 					using var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
 					_logger.Log(LogLevel.Information, "WebSocket connection established");
 					await Echo(webSocket);
