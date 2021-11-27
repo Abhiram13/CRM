@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.net.Sdk.Web">
+<Project Sdk="Microsoft.net.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
