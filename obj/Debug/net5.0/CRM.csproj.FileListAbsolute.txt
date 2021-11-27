@@ -132,9 +132,9 @@
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.MvcApplicationPartsAssemblyInfo.cs
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.MvcApplicationPartsAssemblyInfo.cache
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/staticwebassets/CRM.StaticWebAssets.Manifest.cache
-/Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/staticwebassets/CRM.StaticWebAssets.xml
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/scopedcss/bundle/CRM.styles.css
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.RazorTargetAssemblyInfo.cache
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.csproj.CopyComplete
 /Users/abhiramnagadi/Documents/CRM.NET/obj/Debug/net5.0/CRM.genruntimeconfig.cache
 /Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/Microsoft.AspNet.SignalR.Core.dll
+/Users/abhiramnagadi/Documents/CRM.NET/bin/Debug/net5.0/CRM
